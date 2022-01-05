@@ -1,0 +1,45 @@
+name: setes_mobile
+description: Sports Community.
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  google_fonts: ^2.1.0
+  carousel_slider: ^4.0.0
+  shared_preferences: ^2.0.9
+  http: ^0.13.4
+  cupertino_icons: ^1.0.2
+  date_field: ^2.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # flutter_lints: ^1.0.0
+
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/loginBg.jpeg
+    - assets/playerBg.jpg
+    - assets/playerBg.png
+    - assets/scoreBordBg.png
+    - assets/bg_a.png
+    - assets/bg_team.png
