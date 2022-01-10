@@ -56,7 +56,7 @@ class HomeConfig extends StatelessWidget {
           }
           var body = await jsonDecode(res.body);
           gbisGuest = body['guest'] ?? false;
-          gbidPrime = body['prime'] ?? false;
+          gbisPrime = body['prime'] ?? false;
           gbUser = body;
           page = const HomePage();
         } else {

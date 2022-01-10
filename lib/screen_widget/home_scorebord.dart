@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:setes_mobile/module/simple.dart';
+import 'package:setes_mobile/widget/scorebord_timer.dart';
 
 class HomeScorebord extends StatelessWidget {
   final List bookings;
@@ -118,7 +119,7 @@ class HomeScorebord extends StatelessWidget {
                                               Row(
                                                 children: [
                                                   Text(
-                                                    "Perinthalmanna, Malappuram",
+                                                    "My Location",
                                                     style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.w500,
@@ -190,7 +191,6 @@ class EachScore extends StatelessWidget {
   const EachScore(this.booking, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    print(booking);
     return SizedBox(
       height: 130,
       child: Stack(
@@ -258,21 +258,14 @@ class EachScore extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Text(
-                                  booking['goals'] == "Started" ? "LIVE" : "",
+                                  findWInner(booking),
                                   style: TextStyle(
                                     color: Colors.white54,
                                     fontSize: 11,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                Text(
-                                  "10:20",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
+                                ScoreBoradTimer(booking)
                               ],
                             ),
                             const SizedBox(width: 15),

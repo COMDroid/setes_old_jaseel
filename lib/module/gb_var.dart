@@ -1,6 +1,6 @@
 String gbUserId = '';
 String gbUserKey = '';
 bool gbisGuest = true;
-bool gbidPrime = false;
+bool gbisPrime = false;
 
 Map gbUser = {};

@@ -58,7 +58,7 @@ class MyProfile extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  gbUser["name"]??'',
+                  gbUser["name"] ?? '',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
@@ -67,7 +67,7 @@ class MyProfile extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 Text(
-                  gbisGuest ? gbUser["guest_id"] : gbUser["id"] + " - Setes",
+                  (gbisGuest ? gbUser["guest_id"] : gbUser["id"] + " - Setes"),
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,

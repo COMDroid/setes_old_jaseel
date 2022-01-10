@@ -74,7 +74,7 @@ class _BodyState extends State<Body> {
                             fontSize: 20),
                       ),
                       Text(
-                        "Sports",
+                        gbisPrime ? "Community" : "Sports",
                         style: TextStyle(
                             fontWeight: FontWeight.w700,
                             color: Colors.black54,

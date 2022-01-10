@@ -114,20 +114,31 @@ class Body extends StatelessWidget {
                     child: Container(
                       width: screen.width * .42,
                       decoration: BoxDecoration(
+                        color: Colors.black12,
                         borderRadius: BorderRadius.circular(6),
                         boxShadow: const [
                           BoxShadow(
-                              blurRadius: 5,
-                              spreadRadius: 4,
-                              offset: Offset(0, 5),
-                              color: Colors.black12)
+                            blurRadius: 5,
+                            spreadRadius: 4,
+                            offset: Offset(0, 5),
+                            color: Colors.black12,
+                          )
                         ],
-                        image: DecorationImage(
-                          image: NetworkImage(
-                              setImgProfile(i["_id"] + "/" + i["img"])),
-                          fit: BoxFit.cover,
-                        ),
+                        image: i["img"] == null
+                            ? null
+                            : DecorationImage(
+                                image: NetworkImage(
+                                    setImgProfile(i["_id"] + "/" + i["img"])),
+                                fit: BoxFit.cover,
+                              ),
                       ),
+                      child: i["img"] != null
+                          ? null
+                          : Icon(
+                              Icons.person,
+                              size: screen.width * .32,
+                              color: Colors.white,
+                            ),
                     ),
                   ),
                   const SizedBox(height: 10),

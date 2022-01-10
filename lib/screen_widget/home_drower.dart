@@ -6,6 +6,7 @@ import 'package:setes_mobile/module/simple.dart';
 import 'package:setes_mobile/screen/bookings.dart';
 import 'package:setes_mobile/screen/login.dart';
 import 'package:setes_mobile/screen/notification.dart';
+import 'package:setes_mobile/screen/toprime.dart';
 
 class HomeDrower extends StatelessWidget {
   const HomeDrower({Key? key}) : super(key: key);
@@ -69,6 +70,38 @@ class HomeDrower extends StatelessWidget {
                 ),
               ],
             ),
+            if (!gbisPrime)
+              Row(
+                children: <Widget>[
+                  const Icon(Icons.group, size: 25),
+                  SizedBox(
+                    width: screen.width * .7 - 25,
+                    child: ListTile(
+                      onTap: () {
+                        if (gbisGuest) {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginPage(),
+                            ),
+                          );
+                        } else {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ToPrimePage(),
+                            ),
+                          );
+                        }
+                      },
+                      title: Text("Upgrade to Setes community"),
+                      subtitle: Text("Get more on Setes community"),
+                    ),
+                  ),
+                ],
+              ),
             Row(
               children: <Widget>[
                 Icon(gbisGuest ? Icons.logout : Icons.logout, size: 25),
@@ -87,7 +120,6 @@ class HomeDrower extends StatelessWidget {
                       } else {
                         showDialog<void>(
                           context: context,
-                          barrierDismissible: false,
                           builder: (BuildContext context) {
                             return AlertDialog(
                               title: const Text(

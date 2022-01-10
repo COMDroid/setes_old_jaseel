@@ -9,7 +9,23 @@ class MyBookings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("My Bookingss")),
+      appBar: AppBar(
+        backgroundColor: const Color(0xff459ADB),
+        title: const Text("My Bookingss"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MyBookings(),
+                ),
+              );
+            },
+            icon: Icon(Icons.refresh),
+          ),
+        ],
+      ),
       body: FutureBuilder(
         future: getBookings(),
         builder: (context, snapshot) {
@@ -18,7 +34,16 @@ class MyBookings extends StatelessWidget {
               return ErrorBody();
             } else {
               var datas = jsonDecode(snapshot.data.toString())[1];
-              print(datas.length);
+              if (datas.length == 0)
+                return Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      "No Bookings",
+                      style: TextStyle(fontSize: 13),
+                    ),
+                  ),
+                );
               return BookingsBody(datas);
             }
           } else {
@@ -31,18 +56,26 @@ class MyBookings extends StatelessWidget {
 }
 
 class BookingsBody extends StatelessWidget {
-  final List noti;
-  const BookingsBody(this.noti, {Key? key}) : super(key: key);
+  final List bookings;
+  const BookingsBody(this.bookings, {Key? key}) : super(key: key);
+
+  setIcon(s) {
+    if (s == "Booked") return Icons.book_online;
+    if (s == "Started") return Icons.sports_football;
+    if (s == "Fulltime") return Icons.sports;
+    if (s == "Cancel") return Icons.error;
+    return Icons.info;
+  }
 
   @override
   Widget build(BuildContext context) {
     return ListView(
       children: [
         const SizedBox(height: 5),
-        for (var i = 0; i < noti.length; i++)
+        for (var i = 0; i < bookings.length; i++)
           InkWell(
             onTap: () {
-              if (noti[i].containsKey("bid_id")) {
+              if (bookings[i].containsKey("bid_id")) {
                 // Navigator.push(
                 //   context,
                 //   MaterialPageRoute(
@@ -61,25 +94,18 @@ class BookingsBody extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  // if (noti[i]['type'] == "rn")
-                  //   Image.asset("asset/comments.png", width: 35)
-                  // else if (noti[i]['type'] == "an")
-                  //   Image.asset("asset/chat.png", width: 35)
-                  // else if (noti[i]['type'] == "b")
-                  //   Image.asset("asset/text.png", width: 35)
-                  // else
-                  //   const Icon(
-                  //     Icons.notifications_active_outlined,
-                  //     size: 35,
-                  //     color: Colors.yellow,
-                  //   ),
+                  Icon(
+                    setIcon(bookings[i]["booking"]['status']),
+                    size: 35,
+                    color: Colors.blue,
+                  ),
                   const SizedBox(width: 20),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Notification",
+                          bookings[i]["slot"]['truf_name'],
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
@@ -89,23 +115,32 @@ class BookingsBody extends StatelessWidget {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          "klk",
-                          // noti[i]["booking"]['created'].split("G")[0],
+                          "Booking : (" +
+                              bookings[i]["slot"]['ground'] +
+                              ") " +
+                              bookings[i]["slot"]['s_time'] +
+                              " - " +
+                              bookings[i]["slot"]['e_time'] +
+                              ", " +
+                              bookings[i]["booking"]['date'],
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             color: Color.fromARGB(180, 100, 10, 100),
                             fontWeight: FontWeight.w500,
-                            fontSize: 12,
+                            fontSize: 13,
                           ),
                         ),
+                        const SizedBox(height: 3),
                         Text(
-                          "sub",
+                          "Created On : " +
+                              bookings[i]["booking"]['created'].split("T")[0],
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             color: Color.fromARGB(160, 0, 0, 0),
                             fontWeight: FontWeight.w400,
+                            fontSize: 13,
                           ),
                         ),
                       ],

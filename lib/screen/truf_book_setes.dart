@@ -188,7 +188,7 @@ class TrufBookBody extends StatelessWidget {
                                   ),
                                   SizedBox(height: 3),
                                   Text(
-                                    slot["authers"][i]["id"],
+                                    slot["authers"][i]["id"]??'',
                                     style: TextStyle(
                                         fontWeight: FontWeight.w700,
                                         color: Colors.black38,

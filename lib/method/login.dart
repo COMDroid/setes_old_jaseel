@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:setes_mobile/module/api_init.dart';
 import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/screen/home.dart';
+import 'package:setes_mobile/screen/intro.dart';
 import 'package:setes_mobile/screen/login.dart';
 import 'package:setes_mobile/screen/otp.dart';
 import 'package:http/http.dart' as http;
@@ -88,7 +89,6 @@ register(context, setstate, state, data) async {
   setstate("loading", true);
   setstate("error", null);
   try {
-    print(data["_id"]);
     var res = await http.post(setApi("register?user_id=" + data["_id"]),
         body: {"name": state["nameC"].text, "email": state["emailC"].text});
     if (res.statusCode == 200) {
@@ -121,9 +121,11 @@ logout(context) async {
   Navigator.pop(context);
   Navigator.pushReplacement(
     context,
-    MaterialPageRoute(
-      builder: (context) => LoginPage(),
-    ),
+    MaterialPageRoute(builder: (context) => IntroPage()),
+  );
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => LoginPage()),
   );
 }
 
