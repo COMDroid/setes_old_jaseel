@@ -1,8 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:setes_mobile/module/api_init.dart';
+import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/screen/home.dart';
 import 'package:setes_mobile/screen/intro.dart';
-import 'package:setes_mobile/screen/login.dart';
 import 'package:setes_mobile/screen/warnings.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,34 +26,55 @@ class MyApp extends StatelessWidget {
 }
 
 class HomeConfig extends StatelessWidget {
-  HomeConfig({Key? key}) : super(key: key);
-  Widget page = const LoadingPage();
-  config() async {
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      bool seen = prefs.getBool('seen') ?? false;
-      if (!seen) {
-        page = const IntroPage();
-        return 0;
-      }
-      var res = await http.post(setApi("isuptodate"),
-          body: {'version': "2", 'key': "123456", 'logged': "0"});
-      if (res.statusCode == 200) {
-        bool ifUser = prefs.getBool('ifuser') ?? false;
-        if (ifUser) {
-          page = const HomePage();
-        } else {
-          page = const LoginPage();
-        }
-      }
-    } catch (e) {
-      page = const ErrorPage();
-    }
-    return 0;
-  }
+  const HomeConfig({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Widget page = const LoadingPage();
+    config() async {
+      try {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        String userId = prefs.getString('userid') ?? "";
+        String authKey = '';
+        bool ifUser = true;
+        if (userId == "") {
+          ifUser = false;
+        } else {
+          authKey = prefs.getString('authkey') ?? "";
+          gbUserKey = authKey;
+          gbUserId = userId;
+        }
+        var res = await http.post(
+          setApi("isuptodate?user_id=" + userId),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode({'ver': 1, 'logged': ifUser, 'key': authKey}),
+        );
+        if (res.statusCode == 200) {
+          if (!ifUser) {
+            page = const IntroPage();
+            return 0;
+          }
+          var body = await jsonDecode(res.body);
+          gbisGuest = body['guest'] ?? false;
+          gbidPrime = body['prime'] ?? false;
+          gbUser = body;
+          page = const HomePage();
+        } else {
+          if (res.statusCode == 410) {
+            page = const ExpiredPage();
+          } else {
+            if (res.statusCode == 401)
+              page = const IntroPage();
+            else
+              page = const ErrorPage();
+          }
+        }
+      } catch (e) {
+        page = const ErrorPage();
+      }
+      return 0;
+    }
+
     return FutureBuilder(
       future: config(),
       builder: (context, snapshot) {

@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:setes_mobile/method/login.dart';
+import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/module/simple.dart';
 import 'package:setes_mobile/screen/bookings.dart';
+import 'package:setes_mobile/screen/login.dart';
 import 'package:setes_mobile/screen/notification.dart';
 
 class HomeDrower extends StatelessWidget {
@@ -69,30 +71,44 @@ class HomeDrower extends StatelessWidget {
             ),
             Row(
               children: <Widget>[
-                const Icon(Icons.logout, size: 25),
+                Icon(gbisGuest ? Icons.logout : Icons.logout, size: 25),
                 SizedBox(
                   width: screen.width * .7 - 25,
                   child: ListTile(
                     onTap: () {
-                      showDialog<void>(
-                        context: context,
-                        barrierDismissible: false,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: const Text(
-                                'You can login at any time, we will keep all your data safe. thankYou'),
-                            actions: [
-                              TextButton(
-                                onPressed: () => logout(context),
-                                child: Text('Confirm Logout'),
-                              ),
-                            ],
-                          );
-                        },
-                      );
+                      if (gbisGuest) {
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginPage(),
+                          ),
+                        );
+                      } else {
+                        showDialog<void>(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text(
+                                  'You can login at any time, we will keep all your data safe. thankYou'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => logout(context),
+                                  child: Text('Confirm Logout'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      }
                     },
-                    title: Text("Logout"),
-                    subtitle: Text("You can Loggin at any time"),
+                    title: Text(gbisGuest ? "Login" : "Logout"),
+                    subtitle: Text(
+                      gbisGuest
+                          ? "Login for a better browse"
+                          : "You can Loggin at any time",
+                    ),
                   ),
                 ),
               ],

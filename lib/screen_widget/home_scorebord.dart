@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:setes_mobile/module/simple.dart';
 
 class HomeScorebord extends StatelessWidget {
-  const HomeScorebord({Key? key}) : super(key: key);
+  final List bookings;
+  const HomeScorebord(this.bookings, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     Size scr = getScreen(context);
@@ -88,9 +88,9 @@ class HomeScorebord extends StatelessWidget {
                             children: [
                               SizedBox(height: scr.width * .5),
                               Container(
-                                height: scr.width / 100 > 10
-                                    ? scr.height - scr.width + 65
-                                    : null,
+                                constraints: BoxConstraints(
+                                    minHeight:
+                                        scr.height - (scr.width * .5 + 90)),
                                 padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
@@ -120,10 +120,11 @@ class HomeScorebord extends StatelessWidget {
                                                   Text(
                                                     "Perinthalmanna, Malappuram",
                                                     style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color: Colors.black54,
-                                                        fontSize: 12),
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Colors.black54,
+                                                      fontSize: 12,
+                                                    ),
                                                   ),
                                                   SizedBox(width: 5),
                                                   Icon(
@@ -136,9 +137,10 @@ class HomeScorebord extends StatelessWidget {
                                               Text(
                                                 "Today",
                                                 style: TextStyle(
-                                                    fontWeight: FontWeight.w700,
-                                                    color: Colors.black87,
-                                                    fontSize: 20),
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Colors.black87,
+                                                  fontSize: 20,
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -150,7 +152,20 @@ class HomeScorebord extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    for (var i = 0; i < 10; i++) EachScore()
+                                    for (var i = 0; i < bookings.length; i++)
+                                      EachScore(bookings[i]),
+                                    if (bookings.length == 0)
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "No Match",
+                                            style: TextStyle(fontSize: 12),
+                                          ),
+                                        ],
+                                      ),
+                                    SizedBox(height: 100),
                                   ],
                                 ),
                               ),
@@ -171,9 +186,11 @@ class HomeScorebord extends StatelessWidget {
 }
 
 class EachScore extends StatelessWidget {
-  const EachScore({Key? key}) : super(key: key);
+  final Map booking;
+  const EachScore(this.booking, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    print(booking);
     return SizedBox(
       height: 130,
       child: Stack(
@@ -197,7 +214,7 @@ class EachScore extends StatelessWidget {
                     offset: Offset(0, 3),
                     blurRadius: 30,
                     color: Colors.black12,
-                  )
+                  ),
                 ],
               ),
               height: 110,
@@ -209,22 +226,39 @@ class EachScore extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        const Text(
-                          "Green Truf",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                          ),
+                        Row(
+                          children: [
+                            Text(
+                              booking['slot'] == null
+                                  ? "Unnamed"
+                                  : booking['slot']["truf_name"] ?? '',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              booking['slot'] == null
+                                  ? ''
+                                  : booking['slot']["ground"] ?? '',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 5),
                         Row(
                           children: [
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const <Widget>[
+                              children: <Widget>[
                                 Text(
-                                  "LIVE",
+                                  booking['goals'] == "Started" ? "LIVE" : "",
                                   style: TextStyle(
                                     color: Colors.white54,
                                     fontSize: 11,
@@ -271,9 +305,9 @@ class EachScore extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const <Widget>[
+                    children: <Widget>[
                       Text(
-                        "2",
+                        booking['goals']['r'].toString(),
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 30,
@@ -281,7 +315,7 @@ class EachScore extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "1",
+                        booking['goals']['b'].toString(),
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 30,

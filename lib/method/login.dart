@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:setes_mobile/module/api_init.dart';
+import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/screen/home.dart';
 import 'package:setes_mobile/screen/login.dart';
 import 'package:setes_mobile/screen/otp.dart';
@@ -55,12 +56,13 @@ validateOtp(context, setstate, state, data) async {
     var res = await http.post(setApi("login"),
         body: {"otp": state["otpC"].text, "pin": data["pin"]});
     if (res.statusCode == 200) {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
       if (await jsonDecode(res.body)["registerd"]) {
-        print(res.body);
-        await prefs.setBool('ifuser', true);
-        await prefs.setString('authkey', await jsonDecode(res.body)["key"]);
-        await prefs.setString('userid', await jsonDecode(res.body)["_id"]);
+        gbUserId = await jsonDecode(res.body)["_id"];
+        gbUserKey = await jsonDecode(res.body)["key"];
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('userid', gbUserId);
+        await prefs.setString('authkey', gbUserKey);
+        Navigator.pop(context);
         Navigator.pop(context);
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => const HomePage()));
@@ -90,10 +92,12 @@ register(context, setstate, state, data) async {
     var res = await http.post(setApi("register?user_id=" + data["_id"]),
         body: {"name": state["nameC"].text, "email": state["emailC"].text});
     if (res.statusCode == 200) {
+      gbUserId = await jsonDecode(res.body)["_id"];
+      gbUserKey = await jsonDecode(res.body)["key"];
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('ifuser', true);
-      await prefs.setString('authkey', await jsonDecode(res.body)["key"]);
-      await prefs.setString('userid', await jsonDecode(res.body)["_id"]);
+      await prefs.setString('userid', gbUserId);
+      await prefs.setString('authkey', gbUserKey);
+      Navigator.pop(context);
       Navigator.pop(context);
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => const HomePage()));
@@ -109,13 +113,40 @@ register(context, setstate, state, data) async {
 
 logout(context) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.setBool('ifuser', false);
   await prefs.setString('authkey', "");
   await prefs.setString('userid', "");
+  gbUserId = "";
+  gbUserKey = "";
   Navigator.pop(context);
   Navigator.pop(context);
   Navigator.pushReplacement(
     context,
-    MaterialPageRoute(builder: (context) => LoginPage()),
+    MaterialPageRoute(
+      builder: (context) => LoginPage(),
+    ),
   );
+}
+
+guestLogin(props) async {
+  props.setloading(true);
+  props.seterror(null);
+  try {
+    var res = await http.post(setApi("guestlogin"), body: {});
+    print(res.body);
+    if (res.statusCode == 200) {
+      gbUserId = await jsonDecode(res.body)["_id"];
+      gbUserKey = await jsonDecode(res.body)["key"];
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('userid', gbUserId);
+      await prefs.setString('authkey', gbUserKey);
+      Navigator.pushReplacement(props.context,
+          MaterialPageRoute(builder: (context) => const HomePage()));
+    } else {
+      props.seterror(await jsonDecode(res.body)["msg"]);
+    }
+  } catch (e) {
+    props.seterror("Network Error");
+  }
+  props.setloading(false);
+  return 0;
 }

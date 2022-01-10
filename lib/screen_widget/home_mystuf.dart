@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/module/simple.dart';
 
 class MyStuf extends StatelessWidget {
@@ -78,7 +79,10 @@ class MyStuf extends StatelessWidget {
                               ),
                               SizedBox(height: 8),
                               Text(
-                                "₹ 220",
+                                "₹ " +
+                                    (i == 0
+                                        ? toint(gbUser["wallet"])
+                                        : toint(gbUser["credit"])),
                                 style: TextStyle(
                                   fontWeight: FontWeight.w900,
                                   fontSize: 20,

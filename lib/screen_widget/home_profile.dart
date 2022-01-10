@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/module/simple.dart';
 
 class MyProfile extends StatelessWidget {
@@ -38,6 +39,7 @@ class MyProfile extends StatelessWidget {
           ),
           Container(
             width: scr.width,
+            height: scr.height - 120,
             color: Color(0xff564EB1),
             child: Column(
               children: [
@@ -56,12 +58,20 @@ class MyProfile extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "Muhammed Jaseel",
-                  style: TextStyle(color: Colors.white),
+                  gbUser["name"]??'',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
+                SizedBox(height: 10),
                 Text(
-                  "SDF123 - Setes",
-                  style: TextStyle(color: Colors.white),
+                  gbisGuest ? gbUser["guest_id"] : gbUser["id"] + " - Setes",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
                 ),
                 Container(
                   decoration: BoxDecoration(

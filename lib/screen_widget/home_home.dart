@@ -71,7 +71,11 @@ class HomeHome extends StatelessWidget {
                         ),
                       ),
                       child: Container(
-                        width: scr.width,
+                        // width: scr.width,
+                        margin: EdgeInsets.only(
+                          right: scr.width * .01,
+                          left: scr.width * .03,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.redAccent,
                           image: DecorationImage(
@@ -83,10 +87,6 @@ class HomeHome extends StatelessWidget {
                         child: Container(
                           width: scr.width * .46,
                           height: scr.width * .4,
-                          margin: EdgeInsets.only(
-                            right: scr.width * .01,
-                            left: scr.width * .03,
-                          ),
                           padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                               gradient: LinearGradient(
@@ -137,6 +137,8 @@ class HomeHome extends StatelessWidget {
                         ),
                       ),
                       child: Container(
+                        margin: EdgeInsets.only(
+                            left: scr.width * .01, right: scr.width * .03),
                         decoration: BoxDecoration(
                           image: DecorationImage(
                               image: AssetImage("assets/bg_a.png")),
@@ -147,8 +149,6 @@ class HomeHome extends StatelessWidget {
                         child: Container(
                           width: scr.width * .46,
                           height: scr.width * .4,
-                          margin: EdgeInsets.only(
-                              left: scr.width * .01, right: scr.width * .03),
                           padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                               gradient: LinearGradient(

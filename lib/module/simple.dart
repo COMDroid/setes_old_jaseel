@@ -11,3 +11,5 @@ dateTomyFormat(DateTime d) {
 getDateName(d) {
   return d;
 }
+
+toint(v) => (v / 100).toString();

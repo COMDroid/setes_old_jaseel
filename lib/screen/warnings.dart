@@ -44,3 +44,13 @@ class ErrorBody extends StatelessWidget {
     return Center(child: Text("Error"));
   }
 }
+
+class ExpiredPage extends StatelessWidget {
+  const ExpiredPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+        body: Center(child: Text("App Expired, update your app")));
+  }
+}

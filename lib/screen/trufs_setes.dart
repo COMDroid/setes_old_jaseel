@@ -129,9 +129,8 @@ class SetesTrufLoader extends StatelessWidget {
               children: [
                 SizedBox(height: scr.width * .5),
                 Container(
-                  height: scr.width / 100 > datas.length
-                      ? scr.height - scr.width + 65
-                      : null,
+                  constraints: BoxConstraints(
+                      minHeight: scr.height - (scr.width * .5 + 90)),
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -249,9 +248,11 @@ class EachSetesTruf extends StatelessWidget {
                             ),
                           ],
                         ),
-                        subtitle: Text(data["slots"][i]["s_time"] +
-                            " - " +
-                            data["slots"][i]["e_time"]),
+                        subtitle: Text(
+                          data["slots"][i]["s_time"] +
+                              " - " +
+                              data["slots"][i]["e_time"],
+                        ),
                       ),
                   ],
                 ),

@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:setes_mobile/method/home.dart';
+import 'package:setes_mobile/module/api_init.dart';
+import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/screen/notification.dart';
 import 'package:setes_mobile/screen/warnings.dart';
 import 'package:setes_mobile/screen_widget/home_drower.dart';
@@ -15,20 +17,21 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: getHome(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
+      future: getHome(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return const ErrorPage();
+        } else if (snapshot.hasData) {
+          if (jsonDecode(snapshot.data.toString())[0]) {
             return const ErrorPage();
-          } else if (snapshot.hasData) {
-            if (jsonDecode(snapshot.data.toString())[0]) {
-              return const ErrorPage();
-            } else {
-              return Body(jsonDecode(snapshot.data.toString())[1]);
-            }
           } else {
-            return const LoadingPage();
+            return Body(jsonDecode(snapshot.data.toString())[1]);
           }
-        });
+        } else {
+          return const LoadingPage();
+        }
+      },
+    );
   }
 }
 
@@ -41,7 +44,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  Map state = {"page": 3};
+  Map state = {"page": 0};
   setstate(v, u) => setState(() => state[v] = u);
 
   @override
@@ -95,21 +98,29 @@ class _BodyState extends State<Body> {
                           color: Colors.blue,
                         ),
                       ),
-                      if (widget.data["profile"]["img"] == null)
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Container(),
-                        ),
-                      if (widget.data["profile"]["img"] != null)
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.network(
-                            "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                            width: 40,
-                            height: 40,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+                      gbUser["img"] == null
+                          ? Container(
+                              width: 30,
+                              height: 30,
+                              margin: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                color: Colors.black12,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15)),
+                              ),
+                              child: Icon(Icons.person,
+                                  size: 20, color: Colors.white),
+                            )
+                          : ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image.network(
+                                setImgProfile(
+                                    gbUser["_id"] + '/' + gbUser["img"]),
+                                width: 40,
+                                height: 40,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                     ],
                   ),
                 ],
@@ -125,7 +136,7 @@ class _BodyState extends State<Body> {
             child: state["page"] == 0
                 ? HomeHome(widget.data)
                 : state["page"] == 1
-                    ? HomeScorebord()
+                    ? HomeScorebord(widget.data['bookings'])
                     : state["page"] == 2
                         ? MyStuf()
                         : MyProfile(),
