@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:setes_mobile/method/bookings.dart';
 import 'package:setes_mobile/method/truf.dart';
 import 'package:setes_mobile/module/api_init.dart';
 import 'package:setes_mobile/module/simple.dart';
@@ -12,6 +13,7 @@ class TrufBookSetesPage extends StatelessWidget {
   final Map truf;
   final int i;
   final String date;
+
   TrufBookSetesPage(this.truf, this.i, this.date, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -188,7 +190,7 @@ class TrufBookBody extends StatelessWidget {
                                   ),
                                   SizedBox(height: 3),
                                   Text(
-                                    slot["authers"][i]["id"]??'',
+                                    slot["authers"][i]["id"] ?? '',
                                     style: TextStyle(
                                         fontWeight: FontWeight.w700,
                                         color: Colors.black38,
@@ -239,7 +241,7 @@ class TrufBookBody extends StatelessWidget {
                           fontSize: 16),
                     ),
                     Text(
-                      slot["price"] + "/-",
+                      toint(slot["price"]) + "/-",
                       style: TextStyle(
                           fontWeight: FontWeight.w700,
                           color: Colors.black,
@@ -289,78 +291,79 @@ class TrufBookBody extends StatelessWidget {
             )),
         InkWell(
           onTap: () {
-            showDialog<void>(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: const Text('Confirm Book'),
-                  content: SingleChildScrollView(
-                    child: ListBody(
-                      children: <Widget>[Text('Payment Gate way')],
-                    ),
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () async {
-                        var res = await bookTruf(this);
-                        if (res[0]) {
-                          Navigator.pop(context);
-                          showDialog<void>(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: const Text('Error Booking'),
-                                content: SingleChildScrollView(
-                                  child: ListBody(
-                                    children: <Widget>[Text(res[1]["msg"])],
-                                  ),
-                                ),
-                                actions: [
-                                  TextButton(
-                                      onPressed: () => Navigator.pop(context),
-                                      child: Text('Back'))
-                                ],
-                              );
-                            },
-                          );
-                        } else {
-                          Navigator.pop(context);
-                          Navigator.pop(context);
-                          Navigator.pop(context);
-                          showDialog<void>(
-                            context: context,
-                            barrierDismissible: false,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: const Text('Succesfully Booked'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                      Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              slot["type"] == "s"
-                                                  ? TrufsSetesPage(date)
-                                                  : TrufsTeamPage(date),
-                                        ),
-                                      );
-                                    },
-                                    child: Text('Back'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        }
-                      },
-                      child: Text('Confirm '),
-                    )
-                  ],
-                );
-              },
-            );
+            makeBookingpyment(slot, context);
+            // showDialog<void>(
+            //   context: context,
+            //   builder: (BuildContext context) {
+            //     return AlertDialog(
+            //       title: const Text('Confirm Book'),
+            //       content: SingleChildScrollView(
+            //         child: ListBody(
+            //           children: <Widget>[Text('Payment Gate way')],
+            //         ),
+            //       ),
+            //       actions: [
+            //         TextButton(
+            //           onPressed: () async {
+            //             var res = await bookTruf(this);
+            //             if (res[0]) {
+            //               Navigator.pop(context);
+            //               showDialog<void>(
+            //                 context: context,
+            //                 builder: (BuildContext context) {
+            //                   return AlertDialog(
+            //                     title: const Text('Error Booking'),
+            //                     content: SingleChildScrollView(
+            //                       child: ListBody(
+            //                         children: <Widget>[Text(res[1]["msg"])],
+            //                       ),
+            //                     ),
+            //                     actions: [
+            //                       TextButton(
+            //                           onPressed: () => Navigator.pop(context),
+            //                           child: Text('Back'))
+            //                     ],
+            //                   );
+            //                 },
+            //               );
+            //             } else {
+            //               Navigator.pop(context);
+            //               Navigator.pop(context);
+            //               Navigator.pop(context);
+            //               showDialog<void>(
+            //                 context: context,
+            //                 barrierDismissible: false,
+            //                 builder: (BuildContext context) {
+            //                   return AlertDialog(
+            //                     title: const Text('Succesfully Booked'),
+            //                     actions: [
+            //                       TextButton(
+            //                         onPressed: () {
+            //                           Navigator.pop(context);
+            //                           Navigator.pushReplacement(
+            //                             context,
+            //                             MaterialPageRoute(
+            //                               builder: (context) =>
+            //                                   slot["type"] == "s"
+            //                                       ? TrufsSetesPage(date)
+            //                                       : TrufsTeamPage(date),
+            //                             ),
+            //                           );
+            //                         },
+            //                         child: Text('Back'),
+            //                       ),
+            //                     ],
+            //                   );
+            //                 },
+            //               );
+            //             }
+            //           },
+            //           child: Text('Confirm '),
+            //         )
+            //       ],
+            //     );
+            //   },
+            // );
           },
           child: Container(
             height: 50,
@@ -391,7 +394,7 @@ class TrufBookBody extends StatelessWidget {
                       fontSize: 20),
                 ),
                 Text(
-                  slot["price"] + "/-",
+                  toint(slot["price"]) + "/-",
                   style: TextStyle(
                       fontWeight: FontWeight.w700,
                       color: Colors.white,

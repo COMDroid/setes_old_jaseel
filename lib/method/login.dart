@@ -58,8 +58,12 @@ validateOtp(context, setstate, state, data) async {
         body: {"otp": state["otpC"].text, "pin": data["pin"]});
     if (res.statusCode == 200) {
       if (await jsonDecode(res.body)["registerd"]) {
-        gbUserId = await jsonDecode(res.body)["_id"];
-        gbUserKey = await jsonDecode(res.body)["key"];
+        var body = await jsonDecode(res.body);
+        gbisGuest = body['guest'] ?? false;
+        gbisPrime = body['prime'] ?? false;
+        gbUser = body;
+        gbUserId = body["_id"];
+        gbUserKey = body["key"];
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('userid', gbUserId);
         await prefs.setString('authkey', gbUserKey);
@@ -92,8 +96,12 @@ register(context, setstate, state, data) async {
     var res = await http.post(setApi("register?user_id=" + data["_id"]),
         body: {"name": state["nameC"].text, "email": state["emailC"].text});
     if (res.statusCode == 200) {
-      gbUserId = await jsonDecode(res.body)["_id"];
-      gbUserKey = await jsonDecode(res.body)["key"];
+      var body = await jsonDecode(res.body);
+      gbisGuest = body['guest'] ?? false;
+      gbisPrime = body['prime'] ?? false;
+      gbUser = body;
+      gbUserId = body["_id"];
+      gbUserKey = body["key"];
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('userid', gbUserId);
       await prefs.setString('authkey', gbUserKey);

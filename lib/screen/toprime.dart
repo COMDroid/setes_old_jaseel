@@ -3,6 +3,7 @@ import 'package:setes_mobile/method/toprime.dart';
 import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/module/simple.dart';
 import 'package:setes_mobile/style/textbox.dart';
+import 'package:setes_mobile/widget/buttons.dart';
 
 class ToPrimePage extends StatelessWidget {
   const ToPrimePage({Key? key}) : super(key: key);
@@ -128,10 +129,11 @@ class ToPrimeForm extends StatefulWidget {
 class _ToPrimeFormState extends State<ToPrimeForm> {
   bool loading = true;
   String? error;
-  double price = 0;
+  int price = 0;
 
   TextEditingController nameC = TextEditingController();
   TextEditingController emailC = TextEditingController();
+  String bloodGp = 'Blood Group';
 
   @override
   void initState() {
@@ -149,12 +151,14 @@ class _ToPrimeFormState extends State<ToPrimeForm> {
     return Column(
       children: [
         const SizedBox(height: 5),
-        const Text("Upgrade to Setes Community",
-            style: TextStyle(
-              color: Color(0xFF1368A9),
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            )),
+        const Text(
+          "Upgrade to Setes Community",
+          style: TextStyle(
+            color: Color(0xFF1368A9),
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
         const SizedBox(height: 20),
         Expanded(
           child: ListView(
@@ -163,20 +167,20 @@ class _ToPrimeFormState extends State<ToPrimeForm> {
                 controller: nameC,
                 autocorrect: true,
                 keyboardType: TextInputType.text,
-                decoration: textBoxStyle1(
-                  'Enter your name ',
-                  Icons.person_outline,
-                ),
+                decoration:
+                    textBoxStyle1('Enter your name ', Icons.person_outline),
               ),
               const SizedBox(height: 10),
               TextField(
                 controller: emailC,
                 autocorrect: true,
-                decoration: textBoxStyle1(
-                  'Enter your email ',
-                  Icons.email_outlined,
-                ),
+                decoration:
+                    textBoxStyle1('Enter your email ', Icons.email_outlined),
               ),
+              const SizedBox(height: 10),
+              TextfileldButton(Icons.grass, bloodGp, () {}),
+              const SizedBox(height: 10),
+              TextfileldButton(Icons.grass, "Blood Group", () {}),
             ],
           ),
         ),
@@ -248,7 +252,7 @@ class _ToPrimeFormState extends State<ToPrimeForm> {
                             fontSize: 20),
                       ),
                       Text(
-                        price.toString() + "/-",
+                        (price / 100).toString() + "/-",
                         style: TextStyle(
                             fontWeight: FontWeight.w700,
                             color: Colors.white,
