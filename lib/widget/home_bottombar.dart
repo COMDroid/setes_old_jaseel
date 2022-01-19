@@ -85,7 +85,7 @@ class CurvedNavigationBar extends StatefulWidget {
     _LetIndexPage? letIndexChange,
     this.animationCurve = Curves.easeOut,
     this.animationDuration = const Duration(milliseconds: 600),
-    this.height = 75.0,
+    this.height = 60.0,
   })  : letIndexChange = letIndexChange ?? ((_) => true),
         assert(items.length >= 1),
         assert(0 <= index && index < items.length),

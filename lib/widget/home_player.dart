@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:setes_mobile/module/api_init.dart';
+import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/module/simple.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -32,21 +33,23 @@ class HomePlayer extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "Upgrade to Setes Community",
+                        gbisPrime
+                            ? "We brings you a better career"
+                            : "Upgrade to Setes Community",
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             color: Colors.black54,
                             fontSize: 12),
                       ),
-                      SizedBox(width: 5),
-                      Icon(Icons.done_all_rounded,
-                          size: 18, color: Colors.black54)
+                      // SizedBox(width: 5),
+                      // Icon(Icons.done_all_rounded,
+                      //     size: 18, color: Colors.black54)
                     ],
                   ),
                 ],
               ),
-              Icon(Icons.sports_soccer_rounded,
-                  size: 40, color: Color(0xff0E6E9D))
+              // Icon(Icons.sports_soccer_rounded,
+              //     size: 40, color: Color(0xff0E6E9D))
             ],
           ),
         ),

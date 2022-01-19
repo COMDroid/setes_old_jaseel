@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:setes_mobile/method/toprime.dart';
+import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/module/simple.dart';
+import 'package:setes_mobile/style/textbox.dart';
 import 'package:setes_mobile/widget/buttons.dart';
 
-class ToPrimePage extends StatelessWidget {
-  const ToPrimePage({Key? key}) : super(key: key);
+class ToPrimePage2 extends StatelessWidget {
+  final dynamic props;
+  const ToPrimePage2(this.props, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +80,7 @@ class ToPrimePage extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(20),
-                child: ToPrimeForm(),
+                child: ToPrimeForm2(props),
               ),
             ),
           ),
@@ -117,42 +120,39 @@ class ToPrimePage extends StatelessWidget {
   }
 }
 
-class ToPrimeForm extends StatefulWidget {
-  const ToPrimeForm({Key? key}) : super(key: key);
+class ToPrimeForm2 extends StatefulWidget {
+  final dynamic props;
+  const ToPrimeForm2(this.props, {Key? key}) : super(key: key);
 
   @override
-  _ToPrimeFormState createState() => _ToPrimeFormState();
+  _ToPrimeForm2State createState() => _ToPrimeForm2State();
 }
 
-class _ToPrimeFormState extends State<ToPrimeForm> {
+class _ToPrimeForm2State extends State<ToPrimeForm2> {
   bool loading = true;
   String? error;
-  Map primeData = {};
 
+  TextEditingController nameC = TextEditingController();
+  TextEditingController emailC = TextEditingController();
 
-  String? bloodGp;
-  Map? district;
-  Map? zone;
-  List zones = [];
   Map? home;
   List homes = [];
-  String? bootsize;
-  String? tshitrsize;
-  String? favposition;
-  String? secfavposition;
-  String? strongfoot;
+  String? sex;
 
   @override
   void initState() {
-    getPrimePrice(this);
-
+    getPrimeTrufs(this);
+    setState(() {
+      nameC.text = gbUser["name"] ?? '';
+      emailC.text = gbUser["email"] ?? '';
+    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     Size scr = getScreen(context);
-    print(primeData);
+    print(homes);
     return Column(
       children: [
         const SizedBox(height: 5),
@@ -169,76 +169,40 @@ class _ToPrimeFormState extends State<ToPrimeForm> {
           child: ListView(
             padding: EdgeInsets.only(top: 8),
             children: [
-             
-              DroperButton(
-                Icons.bloodtype,
-                'Blood Group',
-                bloodGp,
-                loading ? [] : primeData['blood_groups'],
-                (v) => setState(() => bloodGp = v),
-              ),
-              const SizedBox(height: 10),
-              DroperButton2(
-                Icons.landscape,
-                'District',
-                district,
-                loading ? [] : primeData['locations'][0]['zone'],
-                (v) => setState(() {
-                  district = v;
-                  zones = v['zone'];
-                }),
-              ),
-              DroperButton2(
-                Icons.landscape,
-                'Zone',
-                zone,
-                zones,
-                (v) => setState(() => zone = v),
-              ),
+              DroperButton3(Icons.home, 'Home Truf', home, homes,
+                  (v) => setState(() => home = v)),
               const SizedBox(height: 10),
               DroperButton(
-                Icons.ice_skating,
-                'Boot Size',
-                bootsize,
-                loading ? [] : primeData['boot_sizes'],
-                (v) => setState(() => bootsize = v),
+                Icons.person,
+                'Sex',
+                sex,
+                ['Male', "Female"],
+                (v) => setState(() => sex = v),
               ),
               const SizedBox(height: 10),
-              DroperButton(
-                Icons.checkroom,
-                'T-Shirt Size',
-                tshitrsize,
-                loading ? [] : primeData['tshirt_sizes'],
-                (v) => setState(() => tshitrsize = v),
+              const SizedBox(height: 10),
+              TextField(
+                controller: nameC,
+                autocorrect: true,
+                keyboardType: TextInputType.text,
+                decoration: textBoxStyle1(
+                  'Enter your name ',
+                  Icons.person_outline,
+                ),
               ),
               const SizedBox(height: 10),
-              DroperButton(
-                Icons.sports_handball,
-                'Favorite Position',
-                favposition,
-                loading ? [] : primeData['positions'],
-                (v) => setState(() => favposition = v),
+              TextField(
+                controller: emailC,
+                autocorrect: true,
+                decoration: textBoxStyle1(
+                  'Enter your email ',
+                  Icons.email_outlined,
+                ),
               ),
               const SizedBox(height: 10),
-              DroperButton(
-                Icons.favorite_border,
-                '2nd Favorite Position',
-                secfavposition,
-                loading ? [] : primeData['positions'],
-                (v) => setState(() => secfavposition = v),
-              ),
-              const SizedBox(height: 10),
-              DroperButton(
-                Icons.handyman,
-                'Strong Foot',
-                strongfoot,
-                loading ? [] : primeData['strong_foots'],
-                (v) => setState(() => strongfoot = v),
-              ),
             ],
           ),
         ),
-        const SizedBox(height: 10),
         error == null
             ? const Text(
                 'For a better communication we collect\n some of your above data',
@@ -260,7 +224,7 @@ class _ToPrimeFormState extends State<ToPrimeForm> {
                 ),
               ),
         InkWell(
-          onTap: () => toprime(this),
+          onTap: () => toprime2(this),
           child: Container(
             height: 50,
             width: scr.width,
@@ -289,9 +253,10 @@ class _ToPrimeFormState extends State<ToPrimeForm> {
                     child: Text(
                       "Loading..",
                       style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                          fontSize: 20),
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
                     ),
                   )
                 : Row(
@@ -299,20 +264,21 @@ class _ToPrimeFormState extends State<ToPrimeForm> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        "NEXT",
+                        "UPGRADE",
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
                             color: Colors.white,
                             fontSize: 20),
                       ),
-                      Icon(Icons.next_plan, color: Colors.white)
-                      // Text(
-                      //   ((primeData['price_pm'] ?? 0) / 100).toString() + "/-",
-                      //   style: TextStyle(
-                      //       fontWeight: FontWeight.w700,
-                      //       color: Colors.white,
-                      //       fontSize: 20),
-                      // ),
+                      Text(
+                        ((widget.props.primeData['price_pm'] ?? 0) / 100)
+                                .toString() +
+                            "/-",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                            fontSize: 20),
+                      ),
                     ],
                   ),
           ),

@@ -28,7 +28,6 @@ bookTruf(props) async {
   var date = props.date;
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String id = prefs.getString('userid').toString();
-  print(id);
   var body = {
     "slot_id": slot['_id'],
     "date": date,

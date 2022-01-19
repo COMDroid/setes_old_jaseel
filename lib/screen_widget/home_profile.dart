@@ -14,6 +14,8 @@ class MyProfile extends StatelessWidget {
         children: [
           Container(
             width: scr.width,
+            height: 80,
+            alignment: Alignment.bottomLeft,
             decoration: BoxDecoration(
               color: Colors.white,
               boxShadow: [
@@ -24,22 +26,20 @@ class MyProfile extends StatelessWidget {
                 ),
               ],
             ),
-            child: SafeArea(
-              child: Padding(
-                padding: EdgeInsets.all(15),
-                child: Text(
-                  "My Profile",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+            child: Padding(
+              padding: EdgeInsets.all(15),
+              child: Text(
+                "My Profile",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
           ),
           Container(
             width: scr.width,
-            height: scr.height - 120,
+            height: scr.height - 80,
             color: Color(0xff564EB1),
             child: Column(
               children: [
@@ -67,7 +67,9 @@ class MyProfile extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 Text(
-                  (gbisGuest ? gbUser["guest_id"] : gbUser["id"] + " - Setes"),
+                  (gbisGuest
+                      ? gbUser["guest_id"] ?? ""
+                      : gbUser["id"] ?? "" + " - Setes"),
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,

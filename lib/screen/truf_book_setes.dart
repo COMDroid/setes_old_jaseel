@@ -291,79 +291,25 @@ class TrufBookBody extends StatelessWidget {
             )),
         InkWell(
           onTap: () {
-            makeBookingpyment(slot, context);
-            // showDialog<void>(
-            //   context: context,
-            //   builder: (BuildContext context) {
-            //     return AlertDialog(
-            //       title: const Text('Confirm Book'),
-            //       content: SingleChildScrollView(
-            //         child: ListBody(
-            //           children: <Widget>[Text('Payment Gate way')],
-            //         ),
-            //       ),
-            //       actions: [
-            //         TextButton(
-            //           onPressed: () async {
-            //             var res = await bookTruf(this);
-            //             if (res[0]) {
-            //               Navigator.pop(context);
-            //               showDialog<void>(
-            //                 context: context,
-            //                 builder: (BuildContext context) {
-            //                   return AlertDialog(
-            //                     title: const Text('Error Booking'),
-            //                     content: SingleChildScrollView(
-            //                       child: ListBody(
-            //                         children: <Widget>[Text(res[1]["msg"])],
-            //                       ),
-            //                     ),
-            //                     actions: [
-            //                       TextButton(
-            //                           onPressed: () => Navigator.pop(context),
-            //                           child: Text('Back'))
-            //                     ],
-            //                   );
-            //                 },
-            //               );
-            //             } else {
-            //               Navigator.pop(context);
-            //               Navigator.pop(context);
-            //               Navigator.pop(context);
-            //               showDialog<void>(
-            //                 context: context,
-            //                 barrierDismissible: false,
-            //                 builder: (BuildContext context) {
-            //                   return AlertDialog(
-            //                     title: const Text('Succesfully Booked'),
-            //                     actions: [
-            //                       TextButton(
-            //                         onPressed: () {
-            //                           Navigator.pop(context);
-            //                           Navigator.pushReplacement(
-            //                             context,
-            //                             MaterialPageRoute(
-            //                               builder: (context) =>
-            //                                   slot["type"] == "s"
-            //                                       ? TrufsSetesPage(date)
-            //                                       : TrufsTeamPage(date),
-            //                             ),
-            //                           );
-            //                         },
-            //                         child: Text('Back'),
-            //                       ),
-            //                     ],
-            //                   );
-            //                 },
-            //               );
-            //             }
-            //           },
-            //           child: Text('Confirm '),
-            //         )
-            //       ],
-            //     );
-            //   },
-            // );
+            showDialog<void>(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text('Confirm Book'),
+                  content: SingleChildScrollView(
+                    child: ListBody(
+                      children: <Widget>[Text('Payment Gate way')],
+                    ),
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () => makeBookingpyment(this, slot, context),
+                      child: Text('Confirm '),
+                    )
+                  ],
+                );
+              },
+            );
           },
           child: Container(
             height: 50,

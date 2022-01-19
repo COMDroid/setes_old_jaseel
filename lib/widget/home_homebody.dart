@@ -1,473 +1,123 @@
 import 'package:flutter/material.dart';
-import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/module/simple.dart';
-import 'package:setes_mobile/screen/login.dart';
-import 'package:setes_mobile/screen/toprime.dart';
 import 'package:setes_mobile/screen/trufs_setes.dart';
 
-class HomeHomeBodyPrime extends StatelessWidget {
-  const HomeHomeBodyPrime({Key? key}) : super(key: key);
+class HomeHomeBody extends StatelessWidget {
+  const HomeHomeBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Size scr = getScreen(context);
     return Column(
       children: [
+        SizedBox(height: scr.width * .07),
         Row(
           children: [
-            InkWell(
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => TrufsSetesPage(
-                    dateTomyFormat(DateTime.now()),
-                  ),
-                ),
-              ),
-              child: Container(
-                margin: EdgeInsets.only(
-                  right: scr.width * .01,
-                  left: scr.width * .03,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.redAccent,
-                  image: DecorationImage(
-                    image: AssetImage("assets/scoreBordBg.png"),
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                ),
-                child: Container(
-                  width: scr.width * .46,
-                  height: scr.width * .4,
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Color(0x99000000),
-                          Color(0x00000000),
-                          Color(0x99000000)
-                        ],
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(5))),
-                  child: Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text(
-                          "Setes Booking",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
-                        Text(
-                          "Join Setes Community to start your profesional football career",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+            Padding(
+              padding: EdgeInsets.only(left: scr.width * .08),
+              child: EachButton(0),
             ),
-            InkWell(
-              onTap: () {},
-              child: Container(
-                margin: EdgeInsets.only(
-                    left: scr.width * .01, right: scr.width * .03),
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/leader_board.png"),
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(5),
-                  ),
-                ),
-                child: Container(
-                  width: scr.width * .46,
-                  height: scr.width * .4,
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Color(0x99000000),
-                          Color(0x00000000),
-                          Color(0x99000000)
-                        ],
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(8))),
-                  child: Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text(
-                          "Leader Board",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
-                        Text(
-                          "Be a champ!! show case yourself",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+            Padding(
+              padding: EdgeInsets.only(left: scr.width * .04),
+              child: EachButton(1),
             ),
           ],
         ),
-        SizedBox(height: 10),
+        SizedBox(height: scr.width * .04),
         Row(
           children: [
-            InkWell(
-              onTap: () {},
-              child: Container(
-                margin: EdgeInsets.only(
-                  right: scr.width * .01,
-                  left: scr.width * .03,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.redAccent,
-                  image: DecorationImage(
-                    image: AssetImage("assets/events_img1.png"),
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                ),
-                child: Container(
-                  width: scr.width * .46,
-                  height: scr.width * .4,
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Color(0x99000000),
-                          Color(0x00000000),
-                          Color(0x99000000)
-                        ],
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(5))),
-                  child: Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text(
-                          "Events",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
-                        Text(
-                          "Find out what's more you can earn",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+            Padding(
+              padding: EdgeInsets.only(left: scr.width * .08),
+              child: EachButton(2),
             ),
-            InkWell(
-              onTap: () {},
-              child: Container(
-                margin: EdgeInsets.only(
-                    left: scr.width * .01, right: scr.width * .03),
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/social_media_img.jpg"),
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(5),
-                  ),
-                ),
-                child: Container(
-                  width: scr.width * .46,
-                  height: scr.width * .4,
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Color(0x99000000),
-                          Color(0x00000000),
-                          Color(0x99000000)
-                        ],
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(8))),
-                  child: Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text(
-                          "Social Meadia",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
-                        Text(
-                          "Be a champ!! show case yourself",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+            Padding(
+              padding: EdgeInsets.only(left: scr.width * .04),
+              child: EachButton(3),
             ),
           ],
-        )
+        ),
       ],
     );
   }
 }
 
-class HomeHomeBodyNotPrime extends StatelessWidget {
-  const HomeHomeBodyNotPrime({Key? key}) : super(key: key);
+class EachButton extends StatelessWidget {
+  final int i;
+  const EachButton(this.i, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Size scr = getScreen(context);
-    return Row(
-      children: [
-        InkWell(
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => TrufsSetesPage(
-                dateTomyFormat(DateTime.now()),
-              ),
-            ),
-          ),
-          child: Container(
-            margin: EdgeInsets.only(
-              right: scr.width * .01,
-              left: scr.width * .03,
-            ),
-            decoration: BoxDecoration(
-              color: Colors.redAccent,
-              image: DecorationImage(
-                image: AssetImage("assets/scoreBordBg.png"),
-                fit: BoxFit.cover,
-              ),
-              borderRadius: BorderRadius.all(Radius.circular(5)),
-            ),
-            child: Container(
-              width: scr.width * .46,
-              height: scr.width * .4,
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0x99000000),
-                      Color(0x00000000),
-                      Color(0x99000000)
-                    ],
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(5))),
-              child: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
-                      "Setes Booking",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                    Text(
-                      "Join Setes Community to start your profesional football career",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+    return Container(
+      width: scr.width * .4,
+      height: scr.width * .52,
+      padding: EdgeInsets.all(scr.width * .02),
+      decoration: BoxDecoration(
+        color: i == 0
+            ? Color(0xff9C65FC)
+            : i == 1
+                ? Color(0xffFD7A9C)
+                : i == 2
+                    ? Color(0xff6AD9C8)
+                    : Color(0xffFFDD7C),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(i == 0 ? scr.width * .4 : 20),
+          topRight: Radius.circular(i == 1 ? scr.width * .4 : 20),
+          bottomLeft: Radius.circular(i == 2 ? scr.width * .4 : 20),
+          bottomRight: Radius.circular(i == 3 ? scr.width * .4 : 20),
         ),
-        InkWell(
-          onTap: () {
-            if (gbisGuest) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const LoginPage(),
-                ),
-              );
-            } else {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const ToPrimePage(),
-                ),
-              );
-            }
-          },
-          child: Container(
-            margin:
-                EdgeInsets.only(left: scr.width * .01, right: scr.width * .03),
-            decoration: BoxDecoration(
-              image: DecorationImage(image: AssetImage("assets/bg_a.png")),
-              borderRadius: BorderRadius.all(
-                Radius.circular(5),
-              ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            offset: const Offset(5.0, 5.0),
+            blurRadius: 10.0,
+            spreadRadius: 2.0,
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          if (i == 0)
+            Image.asset(
+              "assets/setes_booking.png",
+              height: scr.width * .3,
+              fit: BoxFit.fitWidth,
             ),
-            child: Container(
-              width: scr.width * .46,
-              height: scr.width * .4,
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0x99000000),
-                      Color(0x00000000),
-                      Color(0x99000000)
-                    ],
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(8))),
-              child: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
-                      "Upgrade To Community",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                    Text(
-                      "Get more benifits on Setes community",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+          if (i == 1)
+            Image.asset(
+              "assets/setes_booking.png",
+              height: scr.width * .3,
+              fit: BoxFit.fitWidth,
+            ),
+          Text(
+            i == 0
+                ? "SETES BOOKING"
+                : i == 1
+                    ? "LEADER BOARD"
+                    : i == 2
+                        ? "EVENTS"
+                        : "SOCIAL MEDIA",
+            style: TextStyle(
+              color: Color(0xeeffffff),
+              fontSize: scr.width * .042,
+              fontWeight: FontWeight.bold,
             ),
           ),
-        ),
-        // InkWell(
-        //   onTap: () => Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //       builder: (context) =>
-        //           TrufsTeamPage(dateTomyFormat(DateTime.now())),
-        //     ),
-        //   ),
-        //   child: Container(
-        //     margin:
-        //         EdgeInsets.only(left: scr.width * .01, right: scr.width * .03),
-        //     decoration: BoxDecoration(
-        //       image: DecorationImage(image: AssetImage("assets/bg_a.png")),
-        //       borderRadius: BorderRadius.all(
-        //         Radius.circular(5),
-        //       ),
-        //     ),
-        //     child: Container(
-        //       width: scr.width * .46,
-        //       height: scr.width * .4,
-        //       padding: const EdgeInsets.all(10),
-        //       decoration: BoxDecoration(
-        //           gradient: LinearGradient(
-        //             begin: Alignment.topCenter,
-        //             end: Alignment.bottomCenter,
-        //             colors: [
-        // Color(0x99000000),
-        //                         Color(0x00000000),
-        //                         Color(0x99000000)
-        //             ],
-        //           ),
-        //           borderRadius: BorderRadius.all(Radius.circular(8))),
-        //       child: Container(
-        //         child: Column(
-        //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //           children: const [
-        //             Text(
-        //               "Team Booking",
-        //               textAlign: TextAlign.center,
-        //               style: TextStyle(
-        //                 color: Colors.white,
-        //                 fontWeight: FontWeight.bold,
-        //                 fontSize: 20,
-        //               ),
-        //             ),
-        //             Text(
-        //               "Do you have your team with you? Book hear",
-        //               textAlign: TextAlign.center,
-        //               style: TextStyle(
-        //                 color: Colors.white,
-        //                 fontWeight: FontWeight.bold,
-        //                 fontSize: 12,
-        //               ),
-        //             ),
-        //           ],
-        //         ),
-        //       ),
-        //     ),
-        //   ),
-        // ),
-      ],
+          if (i == 2)
+            Image.asset(
+              "assets/events.png",
+              height: scr.width * .3,
+              fit: BoxFit.fitWidth,
+            ),
+          if (i == 3)
+            Image.asset(
+              "assets/setes_booking.png",
+              height: scr.width * .3,
+              fit: BoxFit.fitWidth,
+            ),
+        ],
+      ),
     );
   }
 }

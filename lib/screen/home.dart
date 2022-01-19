@@ -62,26 +62,27 @@ class _BodyState extends State<Body> {
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 5),
-                      Text(
-                        "SETES",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black87,
-                            fontSize: 20),
-                      ),
-                      Text(
-                        gbisPrime ? "Community" : "Sports",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black54,
-                            fontSize: 12),
-                      ),
-                    ],
-                  ),
+                  Image.asset("assets/setes.jpeg", height: 40),
+                  // Column(
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   children: [
+                  //     SizedBox(height: 5),
+                  //     Text(
+                  //       "SETES",
+                  //       style: TextStyle(
+                  //           fontWeight: FontWeight.w700,
+                  //           color: Colors.black87,
+                  //           fontSize: 20),
+                  //     ),
+                  //     Text(
+                  //       gbisPrime ? "Community" : "Sports",
+                  //       style: TextStyle(
+                  //           fontWeight: FontWeight.w700,
+                  //           color: Colors.black54,
+                  //           fontSize: 12),
+                  //     ),
+                  //   ],
+                  // ),
                   Row(
                     children: [
                       IconButton(

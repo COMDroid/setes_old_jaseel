@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:setes_mobile/screen/register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-login(context, setstate, state) async {
+  login(context, setstate, state) async {
   if (state["loading"]) {
     return;
   }
@@ -125,6 +125,7 @@ logout(context) async {
   await prefs.setString('userid', "");
   gbUserId = "";
   gbUserKey = "";
+  gbUser = {};
   Navigator.pop(context);
   Navigator.pop(context);
   Navigator.pushReplacement(
