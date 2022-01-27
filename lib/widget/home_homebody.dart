@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/module/simple.dart';
+import 'package:setes_mobile/screen/home_truf.dart';
+import 'package:setes_mobile/screen/login.dart';
+import 'package:setes_mobile/screen/toprime.dart';
 import 'package:setes_mobile/screen/trufs_setes.dart';
 
 class HomeHomeBody extends StatelessWidget {
@@ -15,11 +19,67 @@ class HomeHomeBody extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.only(left: scr.width * .08),
-              child: EachButton(0),
+              child: InkWell(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TrufsSetesPage(
+                      dateTomyFormat(DateTime.now()),
+                    ),
+                  ),
+                ),
+                child: EachButton(0),
+              ),
             ),
             Padding(
               padding: EdgeInsets.only(left: scr.width * .04),
-              child: EachButton(1),
+              child: InkWell(
+                onTap: () {
+                  if (gbisPrime) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomeTruf()),
+                    );
+                  } else {
+                    showDialog<void>(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Upgrade to SETES Community'),
+                          content: const Text(
+                            'Upgrade to SETES Community to use more feature with setes football club',
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                                upgradingtoPrime = true;
+                                if (gbisGuest)
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const LoginPage(),
+                                    ),
+                                  );
+                                else
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const ToPrimePage(),
+                                    ),
+                                  );
+                              },
+                              child: Text('Upgrade Now'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
+                },
+                child: EachButton(1),
+              ),
             ),
           ],
         ),
@@ -86,7 +146,7 @@ class EachButton extends StatelessWidget {
             ),
           if (i == 1)
             Image.asset(
-              "assets/setes_booking.png",
+              "assets/leader_bord.png",
               height: scr.width * .3,
               fit: BoxFit.fitWidth,
             ),
@@ -112,7 +172,7 @@ class EachButton extends StatelessWidget {
             ),
           if (i == 3)
             Image.asset(
-              "assets/setes_booking.png",
+              "assets/social.png",
               height: scr.width * .3,
               fit: BoxFit.fitWidth,
             ),

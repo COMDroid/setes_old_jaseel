@@ -4,3 +4,5 @@ bool gbisGuest = true;
 bool gbisPrime = false;
 
 Map gbUser = {};
+
+bool upgradingtoPrime = false;

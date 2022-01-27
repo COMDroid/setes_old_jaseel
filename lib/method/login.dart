@@ -8,9 +8,10 @@ import 'package:setes_mobile/screen/login.dart';
 import 'package:setes_mobile/screen/otp.dart';
 import 'package:http/http.dart' as http;
 import 'package:setes_mobile/screen/register.dart';
+import 'package:setes_mobile/screen/toprime.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-  login(context, setstate, state) async {
+login(context, setstate, state) async {
   if (state["loading"]) {
     return;
   }
@@ -54,8 +55,10 @@ validateOtp(context, setstate, state, data) async {
   setstate("loading", true);
   setstate("error", null);
   try {
-    var res = await http.post(setApi("login"),
-        body: {"otp": state["otpC"].text, "pin": data["pin"]});
+    var res = await http.post(
+      setApi("login"),
+      body: {"otp": state["otpC"].text, "pin": data["pin"]},
+    );
     if (res.statusCode == 200) {
       if (await jsonDecode(res.body)["registerd"]) {
         var body = await jsonDecode(res.body);
@@ -69,13 +72,19 @@ validateOtp(context, setstate, state, data) async {
         await prefs.setString('authkey', gbUserKey);
         Navigator.pop(context);
         Navigator.pop(context);
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => const HomePage()));
+        if (upgradingtoPrime && !gbisPrime)
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const ToPrimePage()));
+        else
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const HomePage()));
       } else {
         Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => RegisterPage(jsonDecode(res.body))));
+          context,
+          MaterialPageRoute(
+            builder: (context) => RegisterPage(jsonDecode(res.body)),
+          ),
+        );
       }
     } else {
       setstate("error", jsonDecode(res.body)["msg"]);
@@ -107,10 +116,13 @@ register(context, setstate, state, data) async {
       await prefs.setString('authkey', gbUserKey);
       Navigator.pop(context);
       Navigator.pop(context);
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const HomePage()));
+      if (upgradingtoPrime)
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const ToPrimePage()));
+      else
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => const HomePage()));
     } else {
-      print(res.body);
       setstate("error", await jsonDecode(res.body)["msg"]);
     }
   } catch (e) {

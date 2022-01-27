@@ -68,11 +68,6 @@ class TrufsSetesPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      IconButton(
-                        onPressed: () => setDate(context, "s"),
-                        icon: Icon(Icons.calendar_today,
-                            size: 28, color: Colors.black87),
-                      ),
                     ],
                   ),
                 ),
@@ -83,7 +78,7 @@ class TrufsSetesPage extends StatelessWidget {
                 overflow: Overflow.visible,
                 children: [
                   Positioned(
-                    top: -scr.width,
+                    top: -scr.width + 70,
                     bottom: 0,
                     left: 0,
                     right: 0,
@@ -130,7 +125,8 @@ class SetesTrufLoader extends StatelessWidget {
                 SizedBox(height: scr.width * .5),
                 Container(
                   constraints: BoxConstraints(
-                      minHeight: scr.height - (scr.width * .5 + 90)),
+                    minHeight: scr.height - (scr.width * .5 + 90),
+                  ),
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -156,19 +152,20 @@ class SetesTrufLoader extends StatelessWidget {
                                 Row(
                                   children: [
                                     Text(
-                                      getDateName(props.date) +
-                                          " Perinthalmanna",
+                                      getDateName(props.date),
+                                      // +
+                                      //     " Perinthalmanna",
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500,
                                           color: Colors.black54,
                                           fontSize: 12),
                                     ),
-                                    SizedBox(width: 5),
-                                    Icon(
-                                      Icons.location_on,
-                                      size: 18,
-                                      color: Colors.black54,
-                                    )
+                                    // SizedBox(width: 5),
+                                    // Icon(
+                                    //   Icons.location_on,
+                                    //   size: 18,
+                                    //   color: Colors.black54,
+                                    // )
                                   ],
                                 ),
                                 Text(
@@ -180,11 +177,14 @@ class SetesTrufLoader extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            Icon(
-                              Icons.search_sharp,
-                              size: 40,
-                              color: Color(0xff0E6E9D),
-                            )
+                            IconButton(
+                              onPressed: () => setDate(context, "s"),
+                              icon: Icon(
+                                Icons.calendar_today,
+                                size: 25,
+                                color: Colors.blue,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -282,11 +282,24 @@ class EachSetesTruf extends StatelessWidget {
                   SizedBox(height: 3),
                   Row(
                     children: [
-                      Icon(Icons.star, color: Color(0xff193B8B), size: 16),
-                      Icon(Icons.star, color: Color(0xff193B8B), size: 16),
-                      Icon(Icons.star, color: Color(0xff193B8B), size: 16),
-                      Icon(Icons.star, color: Color(0xff193B8B), size: 16),
-                      Icon(Icons.star, color: Color(0xff193B8B), size: 16),
+                      Icon(data["raiting"] > 0 ? Icons.star : Icons.star_border,
+                          color: Color(0xff193B8B), size: 16),
+                      Icon(
+                          data["raiting"] > 10 ? Icons.star : Icons.star_border,
+                          color: Color(0xff193B8B),
+                          size: 16),
+                      Icon(
+                          data["raiting"] > 20 ? Icons.star : Icons.star_border,
+                          color: Color(0xff193B8B),
+                          size: 16),
+                      Icon(
+                          data["raiting"] > 30 ? Icons.star : Icons.star_border,
+                          color: Color(0xff193B8B),
+                          size: 16),
+                      Icon(
+                          data["raiting"] > 40 ? Icons.star : Icons.star_border,
+                          color: Color(0xff193B8B),
+                          size: 16),
                     ],
                   ),
                   SizedBox(height: 3),

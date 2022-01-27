@@ -16,7 +16,7 @@ setDate(context, type) {
             errorStyle: TextStyle(color: Colors.redAccent),
             border: OutlineInputBorder(),
             suffixIcon: Icon(Icons.event_note),
-            labelText: 'Only time',
+            labelText: 'Select Date',
           ),
           mode: DateTimeFieldPickerMode.date,
           autovalidateMode: AutovalidateMode.always,
@@ -34,12 +34,6 @@ setDate(context, type) {
             );
           },
         ),
-        // actions: [
-        //   TextButton(
-        //     onPressed: () {},
-        //     child: Text('Back'),
-        //   ),
-        // ],
       );
     },
   );

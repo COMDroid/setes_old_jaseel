@@ -28,7 +28,7 @@ class HomePlayer extends StatelessWidget {
                     style: TextStyle(
                         fontWeight: FontWeight.w700,
                         color: Colors.black87,
-                        fontSize: 20),
+                        fontSize: 18),
                   ),
                   Row(
                     children: [
