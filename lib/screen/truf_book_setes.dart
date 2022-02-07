@@ -293,7 +293,7 @@ class TrufBookBody extends StatelessWidget {
           onTap: () {
             showDialog<void>(
               context: context,
-              builder: (BuildContext context) {
+              builder: (BuildContext context1) {
                 return AlertDialog(
                   title: const Text('Confirm Book'),
                   content: SingleChildScrollView(

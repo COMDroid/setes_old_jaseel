@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:setes_mobile/module/api_init.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+      // debugShowCheckedModeBanner: false,
       title: 'Setes',
       theme: ThemeData(primarySwatch: Colors.green),
       home: HomeConfig(),
@@ -59,6 +60,7 @@ class HomeConfig extends StatelessWidget {
           gbisPrime = body['prime'] ?? false;
           gbUser = body;
           page = const HomePage();
+          print(body);
         } else {
           if (res.statusCode == 410) {
             page = const ExpiredPage();

@@ -4,6 +4,7 @@ import 'package:setes_mobile/module/api_init.dart';
 import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/screen/trufs_setes.dart';
 import 'package:setes_mobile/screen/trufs_team.dart';
+import 'package:setes_mobile/screen/warnings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -21,7 +22,6 @@ getBookings() async {
 }
 
 bookingError(context, msg) {
-  Navigator.pop(context);
   showDialog<void>(
     context: context,
     builder: (BuildContext context) {
@@ -43,19 +43,27 @@ bookingError(context, msg) {
 
 makeBookingpyment(props, slot, context) {
   Navigator.pop(context);
-  showDialog<void>(
-    context: context,
-    barrierDismissible: false,
-    builder: (BuildContext context) {
-      return AlertDialog(title: const Text('Loading...'));
-    },
-  );
   void _handlePaymentSuccess(PaymentSuccessResponse response) async {
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Loading...'),
+          content: Row(
+            children: [
+              Loading(),
+              Text("You Booking is omplate in few seconds")
+            ],
+          ),
+        );
+      },
+    );
     var res = await bookTruf(props);
+    Navigator.pop(context);
     if (res[0]) {
       bookingError(context, res[1]["msg"]);
     } else {
-      Navigator.pop(context);
       Navigator.pop(context);
       Navigator.pop(context);
       showDialog<void>(

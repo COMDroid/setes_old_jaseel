@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/module/simple.dart';
+import 'package:setes_mobile/screen/events.dart';
 import 'package:setes_mobile/screen/home_truf.dart';
-import 'package:setes_mobile/screen/login.dart';
-import 'package:setes_mobile/screen/toprime.dart';
 import 'package:setes_mobile/screen/trufs_setes.dart';
 
 class HomeHomeBody extends StatelessWidget {
@@ -35,48 +33,52 @@ class HomeHomeBody extends StatelessWidget {
               padding: EdgeInsets.only(left: scr.width * .04),
               child: InkWell(
                 onTap: () {
-                  if (gbisPrime) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomeTruf()),
-                    );
-                  } else {
-                    showDialog<void>(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: const Text('Upgrade to SETES Community'),
-                          content: const Text(
-                            'Upgrade to SETES Community to use more feature with setes football club',
-                          ),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                                upgradingtoPrime = true;
-                                if (gbisGuest)
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const LoginPage(),
-                                    ),
-                                  );
-                                else
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const ToPrimePage(),
-                                    ),
-                                  );
-                              },
-                              child: Text('Upgrade Now'),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  }
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomeTruf()),
+                  );
+                  // if (gbisPrime) {
+                  //   Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(builder: (context) => HomeTruf()),
+                  //   );
+                  // } else {
+                  //   showDialog<void>(
+                  //     context: context,
+                  //     barrierDismissible: false,
+                  //     builder: (BuildContext context) {
+                  //       return AlertDialog(
+                  //         title: const Text('Upgrade to SETES Community'),
+                  //         content: const Text(
+                  //           'Upgrade to SETES Community to use more feature with setes football club',
+                  //         ),
+                  //         actions: [
+                  //           TextButton(
+                  //             onPressed: () {
+                  //               Navigator.pop(context);
+                  //               upgradingtoPrime = true;
+                  //               if (gbisGuest)
+                  //                 Navigator.push(
+                  //                   context,
+                  //                   MaterialPageRoute(
+                  //                     builder: (context) => const LoginPage(),
+                  //                   ),
+                  //                 );
+                  //               else
+                  //                 Navigator.push(
+                  //                   context,
+                  //                   MaterialPageRoute(
+                  //                     builder: (context) => const ToPrimePage(),
+                  //                   ),
+                  //                 );
+                  //             },
+                  //             child: Text('Upgrade Now'),
+                  //           ),
+                  //         ],
+                  //       );
+                  //     },
+                  //   );
+                  // }
                 },
                 child: EachButton(1),
               ),
@@ -87,9 +89,15 @@ class HomeHomeBody extends StatelessWidget {
         Row(
           children: [
             Padding(
-              padding: EdgeInsets.only(left: scr.width * .08),
-              child: EachButton(2),
-            ),
+                padding: EdgeInsets.only(left: scr.width * .08),
+                child: InkWell(
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => EventsPage()),
+                  ),
+                  child: EachButton(2),
+                )),
             Padding(
               padding: EdgeInsets.only(left: scr.width * .04),
               child: EachButton(3),

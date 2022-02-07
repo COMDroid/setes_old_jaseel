@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/module/simple.dart';
+import 'package:setes_mobile/screen/events.dart';
 import 'package:setes_mobile/widget/home_banner.dart';
 import 'package:setes_mobile/widget/home_homebody.dart';
 import 'package:setes_mobile/widget/home_player.dart';
@@ -17,7 +17,14 @@ class HomeHome extends StatelessWidget {
         Expanded(
           child: ListView(
             children: [
-              HomeBanner(data["events"]),
+              InkWell(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => EventsPage()),
+                ),
+                child: HomeBanner(data["events"]),
+              ),
               HomePlayer(data["players"]),
               // Padding(
               //   padding: EdgeInsets.only(

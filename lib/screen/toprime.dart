@@ -169,7 +169,6 @@ class _ToPrimeFormState extends State<ToPrimeForm> {
           child: ListView(
             padding: EdgeInsets.only(top: 8),
             children: [
-             
               DroperButton(
                 Icons.bloodtype,
                 'Blood Group',
@@ -188,6 +187,7 @@ class _ToPrimeFormState extends State<ToPrimeForm> {
                   zones = v['zone'];
                 }),
               ),
+              const SizedBox(height: 10),
               DroperButton2(
                 Icons.landscape,
                 'Zone',

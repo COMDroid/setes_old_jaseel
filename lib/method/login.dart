@@ -159,6 +159,8 @@ guestLogin(props) async {
     if (res.statusCode == 200) {
       gbUserId = await jsonDecode(res.body)["_id"];
       gbUserKey = await jsonDecode(res.body)["key"];
+      gbisGuest = true;
+      gbisPrime = false;
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('userid', gbUserId);
       await prefs.setString('authkey', gbUserKey);

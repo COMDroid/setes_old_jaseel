@@ -37,11 +37,12 @@ class ErrorPage extends StatelessWidget {
 }
 
 class ErrorBody extends StatelessWidget {
-  const ErrorBody({Key? key}) : super(key: key);
+  final String error;
+  const ErrorBody({Key? key, this.error = "Error"}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("Error"));
+    return Center(child: Text(error));
   }
 }
 

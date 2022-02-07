@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:setes_mobile/method/login.dart';
 import 'package:setes_mobile/module/gb_var.dart';

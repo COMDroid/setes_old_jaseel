@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:setes_mobile/module/simple.dart';
+import 'package:setes_mobile/screen/scorebord.dart';
 import 'package:setes_mobile/widget/scorebord_timer.dart';
 
 class HomeScorebord extends StatelessWidget {
@@ -154,7 +155,18 @@ class HomeScorebord extends StatelessWidget {
                                       ),
                                     ),
                                     for (var i = 0; i < bookings.length; i++)
-                                      EachScore(bookings[i]),
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ScoreBordScreen(bookings[i]),
+                                            ),
+                                          );
+                                        },
+                                        child: EachScore(bookings[i]),
+                                      ),
                                     if (bookings.length == 0)
                                       Row(
                                         mainAxisAlignment:

@@ -127,6 +127,8 @@ toprime2(props) async {
           body: jsonEncode(body));
       if (res.statusCode == 200) {
         gbisPrime = true;
+        body['prime'] = true;
+        gbUser = {...gbUser, ...body};
         Navigator.pop(props.context);
         Navigator.pop(props.context);
         Navigator.pushReplacement(props.context,

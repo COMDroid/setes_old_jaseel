@@ -140,50 +140,44 @@ class SetesTrufLoader extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: scr.width * .05,
-                          vertical: 15,
+                          vertical: 20,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Column(
+                            Text(
+                              "Setes Vennes",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black87,
+                                  fontSize: 20),
+                            ),
+                            Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(height: 5),
-                                Row(
-                                  children: [
-                                    Text(
-                                      getDateName(props.date),
-                                      // +
-                                      //     " Perinthalmanna",
-                                      style: TextStyle(
+                                InkWell(
+                                  onTap: () => setDate(context, "s"),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        getDateName(props.date),
+                                        style: TextStyle(
                                           fontWeight: FontWeight.w500,
-                                          color: Colors.black54,
-                                          fontSize: 12),
-                                    ),
-                                    // SizedBox(width: 5),
-                                    // Icon(
-                                    //   Icons.location_on,
-                                    //   size: 18,
-                                    //   color: Colors.black54,
-                                    // )
-                                  ],
-                                ),
-                                Text(
-                                  "Setes Vennes",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.black87,
-                                      fontSize: 20),
+                                          color: Colors.black38,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      SizedBox(width: 8),
+                                      Icon(
+                                        Icons.calendar_today,
+                                        size: 23,
+                                        color: Colors.blue,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
-                            ),
-                            IconButton(
-                              onPressed: () => setDate(context, "s"),
-                              icon: Icon(
-                                Icons.calendar_today,
-                                size: 25,
-                                color: Colors.blue,
-                              ),
                             ),
                           ],
                         ),
