@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:setes_mobile/method/home_truf.dart';
 import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/module/simple.dart';
+import 'package:setes_mobile/screen/profile.dart';
 import 'package:setes_mobile/screen/warnings.dart';
 import 'package:setes_mobile/widget/home_trufs.dart';
 
@@ -288,7 +289,16 @@ class _HomeTrufState extends State<HomeTruf> {
                                   Loading()
                                 else
                                   for (var i = 0; i < members.length; i++)
-                                    EachMember(members[i]),
+                                    InkWell(
+                                      onTap: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ProfiePage(members[i]),
+                                        ),
+                                      ),
+                                      child: EachMember(members[i]),
+                                    ),
                               ],
                             ),
                           ),

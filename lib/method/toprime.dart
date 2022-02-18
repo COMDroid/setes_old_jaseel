@@ -49,8 +49,8 @@ toprime(props) {
   if (props.secfavposition == null) {
     props.setState(() {
       props.error = "Chose your second favorite position";
-    });
     return 0;
+    });
   }
   if (props.strongfoot == null) {
     props.setState(() {
@@ -87,14 +87,14 @@ toprime2(props) async {
 
   if (props.nameC.text == "") {
     props.setState(() {
-      props.error = "Chose your name";
+      props.error = "Enter your name";
     });
     return 0;
   }
 
   if (props.emailC.text == "") {
     props.setState(() {
-      props.error = "Chose your email";
+      props.error = "Enter your email";
     });
     return 0;
   }
@@ -116,6 +116,7 @@ toprime2(props) async {
     "strong_foot": props.widget.props.strongfoot,
     "home_truf": props.home,
     "sex": props.sex,
+    "dob": "01-01-2000",
     "name": props.nameC.text,
     "email": props.emailC.text,
   };

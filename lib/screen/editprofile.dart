@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:setes_mobile/method/editprofile.dart';
 import 'package:setes_mobile/method/toprime.dart';
+import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/module/simple.dart';
+import 'package:setes_mobile/style/textbox.dart';
 import 'package:setes_mobile/widget/buttons.dart';
 
-class ToPrimePage extends StatelessWidget {
-  const ToPrimePage({Key? key}) : super(key: key);
+class EditProfileScreen extends StatelessWidget {
+  const EditProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +80,7 @@ class ToPrimePage extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(20),
-                child: ToPrimeForm(),
+                child: EditProfileForm(),
               ),
             ),
           ),
@@ -117,35 +120,36 @@ class ToPrimePage extends StatelessWidget {
   }
 }
 
-class ToPrimeForm extends StatefulWidget {
-  const ToPrimeForm({Key? key}) : super(key: key);
+class EditProfileForm extends StatefulWidget {
+  const EditProfileForm({Key? key}) : super(key: key);
 
   @override
-  _ToPrimeFormState createState() => _ToPrimeFormState();
+  _EditProfileFormState createState() => _EditProfileFormState();
 }
 
-class _ToPrimeFormState extends State<ToPrimeForm> {
+class _EditProfileFormState extends State<EditProfileForm> {
   bool loading = true;
   String? error;
   Map primeData = {};
 
+  String? bloodGp = gbUser["blood_group"];
+  String? bootsize = gbUser["bootsize"];
+  String? tshitrsize = gbUser["t_shirt_size"];
+  String? favposition = gbUser["fav_position"];
+  String? secfavposition = gbUser["sec_fav_position"];
+  String? strongfoot = gbUser["strong_foot"];
+  String? sex = gbUser["sex"];
 
-  String? bloodGp;
-  Map? district;
-  Map? zone;
-  List zones = [];
-  Map? home;
-  List homes = [];
-  String? bootsize;
-  String? tshitrsize;
-  String? favposition;
-  String? secfavposition;
-  String? strongfoot;
+  TextEditingController nameC = TextEditingController();
+  TextEditingController emailC = TextEditingController();
 
   @override
   void initState() {
     getPrimePrice(this);
-
+    setState(() {
+      nameC.text = gbUser["name"] ?? '';
+      emailC.text = gbUser["email"] ?? '';
+    });
     super.initState();
   }
 
@@ -156,7 +160,7 @@ class _ToPrimeFormState extends State<ToPrimeForm> {
       children: [
         const SizedBox(height: 5),
         const Text(
-          "Upgrade to Setes Community",
+          "Edit Your SETES Profile",
           style: TextStyle(
             color: Color(0xFF1368A9),
             fontWeight: FontWeight.bold,
@@ -168,31 +172,40 @@ class _ToPrimeFormState extends State<ToPrimeForm> {
           child: ListView(
             padding: EdgeInsets.only(top: 8),
             children: [
+              const SizedBox(height: 10),
+              TextField(
+                controller: nameC,
+                autocorrect: true,
+                keyboardType: TextInputType.text,
+                decoration: textBoxStyle1(
+                  'Enter your name ',
+                  Icons.person_outline,
+                ),
+              ),
+              const SizedBox(height: 10),
+              TextField(
+                controller: emailC,
+                autocorrect: true,
+                decoration: textBoxStyle1(
+                  'Enter your email ',
+                  Icons.email_outlined,
+                ),
+              ),
+              const SizedBox(height: 10),
+              DroperButton(
+                Icons.person,
+                'Sex',
+                sex,
+                ['Male', "Female"],
+                (v) => setState(() => sex = v),
+              ),
+              const SizedBox(height: 10),
               DroperButton(
                 Icons.bloodtype,
                 'Blood Group',
                 bloodGp,
                 loading ? [] : primeData['blood_groups'],
                 (v) => setState(() => bloodGp = v),
-              ),
-              const SizedBox(height: 10),
-              DroperButton2(
-                Icons.landscape,
-                'District',
-                district,
-                loading ? [] : primeData['locations'][0]['zone'],
-                (v) => setState(() {
-                  district = v;
-                  zones = v['zone'];
-                }),
-              ),
-              const SizedBox(height: 10),
-              DroperButton2(
-                Icons.landscape,
-                'Zone',
-                zone,
-                zones,
-                (v) => setState(() => zone = v),
               ),
               const SizedBox(height: 10),
               DroperButton(
@@ -259,7 +272,7 @@ class _ToPrimeFormState extends State<ToPrimeForm> {
                 ),
               ),
         InkWell(
-          onTap: () => toprime(this),
+          onTap: () => editProfile(this),
           child: Container(
             height: 50,
             width: scr.width,
@@ -305,13 +318,6 @@ class _ToPrimeFormState extends State<ToPrimeForm> {
                             fontSize: 20),
                       ),
                       Icon(Icons.next_plan, color: Colors.white)
-                      // Text(
-                      //   ((primeData['price_pm'] ?? 0) / 100).toString() + "/-",
-                      //   style: TextStyle(
-                      //       fontWeight: FontWeight.w700,
-                      //       color: Colors.white,
-                      //       fontSize: 20),
-                      // ),
                     ],
                   ),
           ),

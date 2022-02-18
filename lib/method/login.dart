@@ -155,7 +155,6 @@ guestLogin(props) async {
   props.seterror(null);
   try {
     var res = await http.post(setApi("guestlogin"), body: {});
-    print(res.body);
     if (res.statusCode == 200) {
       gbUserId = await jsonDecode(res.body)["_id"];
       gbUserKey = await jsonDecode(res.body)["key"];

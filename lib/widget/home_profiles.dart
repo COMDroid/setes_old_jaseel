@@ -17,17 +17,19 @@ class HomeProfileEach extends StatelessWidget {
             width: scr.width * .3,
             child: Text(
               title,
-              style: TextStyle(
-                color: Colors.black45,
-                fontWeight: FontWeight.w500,
-              ),
+              style:
+                  TextStyle(color: Colors.black45, fontWeight: FontWeight.w500),
             ),
           ),
-          Text(
-            value ?? '',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
+          SizedBox(
+            width: scr.width * .5,
+            child: Text(
+              value ?? '',
+              style: TextStyle(
+                fontSize: 16,
+                overflow: TextOverflow.ellipsis,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
         ],
