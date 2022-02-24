@@ -5,8 +5,6 @@ import 'package:setes_mobile/method/bookings.dart';
 import 'package:setes_mobile/method/truf.dart';
 import 'package:setes_mobile/module/api_init.dart';
 import 'package:setes_mobile/module/simple.dart';
-import 'package:setes_mobile/screen/trufs_setes.dart';
-import 'package:setes_mobile/screen/trufs_team.dart';
 import 'package:setes_mobile/screen/warnings.dart';
 
 class TrufBookSetesPage extends StatelessWidget {
@@ -290,7 +288,25 @@ class TrufBookBody extends StatelessWidget {
               ],
             )),
         InkWell(
-          onTap: () {
+          onTap: () async {
+            showDialog<void>(
+              context: context,
+              barrierDismissible: false,
+              builder: (BuildContext context1) {
+                return AlertDialog(title: Text("Loading.."));
+              },
+            );
+            List verRes = await verifyBookingTruf(props);
+            Navigator.pop(context);
+            if (!verRes[0]) {
+              showDialog<void>(
+                context: context,
+                builder: (BuildContext context1) {
+                  return AlertDialog(title: Text(verRes[1]));
+                },
+              );
+              return;
+            }
             showDialog<void>(
               context: context,
               builder: (BuildContext context1) {

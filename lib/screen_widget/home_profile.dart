@@ -230,6 +230,11 @@ class MyprofileSkills extends StatelessWidget {
   final props;
   const MyprofileSkills(this.props, {Key? key}) : super(key: key);
 
+  setValue(v) {
+    if (v == null) return '0';
+    return v.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size scr = getScreen(context);
@@ -286,17 +291,14 @@ class MyprofileSkills extends StatelessWidget {
             ),
             child: ListView(
               children: [
-                MyProfileText1("Goals", gbUser['my_goal'] ?? '0'),
-                MyProfileText1("Assistant", gbUser['my_assistant'] ?? '0'),
-                MyProfileText1("Free Kick", gbUser['my_free_kick'] ?? '0'),
-                MyProfileText1(
-                    "Penalty Goal", gbUser['my_penalty_goal'] ?? '0'),
-                MyProfileText1(
-                    "Interception", gbUser['my_interception'] ?? '0'),
-                MyProfileText1("Save", gbUser['my_save'] ?? '0'),
-                MyProfileText1("Clean Sheet", gbUser['my_clean_sheet'] ?? '0'),
-                MyProfileText1(
-                    "Penalty Save", gbUser['my_penalty_save'] ?? '0'),
+                MyProfileText1("Goals", setValue(gbUser['my_goal'])),
+                MyProfileText1("Assistant", setValue(['my_assistant'])),
+                MyProfileText1("Free Kick", setValue(['my_free_kick'])),
+                MyProfileText1("Penalty Goal", setValue(['my_penalty_goal'])),
+                MyProfileText1("Interception", setValue(['my_interception'])),
+                MyProfileText1("Save", setValue(['my_save'])),
+                MyProfileText1("Clean Sheet", setValue(['my_clean_sheet'])),
+                MyProfileText1("Penalty Save", setValue(['my_penalty_save'])),
               ],
             ),
           ))

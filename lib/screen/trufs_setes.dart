@@ -116,80 +116,83 @@ class SetesTrufLoader extends StatelessWidget {
       future: getTrufs("s", props.date),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
+          print(snapshot.data);
+          if (snapshot.hasError) {
+            return Expanded(child: ErrorBody());
+          }
           if (jsonDecode(snapshot.data.toString())[0]) {
             return Expanded(child: ErrorBody());
-          } else {
-            var datas = jsonDecode(snapshot.data.toString())[1];
-            return ListView(
-              children: [
-                SizedBox(height: scr.width * .5),
-                Container(
-                  constraints: BoxConstraints(
-                    minHeight: scr.height - (scr.width * .5 + 90),
-                  ),
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(35),
-                      topRight: Radius.circular(35),
-                    ),
-                  ),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: scr.width * .05,
-                          vertical: 20,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Setes Vennes",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.black87,
-                                  fontSize: 20),
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(height: 5),
-                                InkWell(
-                                  onTap: () => setDate(context, "s"),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        getDateName(props.date),
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.black38,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                      SizedBox(width: 8),
-                                      Icon(
-                                        Icons.calendar_today,
-                                        size: 23,
-                                        color: Colors.blue,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      for (var i = 0; i < datas.length; i++)
-                        EachSetesTruf(datas[i], props),
-                    ],
+          }
+          var datas = jsonDecode(snapshot.data.toString())[1];
+          return ListView(
+            children: [
+              SizedBox(height: scr.width * .5),
+              Container(
+                constraints: BoxConstraints(
+                  minHeight: scr.height - (scr.width * .5 + 90),
+                ),
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(35),
+                    topRight: Radius.circular(35),
                   ),
                 ),
-              ],
-            );
-          }
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: scr.width * .05,
+                        vertical: 20,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Setes Vennes",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black87,
+                                fontSize: 20),
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 5),
+                              InkWell(
+                                onTap: () => setDate(context, "s"),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      getDateName(props.date),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black38,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    SizedBox(width: 8),
+                                    Icon(
+                                      Icons.calendar_today,
+                                      size: 23,
+                                      color: Colors.blue,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    for (var i = 0; i < datas.length; i++)
+                      EachSetesTruf(datas[i], props),
+                  ],
+                ),
+              ),
+            ],
+          );
         } else {
           return Loading();
         }
