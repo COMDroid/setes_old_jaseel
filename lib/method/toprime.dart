@@ -49,7 +49,7 @@ toprime(props) {
   if (props.secfavposition == null) {
     props.setState(() {
       props.error = "Chose your second favorite position";
-    return 0;
+      return 0;
     });
   }
   if (props.strongfoot == null) {
@@ -143,16 +143,13 @@ toprime2(props) async {
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
-    print("Wallet456");
     props.setState(() {
       props.error =
           "Something went wrong, any money didection will be refunded with in 48 hours";
     });
   }
 
-  void _handleExternalWallet(ExternalWalletResponse response) {
-    print("Wallet");
-  }
+  void _handleExternalWallet(ExternalWalletResponse response) {}
 
   Razorpay _razorpay = Razorpay();
   _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);

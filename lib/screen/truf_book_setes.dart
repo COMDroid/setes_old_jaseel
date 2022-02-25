@@ -12,30 +12,31 @@ class TrufBookSetesPage extends StatelessWidget {
   final int i;
   final String date;
 
-  TrufBookSetesPage(this.truf, this.i, this.date, {Key? key}) : super(key: key);
+  const TrufBookSetesPage(this.truf, this.i, this.date, {Key? key})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
-    String slot_id = truf['slots'][i]["_id"].toString();
+    String slotId = truf['slots'][i]["_id"].toString();
     return Scaffold(
       appBar: AppBar(
         elevation: 3,
-        iconTheme: IconThemeData(color: Colors.black87),
+        iconTheme: const IconThemeData(color: Colors.black87),
         shadowColor: Colors.blue[50],
         backgroundColor: Colors.white,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             Text(
               truf["name"],
-              style: TextStyle(
+              style: const TextStyle(
                   fontWeight: FontWeight.w700,
                   color: Colors.black87,
                   fontSize: 20),
             ),
             Text(
               truf["location"],
-              style: TextStyle(
+              style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   color: Colors.black45,
                   fontSize: 12),
@@ -44,11 +45,11 @@ class TrufBookSetesPage extends StatelessWidget {
         ),
       ),
       body: FutureBuilder(
-        future: getSlot(slot_id, date),
+        future: getSlot(slotId, date),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (jsonDecode(snapshot.data.toString())[0]) {
-              return Expanded(child: ErrorBody());
+              return const Expanded(child: ErrorBody());
             } else {
               var slot = jsonDecode(snapshot.data.toString())[1];
               return TrufBookBody(this, slot, date);
@@ -63,7 +64,7 @@ class TrufBookSetesPage extends StatelessWidget {
 }
 
 class TrufBookBody extends StatelessWidget {
-  final props, slot, date;
+  final dynamic props, slot, date;
   const TrufBookBody(this.props, this.slot, this.date, {Key? key})
       : super(key: key);
 
@@ -73,7 +74,7 @@ class TrufBookBody extends StatelessWidget {
     List imgs = props.truf["img"];
     return Column(
       children: [
-        Container(
+        SizedBox(
           width: scr.width,
           height: scr.width * .5,
           child: CarouselSlider(
@@ -89,16 +90,16 @@ class TrufBookBody extends StatelessWidget {
               return Builder(
                 builder: (BuildContext context) {
                   return Container(
-                    margin: EdgeInsets.all(5),
+                    margin: const EdgeInsets.all(5),
                     decoration: BoxDecoration(
-                      boxShadow: [
+                      boxShadow: const [
                         BoxShadow(
                             spreadRadius: 5,
                             blurRadius: 10,
                             color: Colors.black12)
                       ],
                       color: Colors.black12,
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
                       image: DecorationImage(
                         image: NetworkImage(setImgTruf(props.truf["_id"], i)),
                         fit: BoxFit.cover,
@@ -122,7 +123,7 @@ class TrufBookBody extends StatelessWidget {
                     horizontal: scr.width * .05,
                   ),
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                       border: Border.all(width: 1.5, color: Colors.black12)),
                   child: ListView(
                     children: [
@@ -132,7 +133,7 @@ class TrufBookBody extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(height: 5),
+                              const SizedBox(height: 5),
                               Row(
                                 children: [
                                   Text(
@@ -141,20 +142,20 @@ class TrufBookBody extends StatelessWidget {
                                         slot["s_time"] +
                                         " - " +
                                         slot["e_time"],
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.w500,
                                         color: Colors.black54,
                                         fontSize: 12),
                                   ),
-                                  SizedBox(width: 5),
-                                  Icon(
+                                  const SizedBox(width: 5),
+                                  const Icon(
                                     Icons.timelapse,
                                     size: 18,
                                     color: Colors.black54,
                                   )
                                 ],
                               ),
-                              Text(
+                              const Text(
                                 "Play List",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w700,
@@ -163,7 +164,7 @@ class TrufBookBody extends StatelessWidget {
                               ),
                             ],
                           ),
-                          Icon(
+                          const Icon(
                             Icons.layers_rounded,
                             size: 40,
                             color: Color(0xffCF595A),
@@ -181,15 +182,15 @@ class TrufBookBody extends StatelessWidget {
                                 children: [
                                   Text(
                                     slot["authers"][i]["name"],
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.w700,
                                         color: Colors.black,
                                         fontSize: 14.5),
                                   ),
-                                  SizedBox(height: 3),
+                                  const SizedBox(height: 3),
                                   Text(
                                     slot["authers"][i]["id"] ?? '',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.w700,
                                         color: Colors.black38,
                                         fontSize: 12),
@@ -197,11 +198,11 @@ class TrufBookBody extends StatelessWidget {
                                 ],
                               ),
                               Padding(
-                                padding: EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(10),
                                 child: slot["authers"][i]["img"] == null
-                                    ? Icon(Icons.person,
+                                    ? const Icon(Icons.person,
                                         size: 35, color: Colors.black54)
-                                    : ClipRRect(),
+                                    : const ClipRRect(),
                               ),
                             ],
                           ),
@@ -209,23 +210,21 @@ class TrufBookBody extends StatelessWidget {
                         if (slot["authers"].length == 0)
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
+                            children: const [
                               SizedBox(height: 80),
                               Text(
                                 "No Players",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                ),
+                                style: TextStyle(fontWeight: FontWeight.w500),
                               ),
                             ],
                           ),
                     ],
                   ),
                 )
-              : SizedBox(),
+              : const SizedBox(),
         ),
         Container(
-            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 22),
+            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 22),
             child: Column(
               children: [
                 Row(
@@ -233,14 +232,14 @@ class TrufBookBody extends StatelessWidget {
                   children: [
                     Text(
                       props.truf["name"],
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontWeight: FontWeight.w700,
                           color: Colors.black,
                           fontSize: 16),
                     ),
                     Text(
                       toint(slot["price"]) + "/-",
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontWeight: FontWeight.w700,
                           color: Colors.black,
                           fontSize: 15),
@@ -252,14 +251,14 @@ class TrufBookBody extends StatelessWidget {
                   children: [
                     Text(
                       "Ground: " + slot["ground"],
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           color: Colors.black45,
                           fontSize: 13),
                     ),
                     Text(
                       "Time : " + slot["s_time"] + " - " + slot["e_time"],
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontWeight: FontWeight.w700,
                           color: Colors.black45,
                           fontSize: 13),
@@ -271,12 +270,12 @@ class TrufBookBody extends StatelessWidget {
                   children: [
                     Text(
                       props.truf["location"],
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontWeight: FontWeight.w700,
                           color: Colors.black45,
                           fontSize: 13),
                     ),
-                    Text(
+                    const Text(
                       "1 hour",
                       style: TextStyle(
                           fontWeight: FontWeight.w700,
@@ -293,10 +292,10 @@ class TrufBookBody extends StatelessWidget {
               context: context,
               barrierDismissible: false,
               builder: (BuildContext context1) {
-                return AlertDialog(title: Text("Loading.."));
+                return const AlertDialog(title: Text("Loading.."));
               },
             );
-            List verRes = await verifyBookingTruf(props);
+            List verRes = await verifyBookingTruf(this);
             Navigator.pop(context);
             if (!verRes[0]) {
               showDialog<void>(
@@ -314,13 +313,13 @@ class TrufBookBody extends StatelessWidget {
                   title: const Text('Confirm Book'),
                   content: SingleChildScrollView(
                     child: ListBody(
-                      children: <Widget>[Text('Payment Gate way')],
+                      children: const <Widget>[Text('Payment Gate way')],
                     ),
                   ),
                   actions: [
                     TextButton(
                       onPressed: () => makeBookingpyment(this, slot, context),
-                      child: Text('Confirm '),
+                      child: const Text('Confirm '),
                     )
                   ],
                 );
@@ -330,9 +329,9 @@ class TrufBookBody extends StatelessWidget {
           child: Container(
             height: 50,
             width: scr.width,
-            margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-            padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-            decoration: BoxDecoration(
+            margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+            decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(7)),
               boxShadow: [
                 BoxShadow(
@@ -348,7 +347,7 @@ class TrufBookBody extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   "BOOK NOW",
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
@@ -357,7 +356,7 @@ class TrufBookBody extends StatelessWidget {
                 ),
                 Text(
                   toint(slot["price"]) + "/-",
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontWeight: FontWeight.w700,
                       color: Colors.white,
                       fontSize: 20),

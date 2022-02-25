@@ -29,14 +29,12 @@ class DroperButton extends StatelessWidget {
                   child: ListBody(
                     children: <Widget>[
                       for (var i = 0; i < data.length; i++)
-                        Container(
-                          child: TextButton(
-                            onPressed: () {
-                              fun(data[i]);
-                              Navigator.pop(context);
-                            },
-                            child: Text(data[i]),
-                          ),
+                        TextButton(
+                          onPressed: () {
+                            fun(data[i]);
+                            Navigator.pop(context);
+                          },
+                          child: Text(data[i]),
                         )
                     ],
                   ),
@@ -49,9 +47,9 @@ class DroperButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(25)),
+          borderRadius: const BorderRadius.all(Radius.circular(25)),
           border: Border.all(
-            color: Color.fromARGB(10, 0, 0, 0),
+            color: const Color.fromARGB(10, 0, 0, 0),
             width: 2,
           ),
         ),
@@ -62,7 +60,7 @@ class DroperButton extends StatelessWidget {
               color: Colors.black45,
               size: 22,
             ),
-            SizedBox(width: 15),
+            const SizedBox(width: 15),
             Text(
               text == null ? hint : text ?? '',
               style: TextStyle(
@@ -104,15 +102,13 @@ class DroperButton2 extends StatelessWidget {
                   child: ListBody(
                     children: <Widget>[
                       for (var i = 0; i < data.length; i++)
-                        Container(
-                          child: TextButton(
-                            onPressed: () {
-                              fun(data[i]);
-                              Navigator.pop(context);
-                            },
-                            child: Text(data[i]['title']),
-                          ),
-                        )
+                        TextButton(
+                          onPressed: () {
+                            fun(data[i]);
+                            Navigator.pop(context);
+                          },
+                          child: Text(data[i]['title']),
+                        ),
                     ],
                   ),
                 ),
@@ -125,9 +121,9 @@ class DroperButton2 extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(25)),
+          borderRadius: const BorderRadius.all(Radius.circular(25)),
           border: Border.all(
-            color: Color.fromARGB(10, 0, 0, 0),
+            color: const Color.fromARGB(10, 0, 0, 0),
             width: 2,
           ),
         ),
@@ -138,7 +134,7 @@ class DroperButton2 extends StatelessWidget {
               color: Colors.black45,
               size: 22,
             ),
-            SizedBox(width: 15),
+            const SizedBox(width: 15),
             Text(
               text == null ? hint : (text['title'] ?? ""),
               style: TextStyle(
@@ -180,15 +176,13 @@ class DroperButton3 extends StatelessWidget {
                   child: ListBody(
                     children: <Widget>[
                       for (var i = 0; i < data.length; i++)
-                        Container(
-                          child: TextButton(
-                            onPressed: () {
-                              fun(data[i]);
-                              Navigator.pop(context);
-                            },
-                            child: Text(data[i]['name']),
-                          ),
-                        )
+                        TextButton(
+                          onPressed: () {
+                            fun(data[i]);
+                            Navigator.pop(context);
+                          },
+                          child: Text(data[i]['name']),
+                        ),
                     ],
                   ),
                 ),
@@ -201,9 +195,9 @@ class DroperButton3 extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(25)),
+          borderRadius: const BorderRadius.all(Radius.circular(25)),
           border: Border.all(
-            color: Color.fromARGB(10, 0, 0, 0),
+            color: const Color.fromARGB(10, 0, 0, 0),
             width: 2,
           ),
         ),
@@ -214,7 +208,7 @@ class DroperButton3 extends StatelessWidget {
               color: Colors.black45,
               size: 22,
             ),
-            SizedBox(width: 15),
+            const SizedBox(width: 15),
             Text(
               text == null ? hint : (text['name'] ?? ""),
               style: TextStyle(

@@ -34,7 +34,9 @@ bookingError(context, msg) {
         ),
         actions: [
           TextButton(
-              onPressed: () => Navigator.pop(context), child: Text('Back'))
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Back'),
+          )
         ],
       );
     },
@@ -51,7 +53,7 @@ makeBookingpyment(props, slot, context) {
         return AlertDialog(
           title: const Text('Loading...'),
           content: Row(
-            children: [
+            children: const [
               Loading(),
               Text("You Booking is omplate in few seconds")
             ],
@@ -85,7 +87,7 @@ makeBookingpyment(props, slot, context) {
                     ),
                   );
                 },
-                child: Text('Back'),
+                child: const Text('Back'),
               ),
             ],
           );

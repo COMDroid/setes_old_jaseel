@@ -63,26 +63,6 @@ class _BodyState extends State<Body> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Image.asset("assets/setes.jpeg", height: 40),
-                  // Column(
-                  //   crossAxisAlignment: CrossAxisAlignment.start,
-                  //   children: [
-                  //     SizedBox(height: 5),
-                  //     Text(
-                  //       "SETES",
-                  //       style: TextStyle(
-                  //           fontWeight: FontWeight.w700,
-                  //           color: Colors.black87,
-                  //           fontSize: 20),
-                  //     ),
-                  //     Text(
-                  //       gbisPrime ? "Community" : "Sports",
-                  //       style: TextStyle(
-                  //           fontWeight: FontWeight.w700,
-                  //           color: Colors.black54,
-                  //           fontSize: 12),
-                  //     ),
-                  //   ],
-                  // ),
                   Row(
                     children: [
                       IconButton(
@@ -90,7 +70,7 @@ class _BodyState extends State<Body> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => MyNotification(),
+                              builder: (context) => const MyNotification(),
                             ),
                           );
                         },
@@ -103,14 +83,17 @@ class _BodyState extends State<Body> {
                           ? Container(
                               width: 30,
                               height: 30,
-                              margin: EdgeInsets.all(5),
-                              decoration: BoxDecoration(
+                              margin: const EdgeInsets.all(5),
+                              decoration: const BoxDecoration(
                                 color: Colors.black12,
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(15)),
                               ),
-                              child: Icon(Icons.person,
-                                  size: 20, color: Colors.white),
+                              child: const Icon(
+                                Icons.person,
+                                size: 20,
+                                color: Colors.white,
+                              ),
                             )
                           : ClipRRect(
                               borderRadius: BorderRadius.circular(20),
@@ -139,8 +122,8 @@ class _BodyState extends State<Body> {
                 : state["page"] == 1
                     ? HomeScorebord(widget.data['bookings'])
                     : state["page"] == 2
-                        ? MyStuf()
-                        : MyProfile(),
+                        ? const MyStuf()
+                        : const MyProfile(),
           ),
           Positioned(
             height: 80,

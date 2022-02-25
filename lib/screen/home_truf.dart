@@ -209,102 +209,97 @@ class _HomeTrufState extends State<HomeTruf> {
                   topLeft: Radius.circular(35),
                   topRight: Radius.circular(35),
                 ),
-                child: Container(
-                  child: NotificationListener(
-                    onNotification: (Notification t) {
-                      if (t is ScrollUpdateNotification) {
-                        if (dy1 >= 0 && dy1 <= scr.height * .3)
-                          setState(() => dy1 = dy1 + (t.scrollDelta ?? 0));
-                        else {
-                          if (dy1 > scr.height * .3)
-                            setState(() => dy1 = scr.height * .3);
-                          if (dy1 < 0) setState(() => dy1 = 0);
-                        }
+                child: NotificationListener(
+                  onNotification: (Notification t) {
+                    if (t is ScrollUpdateNotification) {
+                      if (dy1 >= 0 && dy1 <= scr.height * .3)
+                        setState(() => dy1 = dy1 + (t.scrollDelta ?? 0));
+                      else {
+                        if (dy1 > scr.height * .3)
+                          setState(() => dy1 = scr.height * .3);
+                        if (dy1 < 0) setState(() => dy1 = 0);
                       }
-                      // if (t is OverscrollNotification) {
-                      //   OverscrollNotification ov = t;
-                      //   // print(ov);
-                      // } else {
-                      //   if (t is ScrollUpdateNotification) {
-                      //     ScrollUpdateNotification sc = t;
-                      //     DragUpdateDetails? du = sc.dragDetails;
-                      //     // print(du?.delta);
-                      //   }
-                      // }
-                      return true;
-                    },
-                    child: ListView(
-                      children: [
-                        SizedBox(height: scr.height * .25),
-                        ClipRRect(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(35),
-                            topRight: Radius.circular(35),
-                          ),
-                          child: Container(
-                            color: Colors.white,
-                            constraints:
-                                BoxConstraints(minHeight: scr.height * .45),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.all(25),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
+                    }
+                    // if (t is OverscrollNotification) {
+                    //   OverscrollNotification ov = t;
+                    //   // print(ov);
+                    // } else {
+                    //   if (t is ScrollUpdateNotification) {
+                    //     ScrollUpdateNotification sc = t;
+                    //     DragUpdateDetails? du = sc.dragDetails;
+                    //     // print(du?.delta);
+                    //   }
+                    // }
+                    return true;
+                  },
+                  child: ListView(
+                    children: [
+                      SizedBox(height: scr.height * .25),
+                      ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(35),
+                          topRight: Radius.circular(35),
+                        ),
+                        child: Container(
+                          color: Colors.white,
+                          constraints:
+                              BoxConstraints(minHeight: scr.height * .45),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(25),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      type == 0
+                                          ? "My district"
+                                          : type == 1
+                                              ? "My Zone"
+                                              : "Home Truf",
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.black87,
+                                          fontSize: 20),
+                                    ),
+                                    const SizedBox(height: 5),
+                                    if (gbisPrime && !gbisGuest)
                                       Text(
                                         type == 0
-                                            ? "My district"
+                                            ? gbUser['district'] ?? ''
                                             : type == 1
-                                                ? "My Zone"
-                                                : "Home Truf",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            color: Colors.black87,
-                                            fontSize: 20),
+                                                ? gbUser['zone'] ?? ''
+                                                : gbUser['home_truf']['name'] ??
+                                                    '',
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black54,
+                                            fontSize: 12),
                                       ),
-                                      SizedBox(height: 5),
-                                      if (gbisPrime && !gbisGuest)
-                                        Text(
-                                          type == 0
-                                              ? gbUser['district'] ?? ''
-                                              : type == 1
-                                                  ? gbUser['zone'] ?? ''
-                                                  : gbUser['home_truf']
-                                                          ['name'] ??
-                                                      '',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black54,
-                                              fontSize: 12),
-                                        ),
-                                    ],
-                                  ),
+                                  ],
                                 ),
-                                if (error != null)
-                                  ErrorBody(error: error ?? ''),
-                                if (loading)
-                                  Loading()
-                                else
-                                  for (var i = 0; i < members.length; i++)
-                                    InkWell(
-                                      onTap: () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              ProfiePage(members[i]),
-                                        ),
+                              ),
+                              if (error != null) ErrorBody(error: error ?? ''),
+                              if (loading)
+                                const Loading()
+                              else
+                                for (var i = 0; i < members.length; i++)
+                                  InkWell(
+                                    onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ProfiePage(members[i]),
                                       ),
-                                      child: EachMember(members[i]),
                                     ),
-                              ],
-                            ),
+                                    child: EachMember(members[i]),
+                                  ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),

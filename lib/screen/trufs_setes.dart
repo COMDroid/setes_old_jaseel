@@ -15,8 +15,7 @@ class TrufsSetesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Size scr = getScreen(context);
     return Scaffold(
-      backgroundColor: Color(0xfff50D9FF),
-      // backgroundColor: Colors.green,
+      backgroundColor: const Color(0xFF50D9FF),
       body: SizedBox(
         width: scr.width,
         height: scr.height,
@@ -25,14 +24,14 @@ class TrufsSetesPage extends StatelessWidget {
             Container(
               height: scr.width,
               width: scr.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/bg_a.png"),
                   fit: BoxFit.cover,
                 ),
               ),
               child: Padding(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: SafeArea(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -43,12 +42,12 @@ class TrufsSetesPage extends StatelessWidget {
                         children: [
                           IconButton(
                             onPressed: () => Navigator.pop(context),
-                            icon: Icon(Icons.arrow_back_ios,
+                            icon: const Icon(Icons.arrow_back_ios,
                                 size: 28, color: Colors.black54),
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                            children: const [
                               SizedBox(height: 5),
                               Text(
                                 "Setes Booking",
@@ -84,9 +83,9 @@ class TrufsSetesPage extends StatelessWidget {
                     right: 0,
                     child: SafeArea(
                       child: Container(
-                        margin: EdgeInsets.only(top: 65),
+                        margin: const EdgeInsets.only(top: 65),
                         child: ClipRRect(
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(35),
                             topRight: Radius.circular(35),
                           ),
@@ -106,7 +105,7 @@ class TrufsSetesPage extends StatelessWidget {
 }
 
 class SetesTrufLoader extends StatelessWidget {
-  final props;
+  final dynamic props;
   const SetesTrufLoader(this.props, {Key? key}) : super(key: key);
 
   @override
@@ -116,12 +115,11 @@ class SetesTrufLoader extends StatelessWidget {
       future: getTrufs("s", props.date),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          print(snapshot.data);
           if (snapshot.hasError) {
-            return Expanded(child: ErrorBody());
+            return const Expanded(child: ErrorBody());
           }
           if (jsonDecode(snapshot.data.toString())[0]) {
-            return Expanded(child: ErrorBody());
+            return const Expanded(child: ErrorBody());
           }
           var datas = jsonDecode(snapshot.data.toString())[1];
           return ListView(
@@ -131,8 +129,8 @@ class SetesTrufLoader extends StatelessWidget {
                 constraints: BoxConstraints(
                   minHeight: scr.height - (scr.width * .5 + 90),
                 ),
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(10),
+                decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(35),
@@ -149,7 +147,7 @@ class SetesTrufLoader extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             "Setes Vennes",
                             style: TextStyle(
                                 fontWeight: FontWeight.w700,
@@ -159,21 +157,21 @@ class SetesTrufLoader extends StatelessWidget {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(height: 5),
+                              const SizedBox(height: 5),
                               InkWell(
                                 onTap: () => setDate(context, "s"),
                                 child: Row(
                                   children: [
                                     Text(
                                       getDateName(props.date),
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.w500,
                                         color: Colors.black38,
                                         fontSize: 14,
                                       ),
                                     ),
-                                    SizedBox(width: 8),
-                                    Icon(
+                                    const SizedBox(width: 8),
+                                    const Icon(
                                       Icons.calendar_today,
                                       size: 23,
                                       color: Colors.blue,
@@ -194,7 +192,7 @@ class SetesTrufLoader extends StatelessWidget {
             ],
           );
         } else {
-          return Loading();
+          return const Loading();
         }
       },
     );
@@ -203,7 +201,7 @@ class SetesTrufLoader extends StatelessWidget {
 
 class EachSetesTruf extends StatelessWidget {
   final Map data;
-  final props;
+  final dynamic props;
   const EachSetesTruf(this.data, this.props, {Key? key}) : super(key: key);
 
   @override
@@ -259,9 +257,9 @@ class EachSetesTruf extends StatelessWidget {
         );
       },
       child: Container(
-        margin: EdgeInsets.all(13),
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
+        margin: const EdgeInsets.all(13),
+        padding: const EdgeInsets.all(16),
+        decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(7)),
           color: Color(0xffE2F9FF),
         ),
@@ -274,41 +272,42 @@ class EachSetesTruf extends StatelessWidget {
                 children: [
                   Text(
                     data["name"],
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 3),
+                  const SizedBox(height: 3),
                   Row(
                     children: [
                       Icon(data["raiting"] > 0 ? Icons.star : Icons.star_border,
-                          color: Color(0xff193B8B), size: 16),
+                          color: const Color(0xff193B8B), size: 16),
                       Icon(
                           data["raiting"] > 10 ? Icons.star : Icons.star_border,
-                          color: Color(0xff193B8B),
+                          color: const Color(0xff193B8B),
                           size: 16),
                       Icon(
                           data["raiting"] > 20 ? Icons.star : Icons.star_border,
-                          color: Color(0xff193B8B),
+                          color: const Color(0xff193B8B),
                           size: 16),
                       Icon(
                           data["raiting"] > 30 ? Icons.star : Icons.star_border,
-                          color: Color(0xff193B8B),
+                          color: const Color(0xff193B8B),
                           size: 16),
                       Icon(
                           data["raiting"] > 40 ? Icons.star : Icons.star_border,
-                          color: Color(0xff193B8B),
+                          color: const Color(0xff193B8B),
                           size: 16),
                     ],
                   ),
-                  SizedBox(height: 3),
+                  const SizedBox(height: 3),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(Icons.location_on, color: Colors.black54, size: 16),
-                      SizedBox(width: 3),
+                      const Icon(Icons.location_on,
+                          color: Colors.black54, size: 16),
+                      const SizedBox(width: 3),
                       Expanded(
                         child: Text(
                           data["location"],
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.w400,
                             color: Colors.black54,
                             fontSize: 12,
@@ -324,10 +323,13 @@ class EachSetesTruf extends StatelessWidget {
               children: [
                 for (var i = 0; (i < 3 && i < data['slots'].length); i++)
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 3, vertical: 2.5),
-                    padding: EdgeInsets.symmetric(horizontal: 7, vertical: 1),
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 3, vertical: 2.5),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 7, vertical: 1),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(8)),
                         border: Border.all(width: 1, color: Colors.black54)),
                     child: Text(
                       data['slots'][i]['s_time'] +
@@ -335,7 +337,7 @@ class EachSetesTruf extends StatelessWidget {
                           data['slots'][i]['e_time'] +
                           "  " +
                           data['slots'][i]["ground"],
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.black54,
                         fontSize: 11,
                         fontWeight: FontWeight.w500,

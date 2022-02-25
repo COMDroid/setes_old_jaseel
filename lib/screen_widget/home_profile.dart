@@ -75,43 +75,40 @@ class _MyProfileState extends State<MyProfile> {
           Container(
             width: scr.width,
             height: scr.height - 80,
-            color: Color(0xff564EB1),
+            color: const Color(0xff564EB1),
             child: Column(
               children: [
-                SizedBox(height: 20),
-                HomeProfilePicture(),
+                const SizedBox(height: 20),
+                const HomeProfilePicture(),
                 Text(
                   gbUser["name"] ?? '',
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Text(
                   (gbisGuest
                       ? gbUser["guest_id"] ?? ""
-                      : gbUser["id"] ?? "" + " - Setes"),
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                  ),
+                      : (gbUser["id"] ?? "") + " - Setes"),
+                  style: const TextStyle(color: Colors.white, fontSize: 18),
                 ),
                 Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(40)),
                   ),
                   width: scr.width,
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Container(
                   width: scr.width,
                   height: scr.height - 280,
                   decoration: BoxDecoration(
                     color: gbisPrime ? Colors.white : Colors.white10,
-                    borderRadius: BorderRadius.all(Radius.circular(50)),
+                    borderRadius: const BorderRadius.all(Radius.circular(50)),
                   ),
                   child: Stack(
                     children: [
@@ -120,8 +117,9 @@ class _MyProfileState extends State<MyProfile> {
                         bottom: 0,
                         left: 0,
                         right: 0,
-                        child:
-                            gbisPrime ? MyProfilePrime() : MyProfileNonPrime(),
+                        child: gbisPrime
+                            ? const MyProfilePrime()
+                            : const MyProfileNonPrime(),
                       ),
                       Positioned(
                         top: skillTop,
@@ -154,14 +152,14 @@ class MyProfilePrime extends StatelessWidget {
         vertical: scr.height * .05,
       ),
       children: [
-        Text(
+        const Text(
           "Bio",
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w500,
           ),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         HomeProfileEach("Email", gbUser['email']),
         HomeProfileEach("Phone", gbUser['phone']),
         HomeProfileEach("Gender", gbUser['sex']),
@@ -175,7 +173,7 @@ class MyProfilePrime extends StatelessWidget {
         HomeProfileEach("Strong Foot", gbUser['strong_foot']),
         HomeProfileEach("Boot Size", gbUser['foot_size']),
         HomeProfileEach("T-shirt Size", gbUser['t_shirt_size']),
-        SizedBox(height: 100),
+        const SizedBox(height: 100),
       ],
     );
   }
@@ -188,7 +186,7 @@ class MyProfileNonPrime extends StatelessWidget {
   Widget build(BuildContext context) {
     Size scr = getScreen(context);
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage("assets/pro_bg.png"),
           alignment: Alignment.bottomCenter,
@@ -203,21 +201,20 @@ class MyProfileNonPrime extends StatelessWidget {
           TextButton(
             onPressed: () {
               upgradingtoPrime = true;
-              if (gbisGuest)
+              if (gbisGuest) {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const LoginPage()));
-              else
+              } else {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => const ToPrimePage()));
+              }
             },
-            child: Text(
+            child: const Text(
               "Upgrade to Prime",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
           ),
         ],
@@ -227,7 +224,7 @@ class MyProfileNonPrime extends StatelessWidget {
 }
 
 class MyprofileSkills extends StatelessWidget {
-  final props;
+  final dynamic props;
   const MyprofileSkills(this.props, {Key? key}) : super(key: key);
 
   setValue(v) {
@@ -239,8 +236,8 @@ class MyprofileSkills extends StatelessWidget {
   Widget build(BuildContext context) {
     Size scr = getScreen(context);
     return Container(
-      padding: EdgeInsets.all(5),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.all(5),
+      decoration: const BoxDecoration(
         color: Color(0xff665Ec1),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(50),
@@ -258,23 +255,24 @@ class MyprofileSkills extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
-              if (props.skillTop == scr.height - 360.0)
+              if (props.skillTop == scr.height - 360.0) {
                 props.setState(() => props.skillTop = 50.0);
-              else
+              } else {
                 props.setState(() => props.skillTop = scr.height - 360.0);
+              }
             },
             child: Container(
-              margin: EdgeInsets.all(8),
+              margin: const EdgeInsets.all(8),
               height: 4,
               width: 50,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white54,
                 borderRadius: BorderRadius.all(Radius.circular(2)),
               ),
             ),
           ),
-          SizedBox(height: 8),
-          Text(
+          const SizedBox(height: 8),
+          const Text(
             "CAREER",
             style: TextStyle(
               color: Colors.white,

@@ -72,12 +72,13 @@ validateOtp(context, setstate, state, data) async {
         await prefs.setString('authkey', gbUserKey);
         Navigator.pop(context);
         Navigator.pop(context);
-        if (upgradingtoPrime && !gbisPrime)
+        if (upgradingtoPrime && !gbisPrime) {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => const ToPrimePage()));
-        else
+        } else {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => const HomePage()));
+        }
       } else {
         Navigator.pushReplacement(
           context,
@@ -142,11 +143,11 @@ logout(context) async {
   Navigator.pop(context);
   Navigator.pushReplacement(
     context,
-    MaterialPageRoute(builder: (context) => IntroPage()),
+    MaterialPageRoute(builder: (context) => const IntroPage()),
   );
   Navigator.push(
     context,
-    MaterialPageRoute(builder: (context) => LoginPage()),
+    MaterialPageRoute(builder: (context) => const LoginPage()),
   );
 }
 

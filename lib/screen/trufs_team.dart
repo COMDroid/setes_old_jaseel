@@ -42,7 +42,7 @@ class TrufsTeamPage extends StatelessWidget {
                         children: [
                           IconButton(
                             onPressed: () => Navigator.pop(context),
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.arrow_back_ios,
                               size: 28,
                               color: Colors.white70,
@@ -50,7 +50,7 @@ class TrufsTeamPage extends StatelessWidget {
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                            children: const [
                               SizedBox(height: 5),
                               Text(
                                 "Team Booking",
@@ -72,8 +72,11 @@ class TrufsTeamPage extends StatelessWidget {
                       ),
                       IconButton(
                         onPressed: () => setDate(context, "t"),
-                        icon: Icon(Icons.calendar_today,
-                            size: 28, color: Colors.black87),
+                        icon: const Icon(
+                          Icons.calendar_today,
+                          size: 28,
+                          color: Colors.black87,
+                        ),
                       ),
                     ],
                   ),
@@ -91,9 +94,9 @@ class TrufsTeamPage extends StatelessWidget {
                     right: 0,
                     child: SafeArea(
                       child: Container(
-                        margin: EdgeInsets.only(top: 65),
+                        margin: const EdgeInsets.only(top: 65),
                         child: ClipRRect(
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(35),
                             topRight: Radius.circular(35),
                           ),
@@ -113,7 +116,7 @@ class TrufsTeamPage extends StatelessWidget {
 }
 
 class TeamTrufLoader extends StatelessWidget {
-  final props;
+  final dynamic props;
   const TeamTrufLoader(this.props, {Key? key}) : super(key: key);
 
   @override
@@ -124,7 +127,7 @@ class TeamTrufLoader extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           if (jsonDecode(snapshot.data.toString())[0]) {
-            return Expanded(child: ErrorBody());
+            return const Expanded(child: ErrorBody());
           } else {
             var datas = jsonDecode(snapshot.data.toString())[1];
             return ListView(
@@ -133,8 +136,8 @@ class TeamTrufLoader extends StatelessWidget {
                 Container(
                   constraints: BoxConstraints(
                       minHeight: scr.height - (scr.width * .5 + 90)),
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.all(10),
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(35),
@@ -154,26 +157,26 @@ class TeamTrufLoader extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(height: 5),
+                                const SizedBox(height: 5),
                                 Row(
                                   children: [
                                     Text(
                                       getDateName(props.date) +
                                           " Perinthalmanna",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontWeight: FontWeight.w500,
                                           color: Colors.black54,
                                           fontSize: 12),
                                     ),
-                                    SizedBox(width: 5),
-                                    Icon(
+                                    const SizedBox(width: 5),
+                                    const Icon(
                                       Icons.location_on,
                                       size: 18,
                                       color: Colors.black54,
                                     )
                                   ],
                                 ),
-                                Text(
+                                const Text(
                                   "Setes Vennes",
                                   style: TextStyle(
                                       fontWeight: FontWeight.w700,
@@ -182,8 +185,11 @@ class TeamTrufLoader extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            Icon(Icons.search_sharp,
-                                size: 40, color: Color(0xff0E6E9D))
+                            const Icon(
+                              Icons.search_sharp,
+                              size: 40,
+                              color: Color(0xff0E6E9D),
+                            ),
                           ],
                         ),
                       ),
@@ -196,7 +202,7 @@ class TeamTrufLoader extends StatelessWidget {
             );
           }
         } else {
-          return Loading();
+          return const Loading();
         }
       },
     );
@@ -205,7 +211,7 @@ class TeamTrufLoader extends StatelessWidget {
 
 class EachTeamTruf extends StatelessWidget {
   final Map data;
-  final props;
+  final dynamic props;
   const EachTeamTruf(this.data, this.props, {Key? key}) : super(key: key);
 
   @override
@@ -259,28 +265,28 @@ class EachTeamTruf extends StatelessWidget {
         );
       },
       child: Container(
-        margin: EdgeInsets.all(13),
-        padding: EdgeInsets.all(6),
-        decoration: BoxDecoration(
+        margin: const EdgeInsets.all(13),
+        padding: const EdgeInsets.all(6),
+        decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(7)),
           color: Color(0xffE2F9FF),
         ),
         height: 100,
         child: Row(
           children: [
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     data["name"],
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 3),
+                  const SizedBox(height: 3),
                   Row(
-                    children: [
+                    children: const [
                       Icon(Icons.star, color: Color(0xff193B8B), size: 16),
                       Icon(Icons.star, color: Color(0xff193B8B), size: 16),
                       Icon(Icons.star, color: Color(0xff193B8B), size: 16),
@@ -288,12 +294,12 @@ class EachTeamTruf extends StatelessWidget {
                       Icon(Icons.star_half, color: Color(0xff193B8B), size: 16),
                     ],
                   ),
-                  SizedBox(height: 3),
+                  const SizedBox(height: 3),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(Icons.grass, color: Colors.green, size: 16),
-                      SizedBox(width: 3),
+                      const Icon(Icons.grass, color: Colors.green, size: 16),
+                      const SizedBox(width: 3),
                       Expanded(
                         child: Text(
                           data["slots"][0]["ground"] +
@@ -302,7 +308,7 @@ class EachTeamTruf extends StatelessWidget {
                                       (data["slots"].length - 1).toString() +
                                       " more.."
                                   : ""),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.w400,
                             color: Colors.black54,
                             fontSize: 12,
@@ -314,12 +320,13 @@ class EachTeamTruf extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(Icons.location_on, color: Colors.red, size: 16),
-                      SizedBox(width: 3),
+                      const Icon(Icons.location_on,
+                          color: Colors.red, size: 16),
+                      const SizedBox(width: 3),
                       Expanded(
                         child: Text(
                           data["location"],
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.w400,
                             color: Colors.black54,
                             fontSize: 12,
@@ -332,7 +339,7 @@ class EachTeamTruf extends StatelessWidget {
               ),
             ),
             ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(5)),
+              borderRadius: const BorderRadius.all(Radius.circular(5)),
               child: Image.network(setImgTruf(data["_id"], data["img"][0]),
                   width: 100, height: 88, fit: BoxFit.cover),
             ),

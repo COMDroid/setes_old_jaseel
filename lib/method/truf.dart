@@ -6,14 +6,15 @@ import 'package:http/http.dart' as http;
 
 getTrufs(type, date) async {
   var link = "trufs?type=$type&date=$date";
-  var res = await http.get(setApi(link));
-  print("'''''1'''''");
-  if (res.statusCode == 200) {
-    print("'''''2'''''");
-    return [false, res.body];
-  } else {
-    print("'''''3'''''");
-    return [true, res.body];
+  try {
+    var res = await http.get(setApi(link));
+    if (res.statusCode == 200) {
+      return [false, res.body];
+    } else {
+      return [true, jsonDecode(res.body)['msg']];
+    }
+  } catch (e) {
+    return [true, "Network error"];
   }
 }
 

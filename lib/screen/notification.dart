@@ -19,11 +19,11 @@ class MyNotification extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MyNotification(),
+                  builder: (context) => const MyNotification(),
                 ),
               );
             },
-            icon: Icon(Icons.refresh),
+            icon: const Icon(Icons.refresh),
           ),
         ],
       ),
@@ -32,11 +32,11 @@ class MyNotification extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (jsonDecode(snapshot.data.toString())[0]) {
-              return ErrorBody();
+              return const ErrorBody();
             } else {
               var datas = jsonDecode(snapshot.data.toString())[1];
-              if (datas.length == 0)
-                return Center(
+              if (datas.length == 0) {
+                return const Center(
                   child: Padding(
                     padding: EdgeInsets.all(10),
                     child: Text(
@@ -45,6 +45,7 @@ class MyNotification extends StatelessWidget {
                     ),
                   ),
                 );
+              }
               return NotificationBody(datas);
             }
           } else {

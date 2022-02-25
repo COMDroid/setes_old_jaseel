@@ -5,7 +5,7 @@ class LoadingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Loading());
+    return const Scaffold(body: Loading());
   }
 }
 

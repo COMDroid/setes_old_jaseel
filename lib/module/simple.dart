@@ -28,14 +28,15 @@ findWInner(v) {
       return "";
     } else {
       try {
-        if (v["goals"]['b'] == v["goals"]['r'])
+        if (v["goals"]['b'] == v["goals"]['r']) {
           return "Draw";
-        else if (v["goals"]['b'] > v["goals"]['r'])
+        } else if (v["goals"]['b'] > v["goals"]['r']) {
           return "Blue Win";
-        else if (v["goals"]['b'] < v["goals"]['r'])
+        } else if (v["goals"]['b'] < v["goals"]['r']) {
           return "Red Win";
-        else
+        } else {
           return "";
+        }
       } catch (e) {
         return "error";
       }

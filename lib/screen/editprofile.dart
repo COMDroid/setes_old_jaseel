@@ -276,9 +276,9 @@ class _EditProfileFormState extends State<EditProfileForm> {
           child: Container(
             height: 50,
             width: scr.width,
-            margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            decoration: BoxDecoration(
+            margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(7)),
               boxShadow: [
                 BoxShadow(
@@ -288,7 +288,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
                   color: Color(0x33000000),
                 ),
               ],
-              gradient: const LinearGradient(
+              gradient: LinearGradient(
                 colors: [Color(0xFF1368A9), Color(0xFFE2F1F4)],
                 begin: FractionalOffset(0.0, 1.0),
                 end: FractionalOffset(1.0, 0.0),
@@ -297,7 +297,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
               ),
             ),
             child: loading
-                ? Center(
+                ? const Center(
                     child: Text(
                       "Loading..",
                       style: TextStyle(
@@ -309,7 +309,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
                 : Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
+                    children: const [
                       Text(
                         "NEXT",
                         style: TextStyle(

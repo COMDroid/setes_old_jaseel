@@ -228,9 +228,9 @@ class _ToPrimeForm2State extends State<ToPrimeForm2> {
           child: Container(
             height: 50,
             width: scr.width,
-            margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            decoration: BoxDecoration(
+            margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(7)),
               boxShadow: [
                 BoxShadow(
@@ -240,7 +240,7 @@ class _ToPrimeForm2State extends State<ToPrimeForm2> {
                   color: Color(0x33000000),
                 ),
               ],
-              gradient: const LinearGradient(
+              gradient: LinearGradient(
                 colors: [Color(0xFF1368A9), Color(0xFFE2F1F4)],
                 begin: FractionalOffset(0.0, 1.0),
                 end: FractionalOffset(1.0, 0.0),
@@ -249,7 +249,7 @@ class _ToPrimeForm2State extends State<ToPrimeForm2> {
               ),
             ),
             child: loading
-                ? Center(
+                ? const Center(
                     child: Text(
                       "Loading..",
                       style: TextStyle(
@@ -263,7 +263,7 @@ class _ToPrimeForm2State extends State<ToPrimeForm2> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         "UPGRADE",
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
@@ -274,7 +274,7 @@ class _ToPrimeForm2State extends State<ToPrimeForm2> {
                         ((widget.props.primeData['price_pm'] ?? 0) / 100)
                                 .toString() +
                             "/-",
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.w700,
                             color: Colors.white,
                             fontSize: 20),

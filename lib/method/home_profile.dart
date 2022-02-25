@@ -16,11 +16,11 @@ onTapProfilePic(context) {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: UpdateProfileWarningPopup(),
+          content: const UpdateProfileWarningPopup(),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: Text("Cancel"),
+              child: const Text("Cancel"),
             ),
           ],
         );
@@ -33,8 +33,8 @@ onTapProfilepicEdit(context) {
   showDialog<void>(
     context: context,
     builder: (BuildContext context2) {
-      return AlertDialog(
-        title: const Text('Choose Media Type'),
+      return const AlertDialog(
+        title: Text('Choose Media Type'),
         content: ProfilePicEditWarningPopup(),
       );
     },
@@ -63,6 +63,6 @@ updateProfilePic(type, context) async {
       }
     }
   } catch (e) {
-    print(e);
+    rethrow;
   }
 }

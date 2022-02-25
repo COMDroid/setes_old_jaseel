@@ -149,8 +149,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Container(
-      // color: Colors.transparent,
+    return SizedBox(
       height: widget.height,
       child: Stack(
         clipBehavior: Clip.none,
