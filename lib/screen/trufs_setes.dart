@@ -307,6 +307,8 @@ class EachSetesTruf extends StatelessWidget {
                       Expanded(
                         child: Text(
                           data["location"],
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             fontWeight: FontWeight.w400,
                             color: Colors.black54,

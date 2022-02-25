@@ -113,38 +113,41 @@ class EachMember extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(25)),
+                borderRadius: const BorderRadius.all(Radius.circular(25)),
                 child: member["img"] == null
                     ? Container(
                         color: Colors.black12,
                         width: 50,
                         height: 50,
-                        child: Icon(Icons.person),
+                        child: const Icon(Icons.person),
                       )
                     : Image.network(
                         setImgProfile(member["_id"] + "/" + member["img"]),
                         width: 50,
                         height: 50,
+                        fit: BoxFit.cover,
                       ),
               ),
-              SizedBox(width: 12),
+              const SizedBox(width: 12),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     member["name"],
-                    style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black,
-                        fontSize: 14.5),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black,
+                      fontSize: 14.5,
+                    ),
                   ),
-                  SizedBox(height: 3),
+                  const SizedBox(height: 3),
                   Text(
                     member["id"],
-                    style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black38,
-                        fontSize: 12),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black38,
+                      fontSize: 12,
+                    ),
                   ),
                 ],
               ),
@@ -152,13 +155,11 @@ class EachMember extends StatelessWidget {
           ),
           Row(
             children: [
-              Icon(Icons.star, size: 15),
-              SizedBox(width: 5),
+              const Icon(Icons.star, size: 15),
+              const SizedBox(width: 5),
               Text(
                 member["p_raiting"] ?? "0",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ],
           )

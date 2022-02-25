@@ -63,7 +63,7 @@ class MyStuf extends StatelessWidget {
                           i == 0 ? Icons.wallet_giftcard : Icons.wallet_travel,
                           size: 30,
                         ),
-                        SizedBox(width: 20),
+                        const SizedBox(width: 20),
                         SizedBox(
                           width: scr.width - 130,
                           child: Column(
@@ -71,26 +71,26 @@ class MyStuf extends StatelessWidget {
                             children: [
                               Text(
                                 i == 0 ? "Setes Wallet" : "Setes Credits",
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 14,
                                   color: Colors.black54,
                                 ),
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               Text(
                                 "₹ " +
                                     (i == 0
                                         ? toint(gbUser["wallet"])
                                         : toint(gbUser["credit"])),
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontWeight: FontWeight.w900,
                                   fontSize: 20,
                                   color: Colors.black87,
                                 ),
                               ),
-                              SizedBox(height: 7),
-                              Text(
+                              const SizedBox(height: 7),
+                              const Text(
                                 "You can use the setes credit for some type of payment in setes community",
                                 style: TextStyle(
                                   color: Colors.black38,

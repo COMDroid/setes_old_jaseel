@@ -129,7 +129,6 @@ class _ToPrimeFormState extends State<ToPrimeForm> {
   String? error;
   Map primeData = {};
 
-
   String? bloodGp;
   Map? district;
   Map? zone;
@@ -166,7 +165,7 @@ class _ToPrimeFormState extends State<ToPrimeForm> {
         const SizedBox(height: 20),
         Expanded(
           child: ListView(
-            padding: EdgeInsets.only(top: 8),
+            padding: const EdgeInsets.only(top: 8),
             children: [
               DroperButton(
                 Icons.bloodtype,
@@ -184,6 +183,7 @@ class _ToPrimeFormState extends State<ToPrimeForm> {
                 (v) => setState(() {
                   district = v;
                   zones = v['zone'];
+                  zone = null;
                 }),
               ),
               const SizedBox(height: 10),

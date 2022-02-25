@@ -10,7 +10,7 @@ class HomeScorebord extends StatelessWidget {
   Widget build(BuildContext context) {
     Size scr = getScreen(context);
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [Color(0xffFE8260), Color(0xff7249FB)],
         ),
@@ -22,21 +22,21 @@ class HomeScorebord extends StatelessWidget {
           Container(
             height: scr.width,
             width: scr.width,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/scoreBordBg.png"),
                 fit: BoxFit.cover,
               ),
             ),
             child: Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: SafeArea(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     IconButton(
                       onPressed: () => Navigator.pop(context),
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.arrow_back_ios,
                         size: 28,
                         color: Colors.white70,
@@ -44,7 +44,7 @@ class HomeScorebord extends StatelessWidget {
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: const [
                         SizedBox(height: 5),
                         Text(
                           "Score Board",
@@ -78,10 +78,9 @@ class HomeScorebord extends StatelessWidget {
                   right: 0,
                   child: SafeArea(
                     child: Container(
-                      margin: EdgeInsets.only(top: 65),
+                      margin: const EdgeInsets.only(top: 65),
                       child: ClipRRect(
-                        // clipBehavior: Clip.,
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(35),
                           topRight: Radius.circular(35),
                         ),
@@ -93,8 +92,8 @@ class HomeScorebord extends StatelessWidget {
                                 constraints: BoxConstraints(
                                     minHeight:
                                         scr.height - (scr.width * .5 + 90)),
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
+                                padding: const EdgeInsets.all(10),
+                                decoration: const BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(35),
@@ -116,9 +115,9 @@ class HomeScorebord extends StatelessWidget {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              SizedBox(height: 5),
+                                              const SizedBox(height: 5),
                                               Row(
-                                                children: [
+                                                children: const [
                                                   Text(
                                                     "My Location",
                                                     style: TextStyle(
@@ -136,7 +135,7 @@ class HomeScorebord extends StatelessWidget {
                                                   )
                                                 ],
                                               ),
-                                              Text(
+                                              const Text(
                                                 "Today",
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w700,
@@ -146,7 +145,7 @@ class HomeScorebord extends StatelessWidget {
                                               ),
                                             ],
                                           ),
-                                          Icon(
+                                          const Icon(
                                             Icons.search_sharp,
                                             size: 40,
                                             color: Color(0xff0E6E9D),
@@ -167,18 +166,18 @@ class HomeScorebord extends StatelessWidget {
                                         },
                                         child: EachScore(bookings[i]),
                                       ),
-                                    if (bookings.length == 0)
+                                    if (bookings.isEmpty)
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
-                                        children: [
+                                        children: const [
                                           Text(
                                             "No Match",
                                             style: TextStyle(fontSize: 12),
                                           ),
                                         ],
                                       ),
-                                    SizedBox(height: 100),
+                                    const SizedBox(height: 100),
                                   ],
                                 ),
                               ),
@@ -240,17 +239,20 @@ class EachScore extends StatelessWidget {
                       children: <Widget>[
                         Row(
                           children: [
-                            Text(
-                              booking['slot'] == null
-                                  ? "Unnamed"
-                                  : booking['slot']["truf_name"] ?? '',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500,
+                            Expanded(
+                              child: Text(
+                                booking['slot'] == null
+                                    ? "Unnamed"
+                                    : booking['slot']["truf_name"] ?? '',
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
-                            SizedBox(width: 5),
+                            const SizedBox(width: 5),
                             Text(
                               booking['slot'] == null
                                   ? ''
@@ -261,6 +263,7 @@ class EachScore extends StatelessWidget {
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
+                            const SizedBox(width: 5),
                           ],
                         ),
                         const SizedBox(height: 5),
@@ -271,7 +274,7 @@ class EachScore extends StatelessWidget {
                               children: <Widget>[
                                 Text(
                                   findWInner(booking),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.white54,
                                     fontSize: 11,
                                     fontWeight: FontWeight.bold,
@@ -313,7 +316,7 @@ class EachScore extends StatelessWidget {
                     children: <Widget>[
                       Text(
                         booking['goals']['r'].toString(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
@@ -321,7 +324,7 @@ class EachScore extends StatelessWidget {
                       ),
                       Text(
                         booking['goals']['b'].toString(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 30,
                           fontWeight: FontWeight.bold,

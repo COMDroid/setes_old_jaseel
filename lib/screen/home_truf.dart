@@ -205,19 +205,22 @@ class _HomeTrufState extends State<HomeTruf> {
               right: 0,
               bottom: 70,
               child: ClipRRect(
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(35),
                   topRight: Radius.circular(35),
                 ),
                 child: NotificationListener(
                   onNotification: (Notification t) {
                     if (t is ScrollUpdateNotification) {
-                      if (dy1 >= 0 && dy1 <= scr.height * .3)
+                      if (dy1 >= 0 && dy1 <= scr.height * .3) {
                         setState(() => dy1 = dy1 + (t.scrollDelta ?? 0));
-                      else {
-                        if (dy1 > scr.height * .3)
+                      } else {
+                        if (dy1 > scr.height * .3) {
                           setState(() => dy1 = scr.height * .3);
-                        if (dy1 < 0) setState(() => dy1 = 0);
+                        }
+                        if (dy1 < 0) {
+                          setState(() => dy1 = 0);
+                        }
                       }
                     }
                     // if (t is OverscrollNotification) {
@@ -273,9 +276,10 @@ class _HomeTrufState extends State<HomeTruf> {
                                                 : gbUser['home_truf']['name'] ??
                                                     '',
                                         style: const TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.black54,
-                                            fontSize: 12),
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.black54,
+                                          fontSize: 12,
+                                        ),
                                       ),
                                   ],
                                 ),

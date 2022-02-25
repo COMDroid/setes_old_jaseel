@@ -40,7 +40,7 @@ verifyBookingTruf(props) async {
   try {
     var res = await http.post(setApi("verifybooking"), body: body);
     if (res.statusCode == 200) {
-      return [true];
+      return [true, await jsonDecode(res.body)];
     } else {
       return [false, await jsonDecode(res.body)['msg']];
     }

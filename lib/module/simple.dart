@@ -8,8 +8,23 @@ dateTomyFormat(DateTime d) {
   return d.day.toString() + "-" + d.month.toString() + "-" + d.year.toString();
 }
 
+dateFrommyFormat(String d) {
+  List spittedD = d.split('-');
+  String yr = spittedD[2];
+  String mo = spittedD[1];
+  String dy = spittedD[0];
+  if (mo.length == 1) mo = '0' + mo;
+  if (dy.length == 1) dy = '0' + dy;
+  return yr + mo + dy + "T00:00:00";
+}
+
 getDateName(d) {
-  return d;
+  try {
+    if (d == dateTomyFormat(DateTime.now())) return "Today";
+    return d;
+  } catch (e) {
+    return d;
+  }
 }
 
 toint(v) {

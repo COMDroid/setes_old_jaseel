@@ -1,17 +1,16 @@
-
 import 'package:flutter/material.dart';
 import 'package:setes_mobile/module/api_init.dart';
 import 'package:setes_mobile/module/simple.dart';
 
 class ScoreBordLineUp extends StatelessWidget {
-  const ScoreBordLineUp({Key? key}) : super(key: key);
+  final List teams;
+  const ScoreBordLineUp(this.teams, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Size scr = getScreen(context);
-    double xw = scr.width * .9;
-    double xh = scr.width * .9 * 1.3;
-    double xwX = xw - scr.width * .02;
+    double xw = scr.width * .9 - 4;
+    double xh = scr.width * .9 * 1.3 - 4;
     return Container(
       margin: EdgeInsets.only(
         left: scr.width * .04,
@@ -57,20 +56,13 @@ class ScoreBordLineUp extends StatelessWidget {
                 ),
               ),
             ),
-          GetEachPlayer(xwX * .5, xh * .1),
-          GetEachPlayer(xwX * .25, xh * .25),
-          GetEachPlayer(xwX * .5, xh * .25),
-          GetEachPlayer(xwX * .75, xh * .25),
-          GetEachPlayer(xwX * .25, xh * .4),
-          GetEachPlayer(xwX * .5, xh * .4),
-          GetEachPlayer(xwX * .75, xh * .4),
-          GetEachPlayer(xwX * .5, xh * .9),
-          GetEachPlayer(xwX * .25, xh * .75),
-          GetEachPlayer(xwX * .5, xh * .75),
-          GetEachPlayer(xwX * .75, xh * .75),
-          GetEachPlayer(xwX * .25, xh * .6),
-          GetEachPlayer(xwX * .5, xh * .6),
-          GetEachPlayer(xwX * .75, xh * .6),
+          for (var i = 0; i < teams.length; i++)
+            if (teams[i]['pos_xy'] != null)
+              GetEachPlayer(
+                teams[i]['pos_xy']['x'] * xw,
+                teams[i]['pos_xy']['y'] * xh,
+                teams[i],
+              ),
         ],
       ),
     );
@@ -78,50 +70,56 @@ class ScoreBordLineUp extends StatelessWidget {
 }
 
 class GetEachPlayer extends StatelessWidget {
+  final Map user;
   final double x, y;
-  const GetEachPlayer(this.x, this.y, {Key? key}) : super(key: key);
+  const GetEachPlayer(this.x, this.y, this.user, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Size scr = getScreen(context);
     return Positioned(
-      top: y - 32,
-      left: x - 32,
+      top: y - 36,
+      left: x - 36,
       width: 64,
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.all(2),
+            margin: const EdgeInsets.all(2),
             width: 38,
             height: 38,
             decoration: BoxDecoration(
-              color: Color(0xd44000000),
-              border: Border.all(width: 2, color: Colors.white70),
-              borderRadius: BorderRadius.all(Radius.circular(22)),
+              color: const Color.fromARGB(211, 167, 167, 167),
+              border: Border.all(
+                width: 2,
+                color: user["team"] == 'r'
+                    ? const Color.fromARGB(255, 182, 18, 6)
+                    : Colors.blue,
+              ),
+              borderRadius: const BorderRadius.all(Radius.circular(22)),
             ),
             alignment: Alignment.center,
-            child: null != null
+            child: user["img"] != null
                 ? ClipRRect(
                     borderRadius: BorderRadius.all(
                       Radius.circular(scr.height * .07),
                     ),
                     child: Image.network(
-                      setImgProfile(""),
+                      setImgUser(user),
                       fit: BoxFit.cover,
                       width: 36,
                       height: 36,
                     ),
                   )
-                : Icon(Icons.person, size: 28, color: Colors.black38),
+                : const Icon(Icons.person, size: 28, color: Colors.black38),
           ),
           SizedBox(
             width: 64,
             child: Text(
-              "Guest",
+              user["name"].toString(),
               maxLines: 1,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(color: Colors.white, fontSize: 13),
+              style: const TextStyle(color: Colors.white, fontSize: 13),
             ),
           )
         ],
@@ -129,5 +127,3 @@ class GetEachPlayer extends StatelessWidget {
     );
   }
 }
-
-

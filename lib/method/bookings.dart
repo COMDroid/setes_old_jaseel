@@ -52,11 +52,17 @@ makeBookingpyment(props, slot, context) {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Loading...'),
-          content: Row(
-            children: const [
-              Loading(),
-              Text("You Booking is omplate in few seconds")
-            ],
+          content: SizedBox(
+            height: 100,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                Loading(viewStatus: false),
+                Expanded(
+                  child: Text("You Booking is Complate in few seconds"),
+                ),
+              ],
+            ),
           ),
         );
       },

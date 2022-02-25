@@ -5,18 +5,23 @@ class MyProfileText1 extends StatelessWidget {
   final String? title, data;
   const MyProfileText1(this.title, this.data, {Key? key}) : super(key: key);
 
+  setValue(v) {
+    if (v == null) return '0';
+    return v.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size scr = getScreen(context);
     return Padding(
-      padding: EdgeInsets.all(6),
+      padding: const EdgeInsets.all(6),
       child: Row(
         children: [
           SizedBox(
             width: scr.width * .4,
             child: Text(
               title ?? '',
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
                 fontSize: 17,
@@ -24,8 +29,8 @@ class MyProfileText1 extends StatelessWidget {
             ),
           ),
           Text(
-            data ?? '',
-            style: TextStyle(
+            setValue(data) ?? '',
+            style: const TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
               fontSize: 17,

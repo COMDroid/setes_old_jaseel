@@ -20,12 +20,12 @@ class ScoreBordScreen extends StatelessWidget {
               (match['slot'] == null
                   ? "Unnamed"
                   : match['slot']["truf_name"] ?? ''),
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
+            const Text(
               "Perinthalmanna",
               style: TextStyle(
                 color: Colors.black38,
@@ -36,13 +36,13 @@ class ScoreBordScreen extends StatelessWidget {
         ),
         elevation: 0,
         backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
         actions: [
           Padding(
-            padding: EdgeInsets.only(right: 15, top: 10),
+            padding: const EdgeInsets.only(right: 15, top: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
+              children: const [
                 Text(
                   "Today",
                   style: TextStyle(
@@ -99,15 +99,15 @@ class _ScoreBoardBodyState extends State<ScoreBoardBody> {
                     padding: EdgeInsets.only(right: scr.width * .05),
                     child: Column(
                       children: [
-                        if (i != p) SizedBox(height: 4),
+                        if (i != p) const SizedBox(height: 4),
                         Text(
                           i == 0 ? "LineUp" : "Status",
                           style: i == p
-                              ? TextStyle(
+                              ? const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 25,
                                 )
-                              : TextStyle(
+                              : const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 18,
                                   color: Colors.black45,
@@ -117,8 +117,8 @@ class _ScoreBoardBodyState extends State<ScoreBoardBody> {
                           Container(
                             height: 6,
                             width: 20,
-                            margin: EdgeInsets.only(top: 8),
-                            decoration: BoxDecoration(
+                            margin: const EdgeInsets.only(top: 8),
+                            decoration: const BoxDecoration(
                               color: Colors.redAccent,
                               borderRadius: BorderRadius.all(
                                 Radius.circular(3),
@@ -139,7 +139,7 @@ class _ScoreBoardBodyState extends State<ScoreBoardBody> {
             right: scr.width * .02,
           ),
           decoration: BoxDecoration(
-            color: p == 0 ? Color(0xff109D58) : Colors.white,
+            color: p == 0 ? const Color(0xff109D58) : Colors.white,
             border: Border.all(width: 1, color: Colors.black12),
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(scr.width * .12),
@@ -176,14 +176,16 @@ class _ScoreBoardBodyState extends State<ScoreBoardBody> {
                         ),
                       ],
                     ),
-                    Icon(Icons.layers, size: 30, color: Colors.redAccent),
+                    const Icon(Icons.layers, size: 30, color: Colors.redAccent),
                   ],
                 ),
               ),
               SizedBox(
                 height: scr.height - (312 + scr.height * .1),
                 child: SingleChildScrollView(
-                  child: p == 0 ? ScoreBordLineUp() : ScoreBordStatus(),
+                  child: p == 0
+                      ? ScoreBordLineUp(widget.match['teams'])
+                      : ScoreBordStatus(widget.match['events']),
                 ),
               ),
             ],

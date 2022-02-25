@@ -15,7 +15,7 @@ class TrufsTeamPage extends StatelessWidget {
     Size scr = getScreen(context);
 
     return Scaffold(
-      backgroundColor: Color(0xffC1E4DE),
+      backgroundColor: const Color(0xffC1E4DE),
       body: SizedBox(
         width: scr.width,
         height: scr.height,
@@ -24,14 +24,14 @@ class TrufsTeamPage extends StatelessWidget {
             Container(
               height: scr.width,
               width: scr.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/bg_team.png"),
                   fit: BoxFit.contain,
                 ),
               ),
               child: Padding(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: SafeArea(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

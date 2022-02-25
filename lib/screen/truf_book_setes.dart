@@ -5,7 +5,9 @@ import 'package:setes_mobile/method/bookings.dart';
 import 'package:setes_mobile/method/truf.dart';
 import 'package:setes_mobile/module/api_init.dart';
 import 'package:setes_mobile/module/simple.dart';
+import 'package:setes_mobile/screen/profile.dart';
 import 'package:setes_mobile/screen/warnings.dart';
+import 'package:setes_mobile/widget/walet_peyment_popup.dart';
 
 class TrufBookSetesPage extends StatelessWidget {
   final Map truf;
@@ -143,24 +145,26 @@ class TrufBookBody extends StatelessWidget {
                                         " - " +
                                         slot["e_time"],
                                     style: const TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.black54,
-                                        fontSize: 12),
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black54,
+                                      fontSize: 12,
+                                    ),
                                   ),
                                   const SizedBox(width: 5),
                                   const Icon(
                                     Icons.timelapse,
                                     size: 18,
                                     color: Colors.black54,
-                                  )
+                                  ),
                                 ],
                               ),
                               const Text(
                                 "Play List",
                                 style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.black87,
-                                    fontSize: 20),
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black87,
+                                  fontSize: 20,
+                                ),
                               ),
                             ],
                           ),
@@ -173,38 +177,60 @@ class TrufBookBody extends StatelessWidget {
                       ),
                       if (slot["authers"] != null)
                         for (var i = 0; i < slot["authers"].length; i++)
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    slot["authers"][i]["name"],
-                                    style: const TextStyle(
+                          InkWell(
+                            onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProfiePage(
+                                  slot["authers"][i],
+                                ),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      slot["authers"][i]["name"],
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.w700,
                                         color: Colors.black,
-                                        fontSize: 14.5),
-                                  ),
-                                  const SizedBox(height: 3),
-                                  Text(
-                                    slot["authers"][i]["id"] ?? '',
-                                    style: const TextStyle(
+                                        fontSize: 14.5,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 3),
+                                    Text(
+                                      slot["authers"][i]["id"] ?? '',
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.w700,
                                         color: Colors.black38,
-                                        fontSize: 12),
-                                  ),
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: slot["authers"][i]["img"] == null
-                                    ? const Icon(Icons.person,
-                                        size: 35, color: Colors.black54)
-                                    : const ClipRRect(),
-                              ),
-                            ],
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: slot["authers"][i]["img"] == null
+                                      ? const Icon(Icons.person,
+                                          size: 35, color: Colors.black54)
+                                      : ClipRRect(
+                                          borderRadius: const BorderRadius.all(
+                                            Radius.circular(18),
+                                          ),
+                                          child: Image.network(
+                                            setImgUser(slot["authers"][i]),
+                                            height: 36,
+                                            width: 36,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                ),
+                              ],
+                            ),
                           ),
                       if (slot["authers"] != null)
                         if (slot["authers"].length == 0)
@@ -267,13 +293,17 @@ class TrufBookBody extends StatelessWidget {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      props.truf["location"],
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w700,
-                          color: Colors.black45,
-                          fontSize: 13),
+                    SizedBox(
+                      width: scr.width - 100,
+                      child: Text(
+                        props.truf["location"],
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black45,
+                            fontSize: 13),
+                      ),
                     ),
                     const Text(
                       "1 hour",
@@ -310,12 +340,8 @@ class TrufBookBody extends StatelessWidget {
               context: context,
               builder: (BuildContext context1) {
                 return AlertDialog(
-                  title: const Text('Confirm Book'),
-                  content: SingleChildScrollView(
-                    child: ListBody(
-                      children: const <Widget>[Text('Payment Gate way')],
-                    ),
-                  ),
+                  title: const Text('Pay from'),
+                  content: WaletPaymentPopup(verRes[1]),
                   actions: [
                     TextButton(
                       onPressed: () => makeBookingpyment(this, slot, context),

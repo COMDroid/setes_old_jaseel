@@ -30,6 +30,7 @@ class HomeConfig extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget page = const LoadingPage();
     config() async {
+      http.Response res;
       try {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         String userId = prefs.getString('userid') ?? "";
@@ -42,7 +43,7 @@ class HomeConfig extends StatelessWidget {
           gbUserKey = authKey;
           gbUserId = userId;
         }
-        var res = await http.post(
+        res = await http.post(
           setApi("isuptodate?user_id=" + userId),
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode({'ver': 1, 'logged': ifUser, 'key': authKey}),
@@ -64,12 +65,18 @@ class HomeConfig extends StatelessWidget {
             if (res.statusCode == 401) {
               page = const IntroPage();
             } else {
-              page = const ErrorPage();
+              page = ErrorPage(error: jsonDecode(res.body)['msg']);
             }
           }
         }
       } catch (e) {
-        page = const ErrorPage();
+        String error =
+            "No interner connection\n  or\n  It may be server error\n\n* try again by checking your internet\n* or try after sometime";
+        page = ErrorPage(
+          error: error,
+          fun: () => Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const HomeConfig())),
+        );
       }
       return 0;
     }
