@@ -58,6 +58,7 @@ makeBookingpyment(props, slot, context) {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: const [
                 Loading(viewStatus: false),
+                SizedBox(width: 5),
                 Expanded(
                   child: Text("You Booking is Complate in few seconds"),
                 ),

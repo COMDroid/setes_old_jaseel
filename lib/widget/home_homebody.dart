@@ -122,7 +122,7 @@ class EachButton extends StatelessWidget {
       padding: EdgeInsets.all(scr.width * .02),
       decoration: BoxDecoration(
         color: i == 0
-            ? Color(0xff9C65FC)
+            ? Color.fromARGB(255, 181, 138, 255)
             : i == 1
                 ? Color(0xffFD7A9C)
                 : i == 2
@@ -167,7 +167,7 @@ class EachButton extends StatelessWidget {
                         ? "EVENTS"
                         : "SOCIAL MEDIA",
             style: TextStyle(
-              color: Color(0xeeffffff),
+              color: const Color(0xeeffffff),
               fontSize: scr.width * .042,
               fontWeight: FontWeight.bold,
             ),

@@ -300,17 +300,19 @@ class TrufBookBody extends StatelessWidget {
                       child: Text(
                         props.truf["location"],
                         style: const TextStyle(
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black45,
-                            fontSize: 13),
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black45,
+                          fontSize: 13,
+                        ),
                       ),
                     ),
                     const Text(
                       "1 hour",
                       style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          color: Colors.black45,
-                          fontSize: 13),
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black45,
+                        fontSize: 13,
+                      ),
                     ),
                   ],
                 ),

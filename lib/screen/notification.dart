@@ -12,7 +12,7 @@ class MyNotification extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xff459ADB),
-        title: const Text("My Notifications"),
+        title: const Text("Notifications"),
         actions: [
           IconButton(
             onPressed: () {

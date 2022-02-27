@@ -62,7 +62,7 @@ class _BodyState extends State<Body> {
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Image.asset("assets/setes.jpeg", height: 40),
+                  Image.asset("assets/setes.jpeg", height: 36),
                   Row(
                     children: [
                       IconButton(

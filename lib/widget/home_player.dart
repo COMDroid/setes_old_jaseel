@@ -21,31 +21,32 @@ class HomePlayer extends StatelessWidget {
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: const [
                   SizedBox(height: 5),
                   Text(
                     "Players of the week",
                     style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black87,
-                        fontSize: 18),
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black87,
+                      fontSize: 18,
+                    ),
                   ),
-                  Row(
-                    children: [
-                      Text(
-                        gbisPrime
-                            ? "We brings you a better career"
-                            : "Upgrade to Setes Community",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black54,
-                            fontSize: 12),
-                      ),
-                      // SizedBox(width: 5),
-                      // Icon(Icons.done_all_rounded,
-                      //     size: 18, color: Colors.black54)
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     Text(
+                  //       gbisPrime
+                  //           ? "We brings you a better career"
+                  //           : "Upgrade to Setes Community",
+                  //       style: TextStyle(
+                  //           fontWeight: FontWeight.w500,
+                  //           color: Colors.black54,
+                  //           fontSize: 12),
+                  //     ),
+                  //     // SizedBox(width: 5),
+                  //     // Icon(Icons.done_all_rounded,
+                  //     //     size: 18, color: Colors.black54)
+                  //   ],
+                  // ),
                 ],
               ),
               // Icon(Icons.sports_soccer_rounded,

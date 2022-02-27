@@ -15,7 +15,7 @@ class TrufsSetesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Size scr = getScreen(context);
     return Scaffold(
-      backgroundColor: const Color(0xFF50D9FF),
+      backgroundColor: const Color(0xFFE0F9FE),
       body: SizedBox(
         width: scr.width,
         height: scr.height,

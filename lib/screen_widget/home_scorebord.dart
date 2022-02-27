@@ -145,11 +145,11 @@ class HomeScorebord extends StatelessWidget {
                                               ),
                                             ],
                                           ),
-                                          const Icon(
-                                            Icons.search_sharp,
-                                            size: 40,
-                                            color: Color(0xff0E6E9D),
-                                          )
+                                          // const Icon(
+                                          //   Icons.search_sharp,
+                                          //   size: 40,
+                                          //   color: Color(0xff0E6E9D),
+                                          // )
                                         ],
                                       ),
                                     ),
