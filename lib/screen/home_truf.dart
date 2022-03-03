@@ -137,19 +137,19 @@ class _HomeTrufState extends State<HomeTruf> {
               right: 0,
               child: SafeArea(
                 child: Padding(
-                  padding: EdgeInsets.all(6),
+                  padding: const EdgeInsets.all(6),
                   child: Column(
                     children: [
                       Row(
                         children: [
                           IconButton(
                             onPressed: () => Navigator.pop(context),
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.arrow_back_ios,
                               color: Colors.white,
                             ),
                           ),
-                          Text(
+                          const Text(
                             "My Truf",
                             style: TextStyle(
                                 fontWeight: FontWeight.w700,

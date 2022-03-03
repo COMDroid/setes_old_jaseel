@@ -32,13 +32,10 @@ flutter:
 
   assets:
     - assets/loginBg.jpeg
-    - assets/playerBg.jpg
     - assets/playerBg.png
     - assets/scoreBordBg.png
     - assets/bg_a.png
     - assets/bg_team.png
-    - assets/leader_board.png
-    - assets/events_img1.png
     - assets/social.png
     - assets/Group 68.png
     - assets/Path 30.png

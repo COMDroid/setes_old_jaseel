@@ -59,55 +59,39 @@ class _BodyState extends State<Body> {
               backgroundColor: Colors.white,
               shadowColor: Colors.black26,
               elevation: 3,
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Image.asset("assets/setes.jpeg", height: 36),
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const MyNotification(),
-                            ),
-                          );
-                        },
-                        icon: const Icon(
-                          Icons.notifications,
-                          color: Colors.blue,
-                        ),
+              leading: Builder(builder: (context) {
+                return InkWell(
+                  child: const Icon(Icons.menu_rounded),
+                  onTap: () => Scaffold.of(context).openDrawer(),
+                );
+              }),
+              title: Transform.translate(
+                offset: const Offset(-20.0, 0.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.bottomLeft,
+                        child: Image.asset("assets/setes.jpeg", height: 36),
                       ),
-                      gbUser["img"] == null
-                          ? Container(
-                              width: 30,
-                              height: 30,
-                              margin: const EdgeInsets.all(5),
-                              decoration: const BoxDecoration(
-                                color: Colors.black12,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15)),
-                              ),
-                              child: const Icon(
-                                Icons.person,
-                                size: 20,
-                                color: Colors.white,
-                              ),
-                            )
-                          : ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Image.network(
-                                setImgProfile(
-                                    gbUser["_id"] + '/' + gbUser["img"]),
-                                width: 40,
-                                height: 40,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                    ],
-                  ),
-                ],
+                    ),
+                    IconButton(
+                      onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MyNotification())),
+                      icon: const Icon(Icons.notifications, color: Colors.blue),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        var stateT = state;
+                        stateT["page"] = 3;
+                        setState(() => state = stateT);
+                      },
+                      child: const HomeAppbarProfilePic(),
+                    ),
+                  ],
+                ),
               ),
             ),
       body: Stack(
@@ -134,6 +118,31 @@ class _BodyState extends State<Body> {
           )
         ],
       ),
+    );
+  }
+}
+
+class HomeAppbarProfilePic extends StatelessWidget {
+  const HomeAppbarProfilePic({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    if (gbUser["img"] == null) {
+      return Container(
+        width: 30,
+        height: 30,
+        margin: const EdgeInsets.all(5),
+        decoration: const BoxDecoration(
+          color: Colors.black12,
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+        ),
+        child: const Icon(Icons.person, size: 20, color: Colors.white),
+      );
+    }
+    String picLink = setImgProfile(gbUser["_id"] + '/' + gbUser["img"]);
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: Image.network(picLink, width: 40, height: 40, fit: BoxFit.cover),
     );
   }
 }

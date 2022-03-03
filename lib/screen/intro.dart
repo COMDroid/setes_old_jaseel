@@ -8,9 +8,9 @@ class IntroPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: const Color(0xffE2F1F4),
+      backgroundColor: Color(0xffE2F1F4),
       body: IntroPageBody(),
     );
   }
@@ -18,7 +18,7 @@ class IntroPage extends StatelessWidget {
 
 class IntroPageBody extends StatefulWidget {
   const IntroPageBody({Key? key}) : super(key: key);
-  
+
   @override
   _IntroPageBodyState createState() => _IntroPageBodyState();
 }
@@ -26,8 +26,6 @@ class IntroPageBody extends StatefulWidget {
 class _IntroPageBodyState extends State<IntroPageBody> {
   String? error;
   bool loading = false;
-  seterror(v) => setState(() => error = v);
-  setloading(v) => setState(() => loading = v);
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +108,7 @@ class _IntroPageBodyState extends State<IntroPageBody> {
                   ),
                   const SizedBox(height: 20),
                   error == null
-                      ? SizedBox()
+                      ? const SizedBox()
                       : Text(
                           error ?? '',
                           textAlign: TextAlign.center,
@@ -124,6 +122,7 @@ class _IntroPageBodyState extends State<IntroPageBody> {
                   for (var i = 0; i < 2; i++)
                     InkWell(
                       onTap: () {
+                        if (loading) return;
                         if (i == 0) {
                           guestLogin(this);
                         } else {
@@ -138,11 +137,15 @@ class _IntroPageBodyState extends State<IntroPageBody> {
                       child: Container(
                         height: 50,
                         width: scr.width,
-                        margin:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                        padding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                        decoration: BoxDecoration(
+                        margin: const EdgeInsets.symmetric(
+                          vertical: 15,
+                          horizontal: 20,
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 10,
+                          horizontal: 20,
+                        ),
+                        decoration: const BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(7)),
                           boxShadow: [
                             BoxShadow(
@@ -152,7 +155,7 @@ class _IntroPageBodyState extends State<IntroPageBody> {
                               color: Color(0x33000000),
                             ),
                           ],
-                          gradient: const LinearGradient(
+                          gradient: LinearGradient(
                             colors: [Color(0xFF1368A9), Color(0xFFE2F1F4)],
                             begin: FractionalOffset(0.0, 1.0),
                             end: FractionalOffset(1.0, 0.0),
@@ -165,14 +168,21 @@ class _IntroPageBodyState extends State<IntroPageBody> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              i == 0 ? "Enter as Guest" : "Click here to Login",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
-                                  fontSize: 18),
+                              loading
+                                  ? "Loading..."
+                                  : (i == 0
+                                      ? "Enter as Guest"
+                                      : "Click here to Login"),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
                             ),
-                            Icon(i == 0 ? Icons.gesture : Icons.login,
-                                color: Colors.white)
+                            Icon(
+                              i == 0 ? Icons.gesture : Icons.login,
+                              color: Colors.white,
+                            )
                           ],
                         ),
                       ),

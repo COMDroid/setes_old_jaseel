@@ -152,8 +152,8 @@ logout(context) async {
 }
 
 guestLogin(props) async {
-  props.setloading(true);
-  props.seterror(null);
+  props.setState(() => props.loading = true);
+  props.setState(() => props.error = null);
   try {
     var res = await http.post(setApi("guestlogin"), body: {});
     if (res.statusCode == 200) {
@@ -167,11 +167,11 @@ guestLogin(props) async {
       Navigator.pushReplacement(props.context,
           MaterialPageRoute(builder: (context) => const HomePage()));
     } else {
-      props.seterror(await jsonDecode(res.body)["msg"]);
+      props.setState(() => props.error = jsonDecode(res.body)["msg"]);
     }
   } catch (e) {
-    props.seterror("Network Error");
+    props.setState(() => props.error = "Network Error");
   }
-  props.setloading(false);
+  props.setState(() => props.loading = false);
   return 0;
 }
