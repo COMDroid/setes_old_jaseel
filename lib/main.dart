@@ -5,6 +5,7 @@ import 'package:setes_mobile/module/api_init.dart';
 import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/screen/home.dart';
 import 'package:setes_mobile/screen/intro.dart';
+import 'package:setes_mobile/screen/intro_loading.dart';
 import 'package:setes_mobile/screen/warnings.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -41,7 +42,7 @@ class HomeConfig extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget page = const LoadingPage();
+    Widget page = const IntroLoadingScreen();
     config() async {
       http.Response res;
       try {
@@ -83,7 +84,6 @@ class HomeConfig extends StatelessWidget {
           }
         }
       } catch (e) {
-        print(e);
         String error =
             "No interner connection\n  or\n  It may be server error\n\n* try again by checking your internet\n* or try after sometime";
         page = ErrorPage(
@@ -101,7 +101,7 @@ class HomeConfig extends StatelessWidget {
         if (snapshot.hasData) {
           return page;
         } else {
-          return const LoadingPage();
+          return const IntroLoadingScreen();
         }
       },
     );

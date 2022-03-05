@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:setes_mobile/method/home.dart';
 import 'package:setes_mobile/module/api_init.dart';
 import 'package:setes_mobile/module/gb_var.dart';
+import 'package:setes_mobile/screen/intro_loading.dart';
 import 'package:setes_mobile/screen/notification.dart';
 import 'package:setes_mobile/screen/warnings.dart';
 import 'package:setes_mobile/screen_widget/home_drower.dart';
@@ -28,7 +29,7 @@ class HomePage extends StatelessWidget {
             return Body(jsonDecode(snapshot.data.toString())[1]);
           }
         } else {
-          return const LoadingPage();
+          return const IntroLoadingScreen();
         }
       },
     );
