@@ -58,6 +58,7 @@ validateOtp(context, setstate, state, data) async {
     var res = await http.post(
       setApi("login"),
       body: {"otp": state["otpC"].text, "pin": data["pin"]},
+      headers: gbHeader,
     );
     if (res.statusCode == 200) {
       if (await jsonDecode(res.body)["registerd"]) {
@@ -66,10 +67,17 @@ validateOtp(context, setstate, state, data) async {
         gbisPrime = body['prime'] ?? false;
         gbUser = body;
         gbUserId = body["_id"];
-        gbUserKey = body["key"];
+
+        gbHeader = {
+          'Content-Type': 'application/json',
+          'user_id': gbUserId,
+          "key": body["key"],
+          "version": "1.0",
+          'gps': "${gbGPS.latitude},${gbGPS.longitude}",
+        };
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('userid', gbUserId);
-        await prefs.setString('authkey', gbUserKey);
+        await prefs.setString('authkey', body["key"]);
         Navigator.pop(context);
         Navigator.pop(context);
         if (upgradingtoPrime && !gbisPrime) {
@@ -103,18 +111,28 @@ register(context, setstate, state, data) async {
   setstate("loading", true);
   setstate("error", null);
   try {
-    var res = await http.post(setApi("register?user_id=" + data["_id"]),
-        body: {"name": state["nameC"].text, "email": state["emailC"].text});
+    var res = await http.post(
+      setApi("register?user_id=" + data["_id"]),
+      body: {"name": state["nameC"].text, "email": state["emailC"].text},
+      headers: gbHeader,
+    );
     if (res.statusCode == 200) {
       var body = await jsonDecode(res.body);
       gbisGuest = body['guest'] ?? false;
       gbisPrime = body['prime'] ?? false;
       gbUser = body;
       gbUserId = body["_id"];
-      gbUserKey = body["key"];
+
+      gbHeader = {
+        'Content-Type': 'application/json',
+        'user_id': gbUserId,
+        "key": body["key"],
+        "version": "1.0",
+        'gps': "${gbGPS.latitude},${gbGPS.longitude}",
+      };
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('userid', gbUserId);
-      await prefs.setString('authkey', gbUserKey);
+      await prefs.setString('authkey', body["key"]);
       Navigator.pop(context);
       Navigator.pop(context);
       if (upgradingtoPrime) {
@@ -138,7 +156,6 @@ logout(context) async {
   await prefs.setString('authkey', "");
   await prefs.setString('userid', "");
   gbUserId = "";
-  gbUserKey = "";
   gbUser = {};
   Navigator.pop(context);
   Navigator.pop(context);
@@ -156,17 +173,28 @@ guestLogin(props) async {
   props.setState(() => props.loading = true);
   props.setState(() => props.error = null);
   try {
-    var res = await http.post(setApi("guestlogin"), body: {});
+    var res = await http.post(
+      setApi("guestlogin"),
+      body: {},
+      headers: gbHeader,
+    );
     if (res.statusCode == 200) {
       gbUserId = await jsonDecode(res.body)["_id"];
-      gbUserKey = await jsonDecode(res.body)["key"];
+      var authKey = await jsonDecode(res.body)["key"];
+      gbHeader = {
+        'Content-Type': 'application/json',
+        'user_id': gbUserId,
+        "key": authKey,
+        "version": "1.0",
+        'gps': "${gbGPS.latitude},${gbGPS.longitude}",
+      };
       gbisGuest = true;
       gbisPrime = false;
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('userid', gbUserId);
-      await prefs.setString('authkey', gbUserKey);
-      Navigator.pushReplacement(
-          props.context, MaterialPageRoute(builder: (context) => HomePage()));
+      await prefs.setString('authkey', authKey);
+      Navigator.pushReplacement(props.context,
+          MaterialPageRoute(builder: (context) => const HomePage()));
     } else {
       props.setState(() => props.error = jsonDecode(res.body)["msg"]);
     }

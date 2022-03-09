@@ -7,7 +7,10 @@ import 'package:http/http.dart' as http;
 getTrufs(type, date) async {
   var link = "trufs?type=$type&date=$date";
   try {
-    var res = await http.get(setApi(link));
+    var res = await http.get(
+      setApi(link),
+      headers: gbHeader,
+    );
     if (res.statusCode == 200) {
       return [false, res.body];
     } else {
@@ -20,7 +23,10 @@ getTrufs(type, date) async {
 
 getSlot(id, date) async {
   var prams = "slot?slot_id=" + id + "&date=" + date;
-  var res = await http.get(setApi(prams));
+  var res = await http.get(
+    setApi(prams),
+    headers: gbHeader,
+  );
   if (res.statusCode == 200) {
     return [false, res.body];
   } else {
@@ -38,7 +44,11 @@ verifyBookingTruf(props) async {
     "user_id": gbUserId
   };
   try {
-    var res = await http.post(setApi("verifybooking"), body: body);
+    var res = await http.post(
+      setApi("verifybooking"),
+      body: body,
+      headers: gbHeader,
+    );
     if (res.statusCode == 200) {
       return [true, await jsonDecode(res.body)];
     } else {
@@ -63,11 +73,15 @@ bookTruf(dynamic props, String acType) async {
   };
 
   try {
-    var res = await http.post(setApi("booktruf"), body: body);
+    var res = await http.post(
+      setApi("booktruf"),
+      body: body,
+      headers: gbHeader,
+    );
     if (res.statusCode == 200) {
-      return [false, jsonDecode(res.body)];
+      return [false, await jsonDecode(res.body)];
     } else {
-      return [true, jsonDecode(res.body)["msg"]];
+      return [true, await jsonDecode(res.body)["msg"]];
     }
   } catch (e) {
     return [true, "Network Error"];

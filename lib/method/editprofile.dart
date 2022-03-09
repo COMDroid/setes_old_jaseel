@@ -29,7 +29,7 @@ editProfile(props) async {
   try {
     var res = await http.put(
       setApi("myprofile?user_id=" + gbUserId),
-      headers: {'Content-Type': 'application/json; charset=UTF-8'},
+      headers: gbHeader,
       body: jsonEncode(body),
     );
     if (res.statusCode == 200) {
@@ -46,7 +46,7 @@ editProfile(props) async {
       props.setState(() => props.loading = false);
       Navigator.pop(props.context);
       Navigator.pushReplacement(props.context,
-          MaterialPageRoute(builder: (context) =>  HomePage()));
+          MaterialPageRoute(builder: (context) => const HomePage()));
     } else {
       props.setState(() {
         props.loading = false;

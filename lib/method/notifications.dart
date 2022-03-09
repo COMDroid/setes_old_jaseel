@@ -1,12 +1,10 @@
 import 'package:setes_mobile/module/api_init.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:setes_mobile/module/gb_var.dart';
 import 'package:http/http.dart' as http;
 
 getNotification() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  String id = prefs.getString('userid').toString();
-  var prams = "mynoti?user_id=" + id;
-  var res = await http.get(setApi(prams));
+  var prams = "mynoti?user_id=" + gbUserId;
+  var res = await http.get(setApi(prams), headers: gbHeader);
   if (res.statusCode == 200) {
     return [false, res.body];
   } else {

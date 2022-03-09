@@ -131,16 +131,15 @@ toprime2(props) async {
   void _handlePaymentSuccess(PaymentSuccessResponse response) async {
     try {
       var res = await http.post(setApi("toprime?user_id=" + gbUserId),
-          headers: {'Content-Type': 'application/json'},
-          body: jsonEncode(body));
+          headers: gbHeader, body: jsonEncode(body));
       if (res.statusCode == 200) {
         gbisPrime = true;
         body['prime'] = true;
         gbUser = {...gbUser, ...body};
         Navigator.pop(props.context);
         Navigator.pop(props.context);
-        Navigator.pushReplacement(
-            props.context, MaterialPageRoute(builder: (context) => HomePage()));
+        Navigator.pushReplacement(props.context,
+            MaterialPageRoute(builder: (context) => const HomePage()));
       } else {
         props.setState(() => props.error = jsonDecode(res.body)["msg"]);
       }
@@ -182,7 +181,10 @@ toprime2(props) async {
 
 getPrimePrice(props) async {
   try {
-    var res = await http.get(setApi("primedetails?user_id=" + gbUserId));
+    var res = await http.get(
+      setApi("primedetails?user_id=" + gbUserId),
+      headers: gbHeader,
+    );
     if (res.statusCode == 200) {
       props.setState(() {
         props.primeData = jsonDecode(res.body);

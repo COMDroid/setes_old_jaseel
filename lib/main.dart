@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:setes_mobile/module/api_init.dart';
 import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/module/get_gps.dart';
@@ -46,9 +47,7 @@ class HomeConfig extends StatelessWidget {
     Widget page = const IntroLoadingScreen();
     config() async {
       try {
-        var gps = await determinePosition();
-        // print(
-        //     "https://maps.google.com/?q=" + "${gps.latitude},${gps.longitude}");
+        gbGPS = await determinePosition();
       } catch (e) {
         page = ErrorPage(
           error: e.toString(),
@@ -67,13 +66,12 @@ class HomeConfig extends StatelessWidget {
           ifUser = false;
         } else {
           authKey = prefs.getString('authkey') ?? "";
-          gbUserKey = authKey;
           gbUserId = userId;
         }
         res = await http.post(
           setApi("isuptodate?user_id=" + userId),
           headers: {'Content-Type': 'application/json'},
-          body: jsonEncode({'ver': 1, 'logged': ifUser, 'key': authKey}),
+          body: jsonEncode({'ver': "1.0", 'logged': ifUser, 'key': authKey}),
         );
         if (res.statusCode == 200) {
           if (!ifUser) {
@@ -84,6 +82,13 @@ class HomeConfig extends StatelessWidget {
           gbisGuest = body['guest'] ?? false;
           gbisPrime = body['prime'] ?? false;
           gbUser = body;
+          gbHeader = {
+            'Content-Type': 'application/json',
+            'user_id': gbUserId,
+            "key": authKey,
+            "version": "1.0",
+            'gps': "${gbGPS.latitude},${gbGPS.longitude}",
+          };
           page = const HomePage();
         } else {
           if (res.statusCode == 410) {

@@ -15,8 +15,10 @@ getHomeTruf(props) async {
           ? "zone"
           : "home";
   try {
-    var res = await http
-        .get(setApi("hometruf?user_id=" + gbUserId + "&type=" + type));
+    var res = await http.get(
+      setApi("hometruf?user_id=" + gbUserId + "&type=" + type),
+      headers: gbHeader,
+    );
     if (res.statusCode == 200) {
       props.setState(() {
         props.players = jsonDecode(res.body)['players'];

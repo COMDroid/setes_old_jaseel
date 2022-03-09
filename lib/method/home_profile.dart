@@ -51,7 +51,7 @@ updateProfilePic(type, context) async {
       var filePath = image.path;
       var request = http.MultipartRequest(
           'POST', setApi("myprofile?user_id=" + gbUserId));
-      // request.headers.addAll({"key": key, "user_id": userId});
+      request.headers.addAll(gbHeader);
       http.MultipartFile multipartFile =
           await http.MultipartFile.fromPath('img', filePath);
       request.files.add(multipartFile);
@@ -59,7 +59,9 @@ updateProfilePic(type, context) async {
       var res = await http.Response.fromStream(response);
       if (res.statusCode == 200) {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) =>  HomePage()));
+          context,
+          MaterialPageRoute(builder: (context) => const HomePage()),
+        );
       }
     }
   } catch (e) {
