@@ -37,12 +37,14 @@ class _WaletPaymentPopupState extends State<WaletPaymentPopup> {
           payWallet = true;
           selected = 0;
         });
+        widget.fun(0);
       }
       if (widget.price <= credit) {
         setState(() {
           selected = 1;
           payCredit = true;
         });
+        widget.fun(1);
       }
     }
 
