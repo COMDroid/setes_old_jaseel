@@ -99,6 +99,13 @@ toprime2(props) async {
     return 0;
   }
 
+  if (props.dob == "") {
+    props.setState(() {
+      props.error = "Chose Your Birth date";
+    });
+    return 0;
+  }
+
   props.setState(() {
     props.loading = true;
     props.error = null;
@@ -116,7 +123,7 @@ toprime2(props) async {
     "strong_foot": props.widget.props.strongfoot,
     "home_truf": props.home,
     "sex": props.sex,
-    "dob": "01-01-2000",
+    "dob": props.dob,
     "name": props.nameC.text,
     "email": props.emailC.text,
   };
@@ -132,8 +139,8 @@ toprime2(props) async {
         gbUser = {...gbUser, ...body};
         Navigator.pop(props.context);
         Navigator.pop(props.context);
-        Navigator.pushReplacement(props.context,
-            MaterialPageRoute(builder: (context) => const HomePage()));
+        Navigator.pushReplacement(
+            props.context, MaterialPageRoute(builder: (context) => HomePage()));
       } else {
         props.setState(() => props.error = jsonDecode(res.body)["msg"]);
       }
@@ -192,7 +199,6 @@ getPrimePrice(props) async {
 }
 
 getPrimeTrufs(props) async {
-  print(props.widget.props.zone);
   try {
     var res = await http
         .get(setApi("primetrufs?zone=" + props.widget.props.zone['title']));

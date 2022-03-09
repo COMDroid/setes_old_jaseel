@@ -22,7 +22,7 @@ class _HomeTrufState extends State<HomeTruf> {
 
   double dy1 = 0;
 
-  Map players_r = {"_id": "776", "name": '', "img": null};
+  Map playersR = {"_id": "776", "name": '', "img": null};
 
   @override
   void initState() {
@@ -37,8 +37,8 @@ class _HomeTrufState extends State<HomeTruf> {
       body: Container(
         height: scr.height,
         width: scr.width,
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
             colors: [Color(0xFFFD10BD), Color(0xFF6B32F5)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -113,19 +113,19 @@ class _HomeTrufState extends State<HomeTruf> {
               child: Image.asset("assets/Group 67.png"),
             ),
             HomeTrufplyers(
-              loading ? players_r : players[0],
+              loading ? playersR : players[0],
               scr.width * .5,
               scr.height * .67 + dy1 * .16,
               1,
             ),
             HomeTrufplyers(
-              loading ? players_r : players[1],
+              loading ? playersR : players[1],
               scr.width * .26,
               scr.height * .58 + dy1 * .4,
               .8,
             ),
             HomeTrufplyers(
-              loading ? players_r : players[2],
+              loading ? playersR : players[2],
               scr.width * .8,
               scr.height * .55 + dy1 * .42,
               .85,
@@ -152,9 +152,10 @@ class _HomeTrufState extends State<HomeTruf> {
                           const Text(
                             "My Truf",
                             style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
-                                fontSize: 20),
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
                           ),
                         ],
                       ),

@@ -68,13 +68,21 @@ makeBookingpyment(props, slot, context) {
         );
       },
     );
-    var res = await bookTruf(props);
+    var res = await bookTruf(props, "bank");
     Navigator.pop(context);
     if (res[0]) {
-      bookingError(context, res[1]["msg"]);
+      bookingError(context, res[1]);
     } else {
       Navigator.pop(context);
       Navigator.pop(context);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => slot["type"] == "s"
+              ? TrufsSetesPage(props.date)
+              : TrufsTeamPage(props.date),
+        ),
+      );
       showDialog<void>(
         context: context,
         barrierDismissible: false,
@@ -85,14 +93,6 @@ makeBookingpyment(props, slot, context) {
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => slot["type"] == "s"
-                          ? TrufsSetesPage(props.date)
-                          : TrufsTeamPage(props.date),
-                    ),
-                  );
                 },
                 child: const Text('Back'),
               ),
@@ -126,4 +126,53 @@ makeBookingpyment(props, slot, context) {
   };
 
   _razorpay.open(options);
+}
+
+bookFromWallet(dynamic props, BuildContext context, String type) async {
+  Navigator.pop(context);
+  showDialog<void>(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context1) {
+      return const AlertDialog(title: Text("Loading.."));
+    },
+  );
+  var res = await bookTruf(props, type);
+  Navigator.pop(context);
+  if (res[0]) {
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext context1) {
+        return AlertDialog(title: Text(res[1]));
+      },
+    );
+  } else {
+    Navigator.pop(context);
+    Navigator.pop(context);
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => props.slot["type"] == "s"
+            ? TrufsSetesPage(props.date)
+            : TrufsTeamPage(props.date),
+      ),
+    );
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Succesfully Booked'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Back'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }

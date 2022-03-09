@@ -49,7 +49,7 @@ verifyBookingTruf(props) async {
   }
 }
 
-bookTruf(props) async {
+bookTruf(dynamic props, String acType) async {
   var slot = props.slot;
   var date = props.date;
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -58,12 +58,18 @@ bookTruf(props) async {
     "slot_id": slot['_id'],
     "date": date,
     "type": slot['type'],
-    "user_id": id
+    "user_id": id,
+    "ac_type": acType,
   };
-  var res = await http.post(setApi("booktruf"), body: body);
-  if (res.statusCode == 200) {
-    return [false, jsonDecode(res.body)];
-  } else {
-    return [true, jsonDecode(res.body)];
+
+  try {
+    var res = await http.post(setApi("booktruf"), body: body);
+    if (res.statusCode == 200) {
+      return [false, jsonDecode(res.body)];
+    } else {
+      return [true, jsonDecode(res.body)["msg"]];
+    }
+  } catch (e) {
+    return [true, "Network Error"];
   }
 }

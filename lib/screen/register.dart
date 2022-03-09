@@ -156,6 +156,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     TextField(
                       controller: state["emailC"],
                       autocorrect: true,
+                      keyboardType: TextInputType.emailAddress,
                       decoration: textBoxStyle1(
                         'Enter your email (Optional)',
                         Icons.email_outlined,

@@ -1,81 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:setes_mobile/module/api_init.dart';
-import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/module/simple.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:setes_mobile/screen/home_truf.dart';
 
 class HomePlayer extends StatelessWidget {
   final List data;
   const HomePlayer(this.data, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Size screen = getScreen(context);
+    Size scr = getScreen(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: EdgeInsets.only(
-              left: screen.width * .03, right: screen.width * .03, top: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  SizedBox(height: 5),
-                  Text(
-                    "Players of the week",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black87,
-                      fontSize: 18,
-                    ),
-                  ),
-                  // Row(
-                  //   children: [
-                  //     Text(
-                  //       gbisPrime
-                  //           ? "We brings you a better career"
-                  //           : "Upgrade to Setes Community",
-                  //       style: TextStyle(
-                  //           fontWeight: FontWeight.w500,
-                  //           color: Colors.black54,
-                  //           fontSize: 12),
-                  //     ),
-                  //     // SizedBox(width: 5),
-                  //     // Icon(Icons.done_all_rounded,
-                  //     //     size: 18, color: Colors.black54)
-                  //   ],
-                  // ),
-                ],
-              ),
-              // Icon(Icons.sports_soccer_rounded,
-              //     size: 40, color: Color(0xff0E6E9D))
-            ],
+            left: scr.width * .03,
+            right: scr.width * .03,
+            top: 10,
+          ),
+          child: const Text(
+            "Players of the week",
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              color: Colors.black87,
+              fontSize: 18,
+            ),
           ),
         ),
-        Container(
-          width: screen.width,
-          height: screen.width * .6,
-          decoration: const BoxDecoration(
-            image: DecorationImage(image: AssetImage("assets/playerBg.png")),
-          ),
-          child: CarouselSlider(
-            options: CarouselOptions(
-              height: screen.width * .54,
-              autoPlay: true,
-              enlargeCenterPage: true,
-              viewportFraction: 0.4,
-              aspectRatio: 2.0,
-              initialPage: 2,
+        InkWell(
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => const HomeTruf(),
             ),
-            items: data.map((i) {
-              return Builder(
-                builder: (BuildContext context) {
-                  return Body(i);
-                },
-              );
-            }).toList(),
+          ),
+          child: Container(
+            width: scr.width,
+            height: scr.width * .6,
+            decoration: const BoxDecoration(
+              image: DecorationImage(image: AssetImage("assets/playerBg.png")),
+            ),
+            child: CarouselSlider(
+              options: CarouselOptions(
+                height: scr.width * .54,
+                autoPlay: true,
+                enlargeCenterPage: true,
+                viewportFraction: 0.4,
+                aspectRatio: 2.0,
+                initialPage: 2,
+              ),
+              items: data.map((i) {
+                return Builder(
+                  builder: (BuildContext context) {
+                    return Body(i);
+                  },
+                );
+              }).toList(),
+            ),
           ),
         ),
       ],

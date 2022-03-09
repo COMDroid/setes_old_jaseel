@@ -263,9 +263,9 @@ class _ToPrimeFormState extends State<ToPrimeForm> {
           child: Container(
             height: 50,
             width: scr.width,
-            margin: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            decoration: BoxDecoration(
+            margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(7)),
               boxShadow: [
                 BoxShadow(
@@ -275,7 +275,7 @@ class _ToPrimeFormState extends State<ToPrimeForm> {
                   color: Color(0x33000000),
                 ),
               ],
-              gradient: const LinearGradient(
+              gradient: LinearGradient(
                 colors: [Color(0xFF1368A9), Color(0xFFE2F1F4)],
                 begin: FractionalOffset(0.0, 1.0),
                 end: FractionalOffset(1.0, 0.0),
@@ -284,7 +284,7 @@ class _ToPrimeFormState extends State<ToPrimeForm> {
               ),
             ),
             child: loading
-                ? Center(
+                ? const Center(
                     child: Text(
                       "Loading..",
                       style: TextStyle(
@@ -296,22 +296,16 @@ class _ToPrimeFormState extends State<ToPrimeForm> {
                 : Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
+                    children: const [
                       Text(
                         "NEXT",
                         style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                            fontSize: 20),
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
                       ),
-                      Icon(Icons.next_plan, color: Colors.white)
-                      // Text(
-                      //   ((primeData['price_pm'] ?? 0) / 100).toString() + "/-",
-                      //   style: TextStyle(
-                      //       fontWeight: FontWeight.w700,
-                      //       color: Colors.white,
-                      //       fontSize: 20),
-                      // ),
+                      Icon(Icons.next_plan, color: Colors.white),
                     ],
                   ),
           ),

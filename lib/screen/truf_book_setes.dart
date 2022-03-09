@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:setes_mobile/method/bookings.dart';
 import 'package:setes_mobile/method/truf.dart';
 import 'package:setes_mobile/module/api_init.dart';
+import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/module/simple.dart';
 import 'package:setes_mobile/screen/profile.dart';
 import 'package:setes_mobile/screen/warnings.dart';
@@ -39,9 +40,10 @@ class TrufBookSetesPage extends StatelessWidget {
             Text(
               truf["location"],
               style: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black45,
-                  fontSize: 12),
+                fontWeight: FontWeight.w600,
+                color: Colors.black45,
+                fontSize: 12,
+              ),
             ),
           ],
         ),
@@ -54,7 +56,19 @@ class TrufBookSetesPage extends StatelessWidget {
               return const Expanded(child: ErrorBody());
             } else {
               var slot = jsonDecode(snapshot.data.toString())[1];
-              return TrufBookBody(this, slot, date);
+              var status = 'BOOK NOW';
+              var count = int.parse(slot['ground'].split('x')[0]);
+              var bookedCount = slot['authers'].length;
+              for (var i = 0; i < bookedCount; i++) {
+                if (slot['authers'][i]['_id'] == gbUserId) {
+                  status = 'BOOKED';
+                  break;
+                }
+              }
+              if (status == 'BOOK NOW') {
+                if (bookedCount == count) status = 'SLOT FULL';
+              }
+              return TrufBookBody(this, slot, date, status);
             }
           } else {
             return const LoadingPage();
@@ -66,14 +80,15 @@ class TrufBookSetesPage extends StatelessWidget {
 }
 
 class TrufBookBody extends StatelessWidget {
-  final dynamic props, slot, date;
-  const TrufBookBody(this.props, this.slot, this.date, {Key? key})
+  final dynamic props, slot, date, status;
+  const TrufBookBody(this.props, this.slot, this.date, this.status, {Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Size scr = getScreen(context);
     List imgs = props.truf["img"];
+
     return Column(
       children: [
         SizedBox(
@@ -338,15 +353,30 @@ class TrufBookBody extends StatelessWidget {
               );
               return;
             }
+            var accountType = 0;
             showDialog<void>(
               context: context,
               builder: (BuildContext context1) {
                 return AlertDialog(
                   title: const Text('Pay from'),
-                  content: WaletPaymentPopup(verRes[1]),
+                  content: WaletPaymentPopup(
+                    verRes[1],
+                    slot['price'],
+                    (v) => accountType = v,
+                  ),
                   actions: [
                     TextButton(
-                      onPressed: () => makeBookingpyment(this, slot, context),
+                      onPressed: () {
+                        if (accountType == 2) {
+                          makeBookingpyment(this, slot, context);
+                        } else {
+                          bookFromWallet(
+                            this,
+                            context,
+                            accountType == 0 ? "wallet" : "credit",
+                          );
+                        }
+                      },
                       child: const Text('Confirm '),
                     )
                   ],
@@ -359,9 +389,9 @@ class TrufBookBody extends StatelessWidget {
             width: scr.width,
             margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(7)),
-              boxShadow: [
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(7)),
+              boxShadow: const [
                 BoxShadow(
                   offset: Offset(2, 3),
                   spreadRadius: 0,
@@ -370,24 +400,32 @@ class TrufBookBody extends StatelessWidget {
                 ),
               ],
               gradient: LinearGradient(
-                  colors: [Color(0xffCE5859), Color(0xffEF8464)]),
+                colors: status == "BOOK NOW"
+                    ? const [Color(0xffCE5859), Color(0xffEF8464)]
+                    : const [
+                        Color.fromARGB(255, 173, 173, 173),
+                        Color.fromARGB(255, 226, 226, 226)
+                      ],
+              ),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  "BOOK NOW",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                      fontSize: 20),
+                Text(
+                  status,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
                 ),
                 Text(
                   toint(slot["price"]) + "/-",
                   style: const TextStyle(
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                      fontSize: 20),
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
                 ),
               ],
             ),

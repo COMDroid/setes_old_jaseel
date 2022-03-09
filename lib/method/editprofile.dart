@@ -46,7 +46,7 @@ editProfile(props) async {
       props.setState(() => props.loading = false);
       Navigator.pop(props.context);
       Navigator.pushReplacement(props.context,
-          MaterialPageRoute(builder: (context) => const HomePage()));
+          MaterialPageRoute(builder: (context) =>  HomePage()));
     } else {
       props.setState(() {
         props.loading = false;

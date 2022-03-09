@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:setes_mobile/module/api_init.dart';
 import 'package:setes_mobile/module/gb_var.dart';
+import 'package:setes_mobile/module/get_gps.dart';
 import 'package:setes_mobile/screen/home.dart';
 import 'package:setes_mobile/screen/intro.dart';
 import 'package:setes_mobile/screen/intro_loading.dart';
@@ -44,6 +45,18 @@ class HomeConfig extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget page = const IntroLoadingScreen();
     config() async {
+      try {
+        var gps = await determinePosition();
+        // print(
+        //     "https://maps.google.com/?q=" + "${gps.latitude},${gps.longitude}");
+      } catch (e) {
+        page = ErrorPage(
+          error: e.toString(),
+          fun: () => Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const HomeConfig())),
+        );
+        return 0;
+      }
       http.Response res;
       try {
         SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -79,7 +92,7 @@ class HomeConfig extends StatelessWidget {
             if (res.statusCode == 401) {
               page = const IntroPage();
             } else {
-              page = ErrorPage(error: jsonDecode(res.body)['msg']);
+              page = ErrorPage(error: await jsonDecode(res.body)['msg']);
             }
           }
         }

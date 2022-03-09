@@ -9,7 +9,7 @@ class HomeBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size screen = getScreen(context);
+    Size scr = getScreen(context);
     return CarouselSlider(
       options: CarouselOptions(),
       items: data.map((i) {
@@ -17,16 +17,20 @@ class HomeBanner extends StatelessWidget {
           builder: (BuildContext context) {
             return Container(
               decoration: BoxDecoration(
-                  border: Border.all(width: .5, color: Colors.black26),
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  boxShadow: const [
-                    BoxShadow(
-                        blurRadius: 3, spreadRadius: 2, color: Colors.black12)
-                  ]),
-              height: screen.width * .5,
+                border: Border.all(width: .5, color: Colors.black26),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: const [
+                  BoxShadow(
+                    blurRadius: 3,
+                    spreadRadius: 2,
+                    color: Colors.black12,
+                  )
+                ],
+              ),
+              height: scr.width * .5,
               margin: EdgeInsets.symmetric(
-                horizontal: screen.width * .02,
+                horizontal: scr.width * .02,
                 vertical: 20,
               ),
               child: ClipRRect(
@@ -34,6 +38,7 @@ class HomeBanner extends StatelessWidget {
                 child: Image.network(
                   setImgEvent(i["img"]),
                   fit: BoxFit.cover,
+                  width: scr.width,
                 ),
               ),
             );

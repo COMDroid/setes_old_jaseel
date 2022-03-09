@@ -117,12 +117,13 @@ register(context, setstate, state, data) async {
       await prefs.setString('authkey', gbUserKey);
       Navigator.pop(context);
       Navigator.pop(context);
-      if (upgradingtoPrime)
+      if (upgradingtoPrime) {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const ToPrimePage()));
-      else
+      } else {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => const HomePage()));
+      }
     } else {
       setstate("error", await jsonDecode(res.body)["msg"]);
     }
@@ -164,8 +165,8 @@ guestLogin(props) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('userid', gbUserId);
       await prefs.setString('authkey', gbUserKey);
-      Navigator.pushReplacement(props.context,
-          MaterialPageRoute(builder: (context) => const HomePage()));
+      Navigator.pushReplacement(
+          props.context, MaterialPageRoute(builder: (context) => HomePage()));
     } else {
       props.setState(() => props.error = jsonDecode(res.body)["msg"]);
     }

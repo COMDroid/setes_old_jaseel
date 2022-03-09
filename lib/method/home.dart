@@ -1,14 +1,16 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:setes_mobile/module/api_init.dart';
-import 'package:setes_mobile/module/gb_var.dart';
 
-getHome() async {
-  var res = await http.get(setApi("home?user_id=" + gbUserId));
+getHome(setdata, seterror) async {
+  var res = await http.get(setApi("home"));
   if (res.statusCode == 200) {
-    return [false, res.body];
+    setdata(await jsonDecode(res.body));
   } else {
-    return [true, res.body];
+    seterror(await jsonDecode(res.body)['msg']);
   }
+  return 1;
 }
 
 getSetesTruf() async {

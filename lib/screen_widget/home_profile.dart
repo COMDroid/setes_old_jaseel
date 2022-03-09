@@ -21,7 +21,7 @@ class _MyProfileState extends State<MyProfile> {
   @override
   void initState() {
     Size scr = MediaQueryData.fromWindow(WidgetsBinding.instance!.window).size;
-    skillTop = scr.height - 360;
+    skillTop = scr.height - 390;
     super.initState();
   }
 
@@ -29,18 +29,21 @@ class _MyProfileState extends State<MyProfile> {
   Widget build(BuildContext context) {
     Size scr = getScreen(context);
     return Container(
-      color: Color(0xffF1F5F9),
+      color: const Color(0xffF1F5F9),
       child: Column(
         children: [
           Container(
             width: scr.width,
             height: 80,
             alignment: Alignment.bottomLeft,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
-                    blurRadius: 3, spreadRadius: 4, color: Color(0x11000000)),
+                  blurRadius: 3,
+                  spreadRadius: 4,
+                  color: Color(0x11000000),
+                ),
               ],
             ),
             child: SafeArea(
@@ -50,7 +53,7 @@ class _MyProfileState extends State<MyProfile> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.symmetric(vertical: 15),
                       child: Text(
                         "My Profile",
@@ -63,9 +66,10 @@ class _MyProfileState extends State<MyProfile> {
                         onPressed: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => EditProfileScreen()),
+                            builder: (context) => const EditProfileScreen(),
+                          ),
                         ),
-                        icon: Icon(Icons.edit, color: Colors.black54),
+                        icon: const Icon(Icons.edit, color: Colors.black54),
                       ),
                   ],
                 ),
@@ -162,7 +166,7 @@ class MyProfilePrime extends StatelessWidget {
         const SizedBox(height: 8),
         HomeProfileEach("Email", gbUser['email']),
         HomeProfileEach("Phone", gbUser['phone']),
-        HomeProfileEach("Gender", gbUser['sex']),
+        // HomeProfileEach("Gender", gbUser['sex']),
         HomeProfileEach("Date of birth", gbUser['dob']),
         HomeProfileEach("Blood Group", gbUser['blood_group']),
         HomeProfileEach("District", gbUser['district']),
@@ -197,7 +201,11 @@ class MyProfileNonPrime extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Icon(Icons.person_off, size: scr.height * .15, color: Colors.black45),
+          Icon(
+            Icons.person_off,
+            size: scr.height * .15,
+            color: const Color(0x73FFFFFF),
+          ),
           TextButton(
             onPressed: () {
               upgradingtoPrime = true;
@@ -276,25 +284,26 @@ class MyprofileSkills extends StatelessWidget {
             ),
           ),
           Expanded(
-              child: Padding(
-            padding: EdgeInsets.only(
-              top: 10,
-              left: scr.width * .22,
-              bottom: 100,
+            child: Padding(
+              padding: EdgeInsets.only(
+                top: 10,
+                left: scr.width * .22,
+                bottom: 100,
+              ),
+              child: ListView(
+                children: [
+                  MyProfileText1("Goals", gbUser['my_goal']),
+                  MyProfileText1("Assistant", gbUser['my_assistant']),
+                  MyProfileText1("Free Kick", gbUser['my_free_kick']),
+                  MyProfileText1("Penalty Goal", gbUser['my_penalty_goal']),
+                  MyProfileText1("Interception", gbUser['my_interception']),
+                  MyProfileText1("Save", gbUser['my_save']),
+                  MyProfileText1("Clean Sheet", gbUser['my_clean_sheet']),
+                  MyProfileText1("Penalty Save", gbUser['my_penalty_save']),
+                ],
+              ),
             ),
-            child: ListView(
-              children: [
-                MyProfileText1("Goals", gbUser['my_goal']),
-                MyProfileText1("Assistant", gbUser['my_assistant']),
-                MyProfileText1("Free Kick", gbUser['my_free_kick']),
-                MyProfileText1("Penalty Goal", gbUser['my_penalty_goal']),
-                MyProfileText1("Interception", gbUser['my_interception']),
-                MyProfileText1("Save", gbUser['my_save']),
-                MyProfileText1("Clean Sheet", gbUser['my_clean_sheet']),
-                MyProfileText1("Penalty Save", gbUser['my_penalty_save']),
-              ],
-            ),
-          ))
+          )
         ],
       ),
     );

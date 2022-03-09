@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:setes_mobile/method/home.dart';
 import 'package:setes_mobile/module/api_init.dart';
@@ -15,22 +14,20 @@ import 'package:setes_mobile/widget/home_bottombar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    Map data = {};
+    String? error;
     return FutureBuilder(
-      future: getHome(),
+      future: getHome((v) => data = v, (v) => error = v),
       builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return const ErrorPage();
-        } else if (snapshot.hasData) {
-          if (jsonDecode(snapshot.data.toString())[0]) {
-            return const ErrorPage();
-          } else {
-            return Body(jsonDecode(snapshot.data.toString())[1]);
-          }
-        } else {
-          return const IntroLoadingScreen();
+        if (snapshot.hasData) {
+          if (snapshot.hasError) return const ErrorPage(error: "Network Error");
+          if (error != null) return ErrorPage(error: error ?? '');
+          return Body(data);
         }
+        return const IntroLoadingScreen();
       },
     );
   }
@@ -45,15 +42,14 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  Map state = {"page": 0};
-  setstate(v, u) => setState(() => state[v] = u);
+  int page = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       drawer: const HomeDrower(),
-      appBar: state["page"] != 0
+      appBar: page != 0
           ? null
           : AppBar(
               iconTheme: const IconThemeData(color: Colors.black),
@@ -66,56 +62,44 @@ class _BodyState extends State<Body> {
                   onTap: () => Scaffold.of(context).openDrawer(),
                 );
               }),
-              title: Transform.translate(
-                offset: const Offset(-20.0, 0.0),
-                child: Row(
-                  children: [
-                    Expanded(
+              title: Row(
+                children: [
+                  Expanded(
+                    child: Transform.translate(
+                      offset: const Offset(-20.0, 0.0),
                       child: Container(
                         alignment: Alignment.bottomLeft,
                         child: Image.asset("assets/setes.jpeg", height: 36),
                       ),
                     ),
-                    IconButton(
-                      onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const MyNotification())),
-                      icon: const Icon(Icons.notifications, color: Colors.blue),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        var stateT = state;
-                        stateT["page"] = 3;
-                        setState(() => state = stateT);
-                      },
-                      child: const HomeAppbarProfilePic(),
-                    ),
-                  ],
-                ),
+                  ),
+                  IconButton(
+                    onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MyNotification())),
+                    icon: const Icon(Icons.notifications, color: Colors.blue),
+                  ),
+                  InkWell(
+                    onTap: () => setState(() => page = 3),
+                    child: const HomeAppbarProfilePic(),
+                  ),
+                ],
               ),
             ),
       body: Stack(
         children: [
-          Positioned(
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: state["page"] == 0
-                ? HomeHome(widget.data)
-                : state["page"] == 1
-                    ? HomeScorebord(widget.data['bookings'])
-                    : state["page"] == 2
-                        ? const MyStuf()
-                        : const MyProfile(),
-          ),
+          if (page == 0) Positioned(child: HomeHome(widget.data)),
+          if (page == 1)
+            Positioned(child: HomeScorebord(widget.data['bookings'])),
+          if (page == 2) const Positioned(child: MyStuf()),
+          if (page == 3) const Positioned(child: MyProfile()),
           Positioned(
             height: 80,
             bottom: 0,
             left: 0,
             right: 0,
-            child: HomeBottombar(setstate),
+            child: HomeBottombar((v) => setState(() => page = v)),
           )
         ],
       ),

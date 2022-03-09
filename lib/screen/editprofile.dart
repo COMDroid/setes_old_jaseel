@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:setes_mobile/method/editprofile.dart';
 import 'package:setes_mobile/method/toprime.dart';
 import 'package:setes_mobile/module/gb_var.dart';
@@ -139,6 +140,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
   String? secfavposition = gbUser["sec_fav_position"];
   String? strongfoot = gbUser["strong_foot"];
   String? sex = gbUser["sex"];
+  String? dob = gbUser["dob"];
 
   TextEditingController nameC = TextEditingController();
   TextEditingController emailC = TextEditingController();
@@ -192,12 +194,53 @@ class _EditProfileFormState extends State<EditProfileForm> {
                 ),
               ),
               const SizedBox(height: 10),
-              DroperButton(
-                Icons.person,
-                'Sex',
-                sex,
-                ['Male', "Female"],
-                (v) => setState(() => sex = v),
+              // DroperButton(
+              //   Icons.person,
+              //   'Sex',
+              //   sex,
+              //   ['Male', "Female"],
+              //   (v) => setState(() => sex = v),
+              // ),
+              // const SizedBox(height: 10),
+              InkWell(
+                onTap: () {
+                  DatePicker.showDatePicker(
+                    context,
+                    showTitleActions: true,
+                    maxTime: DateTime.now(),
+                    onConfirm: (d) => setState(() => dob = dateTomyFormat(d)),
+                    currentTime: DateTime.now(),
+                  );
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 12,
+                    horizontal: 12,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(25)),
+                    border: Border.all(
+                      color: const Color(0x09000000),
+                      width: 2,
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.calendar_month,
+                        color: Colors.black45,
+                        size: 22,
+                      ),
+                      const SizedBox(width: 15),
+                      Text(
+                        dob == null ? "Select Your Birth Date" : (dob ?? ""),
+                        style: TextStyle(
+                          color: dob == null ? Colors.black12 : Colors.black,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               ),
               const SizedBox(height: 10),
               DroperButton(

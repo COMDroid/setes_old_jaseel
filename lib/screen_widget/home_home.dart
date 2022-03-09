@@ -12,7 +12,6 @@ class HomeHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size scr = getScreen(context);
     return Column(
       children: <Widget>[
         Expanded(
@@ -22,11 +21,12 @@ class HomeHome extends StatelessWidget {
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (BuildContext context) => const EventsPage()),
+                    builder: (BuildContext context) => const EventsPage(),
+                  ),
                 ),
-                child: HomeBanner(data["events"]),
+                child: HomeBanner(data["events"] ?? []),
               ),
-              HomePlayer(data["players"]),
+              HomePlayer(data["players"] ?? []),
               Container(
                 padding: const EdgeInsets.only(top: 14),
                 child: const HomeHomeBody(),
@@ -116,12 +116,12 @@ class EachButton extends StatelessWidget {
       padding: EdgeInsets.all(scr.width * .02),
       decoration: BoxDecoration(
         color: i == 0
-            ? const Color(0xFFB58AFF)
+            ? const Color.fromARGB(209, 181, 138, 255)
             : i == 1
-                ? const Color(0xffFD7A9C)
+                ? const Color.fromARGB(218, 253, 122, 157)
                 : i == 2
-                    ? const Color(0xff6AD9C8)
-                    : const Color(0xffFFDD7C),
+                    ? const Color.fromARGB(201, 106, 217, 200)
+                    : const Color.fromARGB(206, 255, 220, 124),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(i == 0 ? scr.width * .4 : 20),
           topRight: Radius.circular(i == 1 ? scr.width * .4 : 20),

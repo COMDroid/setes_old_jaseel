@@ -59,7 +59,7 @@ updateProfilePic(type, context) async {
       var res = await http.Response.fromStream(response);
       if (res.statusCode == 200) {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => const HomePage()));
+            context, MaterialPageRoute(builder: (context) =>  HomePage()));
       }
     }
   } catch (e) {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class HomeBottombar extends StatelessWidget {
-  final Function setstate;
-  const HomeBottombar(this.setstate, {Key? key}) : super(key: key);
+  final Function setPage;
+  const HomeBottombar(this.setPage, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class HomeBottombar extends StatelessWidget {
         // Icon(Icons.my_library_add_outlined, size: 30),
         // Icon(Icons.person_outline, size: 30),
       ],
-      onTap: (index) => setstate("page", index),
+      onTap: (v) => setPage(v),
     );
   }
 }

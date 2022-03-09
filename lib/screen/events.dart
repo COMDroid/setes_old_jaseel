@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:setes_mobile/module/api_init.dart';
 import 'package:setes_mobile/screen/warnings.dart';
@@ -27,30 +26,24 @@ class _EventsPageState extends State<EventsPage> {
             child: WebView(
               initialUrl: eventsWeb,
               javascriptMode: JavascriptMode.unrestricted,
-              onPageFinished: (s) {
-                setState(() => loading = false);
-              },
-              onProgress: (s) {
-                setState(() => loading = true);
-              },
+              onPageFinished: (s) => setState(() => loading = false),
+              onProgress: (s) => setState(() => loading = true),
             ),
           ),
           if (loading)
-            Positioned(
+            const Positioned(
               top: 0,
               left: 0,
               right: 0,
               bottom: 0,
-              child: Center(
-                child: Loading(),
-              ),
+              child: Center(child: Loading()),
             ),
           Positioned(
             top: 0,
             left: 0,
             right: 0,
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -62,24 +55,25 @@ class _EventsPageState extends State<EventsPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
                       child: IconButton(
                         onPressed: () => Navigator.pop(context),
-                        icon: Icon(Icons.arrow_back, color: Colors.white),
+                        icon: const Icon(Icons.arrow_back, color: Colors.white),
                       ),
                     ),
-                    Text(
+                    const Text(
                       "Events",
                       style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
                     ),
                   ],
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

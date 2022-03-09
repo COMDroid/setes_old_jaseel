@@ -208,6 +208,7 @@ class EachSetesTruf extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        var st = data["slots"];
         showDialog<void>(
           context: context,
           builder: (BuildContext context) {
@@ -216,37 +217,32 @@ class EachSetesTruf extends StatelessWidget {
               content: SingleChildScrollView(
                 child: ListBody(
                   children: <Widget>[
-                    for (var i = 0; i < data["slots"].length; i++)
+                    for (var i = 0; i < st.length; i++)
                       ListTile(
                         onTap: () {
-                          if (data["slots"][i]["booked"]) {
-                            return;
-                          }
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      TrufBookSetesPage(data, i, props.date)));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  TrufBookSetesPage(data, i, props.date),
+                            ),
+                          );
                         },
                         title: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(data["slots"][i]["ground"]),
+                            Text(st[i]["ground"]),
                             Text(
-                              data["slots"][i]["booked"]
-                                  ? "Not Available"
-                                  : "Available",
+                              st[i]["booked"] ? "Not Available" : "Available",
                               style: TextStyle(
-                                  color: data["slots"][i]["booked"]
+                                  color: st[i]["booked"]
                                       ? Colors.red
                                       : Colors.green),
                             ),
                           ],
                         ),
                         subtitle: Text(
-                          data["slots"][i]["s_time"] +
-                              " - " +
-                              data["slots"][i]["e_time"],
+                          st[i]["s_time"] + " - " + st[i]["e_time"],
                         ),
                       ),
                   ],
