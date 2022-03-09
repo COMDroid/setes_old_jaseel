@@ -58,7 +58,6 @@ validateOtp(context, setstate, state, data) async {
     var res = await http.post(
       setApi("login"),
       body: {"otp": state["otpC"].text, "pin": data["pin"]},
-      headers: gbHeader,
     );
     if (res.statusCode == 200) {
       if (await jsonDecode(res.body)["registerd"]) {
@@ -157,16 +156,13 @@ logout(context) async {
   await prefs.setString('userid', "");
   gbUserId = "";
   gbUser = {};
-  Navigator.pop(context);
-  Navigator.pop(context);
-  Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(builder: (context) => const IntroPage()),
-  );
+  Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (context) => const IntroPage(),
+      ),
+      (Route<dynamic> route) => false);
   Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => const LoginPage()),
-  );
+      context, MaterialPageRoute(builder: (context) => const LoginPage()));
 }
 
 guestLogin(props) async {

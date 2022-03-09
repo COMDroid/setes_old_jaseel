@@ -20,7 +20,7 @@ class HomePage extends StatelessWidget {
     Map data = {};
     String? error;
     return FutureBuilder(
-      future: getHome((v) => data = v, (v) => error = v),
+      future: getHome((v) => data = v, (v) => error = v, context),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           if (snapshot.hasError) return const ErrorPage(error: "Network Error");

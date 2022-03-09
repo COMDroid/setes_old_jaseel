@@ -27,8 +27,8 @@ class HomeDrower extends StatelessWidget {
                   width: screen.width * .7 - 25,
                   child: ListTile(
                     onTap: () => Navigator.pop(context),
-                    title: Text("Home"),
-                    subtitle: Text("Setes Sports"),
+                    title: const Text("Home"),
+                    subtitle: const Text("Setes Sports"),
                   ),
                 ),
               ],
@@ -45,8 +45,8 @@ class HomeDrower extends StatelessWidget {
                         builder: (context) => MyNotification(),
                       ),
                     ),
-                    title: Text("Notifications"),
-                    subtitle: Text("All Notifications"),
+                    title: const Text("Notifications"),
+                    subtitle: const Text("All Notifications"),
                   ),
                 ),
               ],
@@ -60,11 +60,11 @@ class HomeDrower extends StatelessWidget {
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => MyBookings(),
+                        builder: (context) => const MyBookings(),
                       ),
                     ),
-                    title: Text("My Bookings"),
-                    subtitle: Text("Booking History and Bookings"),
+                    title: const Text("My Bookings"),
+                    subtitle: const Text("Booking History and Bookings"),
                   ),
                 ),
               ],
@@ -95,8 +95,8 @@ class HomeDrower extends StatelessWidget {
                           );
                         }
                       },
-                      title: Text("Upgrade to Setes community"),
-                      subtitle: Text("Get more on Setes community"),
+                      title: const Text("Upgrade to Setes community"),
+                      subtitle: const Text("Get more on Setes community"),
                     ),
                   ),
                 ],
@@ -126,7 +126,7 @@ class HomeDrower extends StatelessWidget {
                               actions: [
                                 TextButton(
                                   onPressed: () => logout(context),
-                                  child: Text('Confirm Logout'),
+                                  child: const Text('Confirm Logout'),
                                 ),
                               ],
                             );

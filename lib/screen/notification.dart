@@ -28,7 +28,7 @@ class MyNotification extends StatelessWidget {
         ],
       ),
       body: FutureBuilder(
-        future: getNotification(),
+        future: getNotification(context),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (jsonDecode(snapshot.data.toString())[0]) {

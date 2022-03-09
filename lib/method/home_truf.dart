@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:setes_mobile/method/login.dart';
 import 'package:setes_mobile/module/api_init.dart';
 import 'package:setes_mobile/module/gb_var.dart';
 
@@ -25,6 +26,7 @@ getHomeTruf(props) async {
         props.members = jsonDecode(res.body)['members'];
       });
     } else {
+      if (res.statusCode == 401) logout(props.context);
       props.setState(() => props.error = jsonDecode(res.body)['msg']);
     }
   } catch (e) {

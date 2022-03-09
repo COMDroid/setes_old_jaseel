@@ -19,11 +19,13 @@ class UpdateProfileWarningPopup extends StatelessWidget {
                 Navigator.pop(context);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ProfilePicturePage()),
+                  MaterialPageRoute(
+                    builder: (context) => const ProfilePicturePage(),
+                  ),
                 );
               },
               title: Row(
-                children: [
+                children: const [
                   SizedBox(width: 20),
                   Icon(Icons.remove_red_eye, color: Colors.black45),
                   SizedBox(width: 20),
@@ -37,7 +39,7 @@ class UpdateProfileWarningPopup extends StatelessWidget {
                 onTapProfilepicEdit(context);
               },
               title: Row(
-                children: [
+                children: const [
                   SizedBox(width: 20),
                   Icon(Icons.edit, color: Colors.black45),
                   SizedBox(width: 20),
@@ -64,7 +66,6 @@ class ProfilePicEditWarningPopup extends StatelessWidget {
             ListTile(
               title: Text(i == 0 ? "Files" : "Camera"),
               onTap: () async {
-                Navigator.pop(context);
                 updateProfilePic(i == 0 ? "Files" : "Camera", context);
               },
             ),
@@ -84,15 +85,15 @@ class HomeProfilePicture extends StatelessWidget {
       child: Container(
         width: 80,
         height: 80,
-        margin: EdgeInsets.all(10),
-        decoration: BoxDecoration(
+        margin: const EdgeInsets.all(10),
+        decoration: const BoxDecoration(
           color: Colors.black12,
           borderRadius: BorderRadius.all(Radius.circular(40)),
         ),
         child: gbUser['img'] == null
-            ? Icon(Icons.person, size: 60, color: Colors.white)
+            ? const Icon(Icons.person, size: 60, color: Colors.white)
             : ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(40)),
+                borderRadius: const BorderRadius.all(Radius.circular(40)),
                 child: Image.network(
                   setImgProfile(gbUser["_id"] + "/" + gbUser["img"]),
                   fit: BoxFit.cover,

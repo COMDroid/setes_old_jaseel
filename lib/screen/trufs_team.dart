@@ -123,7 +123,7 @@ class TeamTrufLoader extends StatelessWidget {
   Widget build(BuildContext context) {
     Size scr = getScreen(context);
     return FutureBuilder(
-      future: getTrufs("t", props.date),
+      future: getTrufs("t", props.date, context),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           if (jsonDecode(snapshot.data.toString())[0]) {

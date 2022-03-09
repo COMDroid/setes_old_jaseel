@@ -112,7 +112,7 @@ class SetesTrufLoader extends StatelessWidget {
   Widget build(BuildContext context) {
     Size scr = getScreen(context);
     return FutureBuilder(
-      future: getTrufs("s", props.date),
+      future: getTrufs("s", props.date, context),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           if (snapshot.hasError) {

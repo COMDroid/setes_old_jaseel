@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:setes_mobile/method/login.dart';
 import 'package:setes_mobile/module/api_init.dart';
 import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/screen/home.dart';
@@ -141,7 +142,11 @@ toprime2(props) async {
         Navigator.pushReplacement(props.context,
             MaterialPageRoute(builder: (context) => const HomePage()));
       } else {
-        props.setState(() => props.error = jsonDecode(res.body)["msg"]);
+        if (res.statusCode == 401) {
+          logout(props.context);
+        } else {
+          props.setState(() => props.error = jsonDecode(res.body)["msg"]);
+        }
       }
     } catch (e) {
       props.setState(() => props.error = "Network Error");
@@ -191,9 +196,13 @@ getPrimePrice(props) async {
         props.loading = false;
       });
     } else {
-      props.setState(
-        () => props.error = jsonDecode(res.body)["msg"],
-      );
+      if (res.statusCode == 401) {
+        logout(props.context);
+      } else {
+        props.setState(
+          () => props.error = jsonDecode(res.body)["msg"],
+        );
+      }
     }
   } catch (e) {
     props.setState(() => props.error = "Network Error");

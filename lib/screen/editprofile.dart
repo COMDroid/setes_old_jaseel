@@ -79,8 +79,8 @@ class EditProfileScreen extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(20),
+              child:const Padding(
+                padding:  EdgeInsets.all(20),
                 child: EditProfileForm(),
               ),
             ),
@@ -172,7 +172,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
         const SizedBox(height: 20),
         Expanded(
           child: ListView(
-            padding: EdgeInsets.only(top: 8),
+            padding:const EdgeInsets.only(top: 8),
             children: [
               const SizedBox(height: 10),
               TextField(

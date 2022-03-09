@@ -6,7 +6,10 @@ import 'package:setes_mobile/method/truf.dart';
 import 'package:setes_mobile/module/api_init.dart';
 import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/module/simple.dart';
+import 'package:setes_mobile/screen/home.dart';
+import 'package:setes_mobile/screen/login.dart';
 import 'package:setes_mobile/screen/profile.dart';
+import 'package:setes_mobile/screen/trufs_setes.dart';
 import 'package:setes_mobile/screen/warnings.dart';
 import 'package:setes_mobile/widget/walet_peyment_popup.dart';
 
@@ -49,7 +52,7 @@ class TrufBookSetesPage extends StatelessWidget {
         ),
       ),
       body: FutureBuilder(
-        future: getSlot(slotId, date),
+        future: getSlot(slotId, date, context),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (jsonDecode(snapshot.data.toString())[0]) {
@@ -342,7 +345,7 @@ class TrufBookBody extends StatelessWidget {
                 return const AlertDialog(title: Text("Loading.."));
               },
             );
-            List verRes = await verifyBookingTruf(this);
+            List verRes = await verifyBookingTruf(this,context);
             Navigator.pop(context);
             if (!verRes[0]) {
               showDialog<void>(

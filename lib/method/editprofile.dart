@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:setes_mobile/method/login.dart';
 import 'package:setes_mobile/module/api_init.dart';
 import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/screen/home.dart';
@@ -48,10 +49,14 @@ editProfile(props) async {
       Navigator.pushReplacement(props.context,
           MaterialPageRoute(builder: (context) => const HomePage()));
     } else {
-      props.setState(() {
-        props.loading = false;
-        props.error = jsonDecode(res.body)['msg'];
-      });
+      if (res.statusCode == 401) {
+        logout(props.context);
+      } else {
+        props.setState(() {
+          props.loading = false;
+          props.error = jsonDecode(res.body)['msg'];
+        });
+      }
     }
   } catch (e) {
     props.setState(() {

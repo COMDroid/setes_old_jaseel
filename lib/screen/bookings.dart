@@ -27,7 +27,7 @@ class MyBookings extends StatelessWidget {
         ],
       ),
       body: FutureBuilder(
-        future: getBookings(),
+        future: getBookings(context),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (jsonDecode(snapshot.data.toString())[0]) {

@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:setes_mobile/method/login.dart';
 import 'package:setes_mobile/method/truf.dart';
 import 'package:setes_mobile/module/api_init.dart';
 import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/screen/trufs_setes.dart';
 import 'package:setes_mobile/screen/trufs_team.dart';
 import 'package:setes_mobile/screen/warnings.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
-getBookings() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  String id = prefs.getString('userid').toString();
-  var prams = "bookings?user_id=" + id;
+getBookings(context) async {
+  var prams = "bookings?user_id=" + gbUserId;
   var res = await http.get(setApi(prams), headers: gbHeader);
   if (res.statusCode == 200) {
     return [false, res.body];
   } else {
-    return [true, res.body];
+    if (res.statusCode == 401) {
+      logout(context);
+    } else {
+      return [true, res.body];
+    }
   }
 }
 
@@ -68,7 +70,7 @@ makeBookingpyment(props, slot, context) {
         );
       },
     );
-    var res = await bookTruf(props, "bank");
+    var res = await bookTruf(props, "bank", context);
     Navigator.pop(context);
     if (res[0]) {
       bookingError(context, res[1]);
@@ -137,7 +139,7 @@ bookFromWallet(dynamic props, BuildContext context, String type) async {
       return const AlertDialog(title: Text("Loading.."));
     },
   );
-  var res = await bookTruf(props, type);
+  var res = await bookTruf(props, type, context);
   Navigator.pop(context);
   if (res[0]) {
     showDialog<void>(

@@ -258,10 +258,10 @@ class MyprofileSkills extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
-              if (props.skillTop == scr.height - 360.0) {
+              if (props.skillTop == scr.height - 390.0) {
                 props.setState(() => props.skillTop = 50.0);
               } else {
-                props.setState(() => props.skillTop = scr.height - 360.0);
+                props.setState(() => props.skillTop = scr.height - 390.0);
               }
             },
             child: Container(

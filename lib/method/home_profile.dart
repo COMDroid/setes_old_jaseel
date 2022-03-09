@@ -60,11 +60,14 @@ updateProfilePic(type, context) async {
       if (res.statusCode == 200) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const HomePage()),
+          MaterialPageRoute(
+              builder: (BuildContext context) => const HomePage()),
         );
+      } else {
+        Navigator.pop(context); 
       }
     }
   } catch (e) {
-    rethrow;
+    // rethrow;
   }
 }
