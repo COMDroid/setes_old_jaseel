@@ -11,7 +11,7 @@ class MyBookings extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xff459ADB),
-        title: const Text("My Bookingss"),
+        title: const Text("My Bookings"),
         actions: [
           IconButton(
             onPressed: () {

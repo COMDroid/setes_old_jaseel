@@ -129,6 +129,8 @@ toprime2(props) async {
     "email": props.emailC.text,
   };
 
+  gbUser['email'] = props.emailC.text;
+
   void _handlePaymentSuccess(PaymentSuccessResponse response) async {
     try {
       var res = await http.post(setApi("toprime?user_id=" + gbUserId),
@@ -172,10 +174,7 @@ toprime2(props) async {
     'amount': props.widget.props.primeData['price_pm'],
     'name': "Prime Membership",
     'description': "Name: " + gbUser['name'] + ", id: " + gbUser['id'],
-    'prefill': {
-      'contact': gbUser['phone'],
-      'email': "jaseelmanamulli@gmail.com"
-    }
+    'prefill': {'contact': gbUser['phone'], 'email': gbUser['email']}
   };
 
   _razorpay.open(options);
@@ -211,8 +210,10 @@ getPrimePrice(props) async {
 
 getPrimeTrufs(props) async {
   try {
-    var res = await http
-        .get(setApi("primetrufs?zone=" + props.widget.props.zone['title']));
+    var res = await http.get(
+      setApi("primetrufs?zone=" + props.widget.props.zone['title']),
+      headers: gbHeader,
+    );
     if (res.statusCode == 200) {
       props.setState(() {
         props.homes = jsonDecode(res.body);

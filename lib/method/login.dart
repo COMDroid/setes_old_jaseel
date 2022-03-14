@@ -112,7 +112,8 @@ register(context, setstate, state, data) async {
   try {
     var res = await http.post(
       setApi("register?user_id=" + data["_id"]),
-      body: {"name": state["nameC"].text, "email": state["emailC"].text},
+      body: jsonEncode(
+          {"name": state["nameC"].text, "email": state["emailC"].text}),
       headers: gbHeader,
     );
     if (res.statusCode == 200) {
@@ -169,11 +170,7 @@ guestLogin(props) async {
   props.setState(() => props.loading = true);
   props.setState(() => props.error = null);
   try {
-    var res = await http.post(
-      setApi("guestlogin"),
-      body: {},
-      headers: gbHeader,
-    );
+    var res = await http.post(setApi("guestlogin"), headers: gbHeader);
     if (res.statusCode == 200) {
       gbUserId = await jsonDecode(res.body)["_id"];
       var authKey = await jsonDecode(res.body)["key"];

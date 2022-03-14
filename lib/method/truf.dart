@@ -47,8 +47,8 @@ verifyBookingTruf(props, context) async {
     "user_id": gbUserId
   };
   try {
-    var res =
-        await http.post(setApi("verifybooking"), body: body, headers: gbHeader);
+    var res = await http.post(setApi("verifybooking"),
+        body: jsonEncode(body), headers: gbHeader);
     if (res.statusCode == 200) {
       return [true, await jsonDecode(res.body)];
     } else {
@@ -77,8 +77,8 @@ bookTruf(dynamic props, String acType, context) async {
   };
 
   try {
-    var res =
-        await http.post(setApi("booktruf"), body: body, headers: gbHeader);
+    var res = await http.post(setApi("booktruf"),
+        body: jsonEncode(body), headers: gbHeader);
     if (res.statusCode == 200) {
       return [false, await jsonDecode(res.body)];
     } else {
