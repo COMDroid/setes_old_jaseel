@@ -6,10 +6,7 @@ import 'package:setes_mobile/method/truf.dart';
 import 'package:setes_mobile/module/api_init.dart';
 import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/module/simple.dart';
-import 'package:setes_mobile/screen/home.dart';
-import 'package:setes_mobile/screen/login.dart';
 import 'package:setes_mobile/screen/profile.dart';
-import 'package:setes_mobile/screen/trufs_setes.dart';
 import 'package:setes_mobile/screen/warnings.dart';
 import 'package:setes_mobile/widget/walet_peyment_popup.dart';
 
@@ -132,140 +129,138 @@ class TrufBookBody extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: slot['type'] == "s"
-              ? Container(
-                  margin: EdgeInsets.symmetric(
-                    vertical: scr.height * .02,
-                    horizontal: scr.width * .05,
-                  ),
-                  padding: EdgeInsets.symmetric(
-                    vertical: scr.height * .02,
-                    horizontal: scr.width * .05,
-                  ),
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                      border: Border.all(width: 1.5, color: Colors.black12)),
-                  child: ListView(
-                    children: [
-                      Row(
+          child: Container(
+            margin: EdgeInsets.symmetric(
+              vertical: scr.height * .02,
+              horizontal: scr.width * .05,
+            ),
+            padding: EdgeInsets.symmetric(
+              vertical: scr.height * .02,
+              horizontal: scr.width * .05,
+            ),
+            decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                border: Border.all(width: 1.5, color: Colors.black12)),
+            child: ListView(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 5),
+                        Row(
+                          children: [
+                            Text(
+                              getDateName(date) +
+                                  "  " +
+                                  slot["s_time"] +
+                                  " - " +
+                                  slot["e_time"],
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black54,
+                                fontSize: 12,
+                              ),
+                            ),
+                            const SizedBox(width: 5),
+                            const Icon(
+                              Icons.timelapse,
+                              size: 18,
+                              color: Colors.black54,
+                            ),
+                          ],
+                        ),
+                        const Text(
+                          "Play List",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black87,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Icon(
+                      Icons.layers_rounded,
+                      size: 40,
+                      color: Color(0xffCF595A),
+                    )
+                  ],
+                ),
+                if (slot["authers"] != null)
+                  for (var i = 0; i < slot["authers"].length; i++)
+                    InkWell(
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProfiePage(
+                            slot["authers"][i],
+                          ),
+                        ),
+                      ),
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const SizedBox(height: 5),
-                              Row(
-                                children: [
-                                  Text(
-                                    getDateName(date) +
-                                        "  " +
-                                        slot["s_time"] +
-                                        " - " +
-                                        slot["e_time"],
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black54,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 5),
-                                  const Icon(
-                                    Icons.timelapse,
-                                    size: 18,
-                                    color: Colors.black54,
-                                  ),
-                                ],
-                              ),
-                              const Text(
-                                "Play List",
-                                style: TextStyle(
+                              Text(
+                                slot["authers"][i]["name"],
+                                style: const TextStyle(
                                   fontWeight: FontWeight.w700,
-                                  color: Colors.black87,
-                                  fontSize: 20,
+                                  color: Colors.black,
+                                  fontSize: 14.5,
+                                ),
+                              ),
+                              const SizedBox(height: 3),
+                              Text(
+                                slot["authers"][i]["id"] ?? '',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black38,
+                                  fontSize: 12,
                                 ),
                               ),
                             ],
                           ),
-                          const Icon(
-                            Icons.layers_rounded,
-                            size: 40,
-                            color: Color(0xffCF595A),
-                          )
+                          Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: slot["authers"][i]["img"] == null
+                                ? const Icon(Icons.person,
+                                    size: 35, color: Colors.black54)
+                                : ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(18),
+                                    ),
+                                    child: Image.network(
+                                      setImgUser(slot["authers"][i]),
+                                      height: 36,
+                                      width: 36,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                          ),
                         ],
                       ),
-                      if (slot["authers"] != null)
-                        for (var i = 0; i < slot["authers"].length; i++)
-                          InkWell(
-                            onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ProfiePage(
-                                  slot["authers"][i],
-                                ),
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      slot["authers"][i]["name"],
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.black,
-                                        fontSize: 14.5,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 3),
-                                    Text(
-                                      slot["authers"][i]["id"] ?? '',
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.black38,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: slot["authers"][i]["img"] == null
-                                      ? const Icon(Icons.person,
-                                          size: 35, color: Colors.black54)
-                                      : ClipRRect(
-                                          borderRadius: const BorderRadius.all(
-                                            Radius.circular(18),
-                                          ),
-                                          child: Image.network(
-                                            setImgUser(slot["authers"][i]),
-                                            height: 36,
-                                            width: 36,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                ),
-                              ],
-                            ),
-                          ),
-                      if (slot["authers"] != null)
-                        if (slot["authers"].length == 0)
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              SizedBox(height: 80),
-                              Text(
-                                "No Players",
-                                style: TextStyle(fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                    ],
-                  ),
-                )
-              : const SizedBox(),
+                    ),
+                if (slot["authers"] != null)
+                  if (slot["authers"].length == 0)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        SizedBox(height: 80),
+                        Text(
+                          "No Players",
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
+              ],
+            ),
+          ),
         ),
         Container(
             margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 22),
@@ -345,7 +340,7 @@ class TrufBookBody extends StatelessWidget {
                 return const AlertDialog(title: Text("Loading.."));
               },
             );
-            List verRes = await verifyBookingTruf(this,context);
+            List verRes = await verifyBookingTruf(this, context);
             Navigator.pop(context);
             if (!verRes[0]) {
               showDialog<void>(
@@ -371,7 +366,8 @@ class TrufBookBody extends StatelessWidget {
                     TextButton(
                       onPressed: () {
                         if (accountType == 2) {
-                          makeBookingpyment(this, slot, context);
+                          makeBookingpyment(
+                              this, slot, context, verRes[1]['payment_api']);
                         } else {
                           bookFromWallet(
                             this,
@@ -433,7 +429,7 @@ class TrufBookBody extends StatelessWidget {
               ],
             ),
           ),
-        )
+        ),
       ],
     );
   }

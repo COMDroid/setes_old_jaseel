@@ -4,7 +4,6 @@ import 'package:setes_mobile/method/truf.dart';
 import 'package:setes_mobile/module/api_init.dart';
 import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/screen/trufs_setes.dart';
-import 'package:setes_mobile/screen/trufs_team.dart';
 import 'package:setes_mobile/screen/warnings.dart';
 import 'package:http/http.dart' as http;
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -45,7 +44,7 @@ bookingError(context, msg) {
   );
 }
 
-makeBookingpyment(props, slot, context) {
+makeBookingpyment(props, slot, context, paymentApi) {
   Navigator.pop(context);
   void _handlePaymentSuccess(PaymentSuccessResponse response) async {
     showDialog<void>(
@@ -70,7 +69,7 @@ makeBookingpyment(props, slot, context) {
         );
       },
     );
-    var res = await bookTruf(props, "bank", context);
+    var res = await bookTruf(props, "bank", context, response.toString());
     Navigator.pop(context);
     if (res[0]) {
       bookingError(context, res[1]);
@@ -79,11 +78,7 @@ makeBookingpyment(props, slot, context) {
       Navigator.pop(context);
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-          builder: (context) => slot["type"] == "s"
-              ? TrufsSetesPage(props.date)
-              : TrufsTeamPage(props.date),
-        ),
+        MaterialPageRoute(builder: (context) => TrufsSetesPage(props.date)),
       );
       showDialog<void>(
         context: context,
@@ -119,7 +114,7 @@ makeBookingpyment(props, slot, context) {
   _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
 
   var options = {
-    'key': 'rzp_test_Y7JuSZ90XUqdEG',
+    'key': paymentApi,
     'amount': slot["price"],
     'name': slot["truf_name"],
     'description':
@@ -139,7 +134,7 @@ bookFromWallet(dynamic props, BuildContext context, String type) async {
       return const AlertDialog(title: Text("Loading.."));
     },
   );
-  var res = await bookTruf(props, type, context);
+  var res = await bookTruf(props, type, context, '');
   Navigator.pop(context);
   if (res[0]) {
     showDialog<void>(
@@ -153,11 +148,7 @@ bookFromWallet(dynamic props, BuildContext context, String type) async {
     Navigator.pop(context);
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(
-        builder: (context) => props.slot["type"] == "s"
-            ? TrufsSetesPage(props.date)
-            : TrufsTeamPage(props.date),
-      ),
+      MaterialPageRoute(builder: (context) => TrufsSetesPage(props.date)),
     );
     showDialog<void>(
       context: context,

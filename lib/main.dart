@@ -87,6 +87,11 @@ class HomeConfig extends StatelessWidget {
             "key": authKey,
             "version": "1.0",
             'gps': "${gbGPS.latitude},${gbGPS.longitude}",
+            "type": gbisGuest
+                ? "users_guest"
+                : gbisPrime
+                    ? "users_prime"
+                    : "users",
           };
           page = const HomePage();
         } else {

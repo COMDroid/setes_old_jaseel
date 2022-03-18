@@ -15,172 +15,153 @@ class HomeScorebord extends StatelessWidget {
           colors: [Color(0xffFE8260), Color(0xff7249FB)],
         ),
       ),
-      width: scr.width,
-      height: scr.height,
-      child: Column(
+      child: Stack(
         children: [
-          Container(
-            height: scr.width,
-            width: scr.width,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/scoreBordBg.png"),
-                fit: BoxFit.cover,
-              ),
-            ),
+          Positioned(
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: SafeArea(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Column(
                   children: [
-                    Column(
+                    Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        SizedBox(height: 5),
-                        Text(
-                          "Score Board",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                              fontSize: 20),
-                        ),
-                        Text(
-                          "Setes Match Scoar Board",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white70,
-                              fontSize: 12),
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            SizedBox(height: 5),
+                            Text(
+                              "Score Board",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                                fontSize: 20,
+                              ),
+                            ),
+                            Text(
+                              "Setes Match Scoar Board",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white70,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
+                    Image.asset("assets/scoreBordBg.png")
                   ],
                 ),
               ),
             ),
           ),
-          Expanded(
-            child: Stack(
-              overflow: Overflow.visible,
-              children: [
-                Positioned(
-                  top: -scr.width,
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: SafeArea(
-                    child: Container(
-                      margin: const EdgeInsets.only(top: 65),
-                      child: ClipRRect(
-                        borderRadius: const BorderRadius.only(
+          Positioned(
+            top: 80,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              margin: const EdgeInsets.only(top: 65),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(35),
+                  topRight: Radius.circular(35),
+                ),
+                child: ListView(
+                  physics: const BouncingScrollPhysics(),
+                  children: [
+                    SizedBox(height: scr.width * .55),
+                    Container(
+                      constraints: BoxConstraints(
+                          minHeight: scr.height - (scr.width * .5 + 90)),
+                      padding: const EdgeInsets.all(10),
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(35),
                           topRight: Radius.circular(35),
                         ),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              SizedBox(height: scr.width * .5),
-                              Container(
-                                constraints: BoxConstraints(
-                                    minHeight:
-                                        scr.height - (scr.width * .5 + 90)),
-                                padding: const EdgeInsets.all(10),
-                                decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(35),
-                                    topRight: Radius.circular(35),
-                                  ),
-                                ),
-                                child: Column(
+                      ),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: scr.width * .05,
+                              vertical: 15,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: scr.width * .05,
-                                        vertical: 15,
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              const SizedBox(height: 5),
-                                              Row(
-                                                children: const [
-                                                  Text(
-                                                    "My Location",
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      color: Colors.black54,
-                                                      fontSize: 12,
-                                                    ),
-                                                  ),
-                                                  SizedBox(width: 5),
-                                                  Icon(
-                                                    Icons.location_on,
-                                                    size: 18,
-                                                    color: Colors.black54,
-                                                  )
-                                                ],
-                                              ),
-                                              const Text(
-                                                "Today",
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Colors.black87,
-                                                  fontSize: 20,
-                                                ),
-                                              ),
-                                            ],
+                                    const SizedBox(height: 5),
+                                    Row(
+                                      children: const [
+                                        Text(
+                                          "My Location",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black54,
+                                            fontSize: 12,
                                           ),
-                                          // const Icon(
-                                          //   Icons.search_sharp,
-                                          //   size: 40,
-                                          //   color: Color(0xff0E6E9D),
-                                          // )
-                                        ],
+                                        ),
+                                        SizedBox(width: 5),
+                                        Icon(
+                                          Icons.location_on,
+                                          size: 18,
+                                          color: Colors.black54,
+                                        )
+                                      ],
+                                    ),
+                                    const Text(
+                                      "Today",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.black87,
+                                        fontSize: 20,
                                       ),
                                     ),
-                                    for (var i = 0; i < bookings.length; i++)
-                                      InkWell(
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ScoreBordScreen(bookings[i]),
-                                            ),
-                                          );
-                                        },
-                                        child: EachScore(bookings[i]),
-                                      ),
-                                    if (bookings.isEmpty)
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: const [
-                                          Text(
-                                            "No Match",
-                                            style: TextStyle(fontSize: 12),
-                                          ),
-                                        ],
-                                      ),
-                                    const SizedBox(height: 100),
                                   ],
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
+                          for (var i = 0; i < bookings.length; i++)
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ScoreBordScreen(bookings[i]),
+                                  ),
+                                );
+                              },
+                              child: EachScore(bookings[i]),
+                            ),
+                          if (bookings.isEmpty)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Text(
+                                  "No Match",
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                              ],
+                            ),
+                          const SizedBox(height: 100),
+                        ],
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ],

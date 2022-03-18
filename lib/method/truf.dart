@@ -5,8 +5,8 @@ import 'package:setes_mobile/module/gb_var.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-getTrufs(type, date, context) async {
-  var link = "trufs?type=$type&date=$date";
+getTrufs(date, context) async {
+  var link = "trufs?date=$date";
   try {
     var res = await http.get(setApi(link), headers: gbHeader);
     if (res.statusCode == 200) {
@@ -40,12 +40,7 @@ getSlot(id, date, context) async {
 verifyBookingTruf(props, context) async {
   var slot = props.slot;
   var date = props.date;
-  var body = {
-    "slot_id": slot['_id'],
-    "date": date,
-    "type": slot['type'],
-    "user_id": gbUserId
-  };
+  var body = {"slot_id": slot['_id'], "date": date, "user_id": gbUserId};
   try {
     var res = await http.post(setApi("verifybooking"),
         body: jsonEncode(body), headers: gbHeader);
@@ -63,7 +58,7 @@ verifyBookingTruf(props, context) async {
   }
 }
 
-bookTruf(dynamic props, String acType, context) async {
+bookTruf(dynamic props, String acType, context, pymentDetails) async {
   var slot = props.slot;
   var date = props.date;
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -71,9 +66,9 @@ bookTruf(dynamic props, String acType, context) async {
   var body = {
     "slot_id": slot['_id'],
     "date": date,
-    "type": slot['type'],
     "user_id": id,
     "ac_type": acType,
+    "payment_details": pymentDetails,
   };
 
   try {

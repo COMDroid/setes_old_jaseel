@@ -73,6 +73,11 @@ validateOtp(context, setstate, state, data) async {
           "key": body["key"],
           "version": "1.0",
           'gps': "${gbGPS.latitude},${gbGPS.longitude}",
+          "type": gbisGuest
+              ? "users_guest"
+              : gbisPrime
+                  ? "users_prime"
+                  : "users",
         };
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('userid', gbUserId);
@@ -129,6 +134,11 @@ register(context, setstate, state, data) async {
         "key": body["key"],
         "version": "1.0",
         'gps': "${gbGPS.latitude},${gbGPS.longitude}",
+        "type": gbisGuest
+            ? "users_guest"
+            : gbisPrime
+                ? "users_prime"
+                : "users",
       };
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('userid', gbUserId);
@@ -180,6 +190,11 @@ guestLogin(props) async {
         "key": authKey,
         "version": "1.0",
         'gps': "${gbGPS.latitude},${gbGPS.longitude}",
+        "type": gbisGuest
+            ? "users_guest"
+            : gbisPrime
+                ? "users_prime"
+                : "users",
       };
       gbisGuest = true;
       gbisPrime = false;
