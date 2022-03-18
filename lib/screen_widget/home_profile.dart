@@ -16,129 +16,161 @@ class MyProfile extends StatefulWidget {
 }
 
 class _MyProfileState extends State<MyProfile> {
-  double skillTop = 0;
+  var bottemScrHeight = 120.0;
+  var bottemScrIsscroll = false;
 
   @override
   void initState() {
     Size scr = MediaQueryData.fromWindow(WidgetsBinding.instance!.window).size;
-    skillTop = scr.height - 390;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     Size scr = getScreen(context);
-    return Container(
-      color: const Color(0xffF1F5F9),
-      child: Column(
-        children: [
-          Container(
-            width: scr.width,
-            height: 80,
-            alignment: Alignment.bottomLeft,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 3,
-                  spreadRadius: 4,
-                  color: Color(0x11000000),
-                ),
-              ],
-            ),
-            child: SafeArea(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: scr.width * .05),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 15),
-                      child: Text(
-                        "My Profile",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    if (gbisPrime)
-                      IconButton(
-                        onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const EditProfileScreen(),
-                          ),
-                        ),
-                        icon: const Icon(Icons.edit, color: Colors.black54),
-                      ),
-                  ],
-                ),
+    return GestureDetector(
+      onHorizontalDragStart: (details) {
+        if (bottemScrHeight == 120) {
+          if (scr.height - details.globalPosition.dy < 120) {
+            setState(() => bottemScrIsscroll = true);
+          }
+        }
+        if (bottemScrHeight == scr.height - 290) {
+          if (details.globalPosition.dy > 290) {
+            setState(() => bottemScrIsscroll = true);
+          }
+        }
+      },
+      onHorizontalDragUpdate: (details) {
+        if (bottemScrIsscroll) {
+          setState(
+              () => bottemScrHeight = scr.height - details.globalPosition.dy);
+        }
+      },
+      onHorizontalDragEnd: (details) {
+        if (bottemScrIsscroll) {
+          setState(() {
+            bottemScrIsscroll = false;
+            if (bottemScrHeight < 200) {
+              bottemScrHeight = 120;
+            } else {
+              bottemScrHeight = scr.height - 290;
+            }
+          });
+        }
+      },
+      child: Container(
+        color: const Color(0xffF1F5F9),
+        child: Column(
+          children: [
+            Container(
+              width: scr.width,
+              height: 80,
+              alignment: Alignment.bottomLeft,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 3,
+                    spreadRadius: 4,
+                    color: Color(0x11000000),
+                  ),
+                ],
               ),
-            ),
-          ),
-          Container(
-            width: scr.width,
-            height: scr.height - 80,
-            color: const Color(0xff564EB1),
-            child: Column(
-              children: [
-                const SizedBox(height: 20),
-                const HomeProfilePicture(),
-                Text(
-                  gbUser["name"] ?? '',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  (gbisGuest
-                      ? gbUser["guest_id"] ?? ""
-                      : (gbUser["id"] ?? "") + " - Setes"),
-                  style: const TextStyle(color: Colors.white, fontSize: 18),
-                ),
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(40)),
-                  ),
-                  width: scr.width,
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  width: scr.width,
-                  height: scr.height - 280,
-                  decoration: BoxDecoration(
-                    color: gbisPrime ? Colors.white : Colors.white10,
-                    borderRadius: const BorderRadius.all(Radius.circular(50)),
-                  ),
-                  child: Stack(
+              child: SafeArea(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: scr.width * .05),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Positioned(
-                        top: 0,
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        child: gbisPrime
-                            ? const MyProfilePrime()
-                            : const MyProfileNonPrime(),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 15),
+                        child: Text(
+                          "My Profile",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
                       ),
-                      Positioned(
-                        top: skillTop,
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        child: MyprofileSkills(this),
-                      ),
+                      if (gbisPrime)
+                        IconButton(
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const EditProfileScreen(),
+                            ),
+                          ),
+                          icon: const Icon(Icons.edit, color: Colors.black54),
+                        ),
                     ],
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
-        ],
+            Container(
+              width: scr.width,
+              height: scr.height - 80,
+              color: const Color(0xff564EB1),
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  const HomeProfilePicture(),
+                  Text(
+                    gbUser["name"] ?? '',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    (gbisGuest
+                        ? gbUser["guest_id"] ?? ""
+                        : (gbUser["id"] ?? "") + " - Setes"),
+                    style: const TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(40)),
+                    ),
+                    width: scr.width,
+                  ),
+                  const SizedBox(height: 20),
+                  Container(
+                    width: scr.width,
+                    height: scr.height - 280,
+                    decoration: BoxDecoration(
+                      color: gbisPrime ? Colors.white : Colors.white10,
+                      borderRadius: const BorderRadius.all(Radius.circular(50)),
+                    ),
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          top: 0,
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          child: gbisPrime
+                              ? const MyProfilePrime()
+                              : const MyProfileNonPrime(),
+                        ),
+                        Positioned(
+                          height: bottemScrHeight,
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          child: MyprofileSkills(this),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -256,22 +288,13 @@ class MyprofileSkills extends StatelessWidget {
       ),
       child: Column(
         children: [
-          InkWell(
-            onTap: () {
-              if (props.skillTop == scr.height - 390.0) {
-                props.setState(() => props.skillTop = 50.0);
-              } else {
-                props.setState(() => props.skillTop = scr.height - 390.0);
-              }
-            },
-            child: Container(
-              margin: const EdgeInsets.all(8),
-              height: 4,
-              width: 50,
-              decoration: const BoxDecoration(
-                color: Colors.white54,
-                borderRadius: BorderRadius.all(Radius.circular(2)),
-              ),
+          Container(
+            margin: const EdgeInsets.all(8),
+            height: 4,
+            width: 50,
+            decoration: const BoxDecoration(
+              color: Colors.white54,
+              borderRadius: BorderRadius.all(Radius.circular(2)),
             ),
           ),
           const SizedBox(height: 8),
