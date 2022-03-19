@@ -3,6 +3,7 @@ import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/module/simple.dart';
 import 'package:setes_mobile/screen/editprofile.dart';
 import 'package:setes_mobile/screen/login.dart';
+import 'package:setes_mobile/screen/profile.dart';
 import 'package:setes_mobile/screen/toprime.dart';
 import 'package:setes_mobile/widget/home_profile.dart';
 import 'package:setes_mobile/widget/home_profiles.dart';
@@ -65,7 +66,7 @@ class _MyProfileState extends State<MyProfile> {
           children: [
             Container(
               width: scr.width,
-              height: 80,
+              height: 90,
               alignment: Alignment.bottomLeft,
               decoration: const BoxDecoration(
                 color: Colors.white,
@@ -92,16 +93,33 @@ class _MyProfileState extends State<MyProfile> {
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                       ),
-                      if (gbisPrime)
-                        IconButton(
-                          onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const EditProfileScreen(),
+                      Row(
+                        children: [
+                          if (gbisPrime)
+                            IconButton(
+                              onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const EditProfileScreen(),
+                                ),
+                              ),
+                              icon:
+                                  const Icon(Icons.edit, color: Colors.black54),
                             ),
-                          ),
-                          icon: const Icon(Icons.edit, color: Colors.black54),
-                        ),
+                          if (gbisPrime)
+                            IconButton(
+                              onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProfiePage(gbUser),
+                                ),
+                              ),
+                              icon: const Icon(Icons.share,
+                                  color: Colors.black54),
+                            ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -109,7 +127,7 @@ class _MyProfileState extends State<MyProfile> {
             ),
             Container(
               width: scr.width,
-              height: scr.height - 80,
+              height: scr.height - 90,
               color: const Color(0xff564EB1),
               child: Column(
                 children: [
@@ -140,7 +158,7 @@ class _MyProfileState extends State<MyProfile> {
                   const SizedBox(height: 20),
                   Container(
                     width: scr.width,
-                    height: scr.height - 280,
+                    height: scr.height - 290,
                     decoration: BoxDecoration(
                       color: gbisPrime ? Colors.white : Colors.white10,
                       borderRadius: const BorderRadius.all(Radius.circular(50)),
@@ -207,7 +225,7 @@ class MyProfilePrime extends StatelessWidget {
         HomeProfileEach("Favourite Position", gbUser['fav_position']),
         HomeProfileEach("Sec Favourite Position", gbUser['sec_fav_position']),
         HomeProfileEach("Strong Foot", gbUser['strong_foot']),
-        HomeProfileEach("Boot Size", gbUser['foot_size']),
+        HomeProfileEach("Boot Size", gbUser['footsize']),
         HomeProfileEach("T-shirt Size", gbUser['t_shirt_size']),
         const SizedBox(height: 100),
       ],
@@ -315,14 +333,14 @@ class MyprofileSkills extends StatelessWidget {
               ),
               child: ListView(
                 children: [
-                  MyProfileText1("Goals", gbUser['my_goal']),
-                  MyProfileText1("Assistant", gbUser['my_assistant']),
-                  MyProfileText1("Free Kick", gbUser['my_free_kick']),
-                  MyProfileText1("Penalty Goal", gbUser['my_penalty_goal']),
-                  MyProfileText1("Interception", gbUser['my_interception']),
-                  MyProfileText1("Save", gbUser['my_save']),
-                  MyProfileText1("Clean Sheet", gbUser['my_clean_sheet']),
-                  MyProfileText1("Penalty Save", gbUser['my_penalty_save']),
+                  MyProfileText1("Goals", gbUser['goals']),
+                  MyProfileText1("Assistant", gbUser['assistants']),
+                  MyProfileText1("Free Kick", gbUser['free_kicks']),
+                  MyProfileText1("Penalty Goal", gbUser['penalty_goals']),
+                  MyProfileText1("Interception", gbUser['interceptions']),
+                  MyProfileText1("Save", gbUser['saves']),
+                  MyProfileText1("Clean Sheet", gbUser['clean_sheets']),
+                  MyProfileText1("Penalty Save", gbUser['penalty_saves']),
                 ],
               ),
             ),

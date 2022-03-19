@@ -64,13 +64,19 @@ class HomeConfig extends StatelessWidget {
         if (userId == "") {
           ifUser = false;
         } else {
+          gbisGuest = prefs.getBool('isguest') ?? false;
           authKey = prefs.getString('authkey') ?? "";
           gbUserId = userId;
         }
         res = await http.post(
           setApi("isuptodate?user_id=" + userId),
           headers: {'Content-Type': 'application/json'},
-          body: jsonEncode({'ver': "1.0", 'logged': ifUser, 'key': authKey}),
+          body: jsonEncode({
+            'ver': "1.0",
+            'logged': ifUser,
+            'key': authKey,
+            "isguest": gbisGuest
+          }),
         );
         if (res.statusCode == 200) {
           if (!ifUser) {
@@ -78,7 +84,6 @@ class HomeConfig extends StatelessWidget {
             return 0;
           }
           var body = await jsonDecode(res.body);
-          gbisGuest = body['guest'] ?? false;
           gbisPrime = body['prime'] ?? false;
           gbUser = body;
           gbHeader = {

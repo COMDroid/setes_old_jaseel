@@ -237,6 +237,7 @@ class _HomeTrufState extends State<HomeTruf> {
                     return true;
                   },
                   child: ListView(
+                    physics: const BouncingScrollPhysics(),
                     children: [
                       SizedBox(height: scr.height * .25),
                       ClipRRect(

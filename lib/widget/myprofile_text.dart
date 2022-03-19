@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:setes_mobile/module/simple.dart';
 
 class MyProfileText1 extends StatelessWidget {
-  final String? title, data;
+  final String? title;
+  final dynamic data;
   const MyProfileText1(this.title, this.data, {Key? key}) : super(key: key);
 
   setValue(v) {
@@ -29,7 +30,7 @@ class MyProfileText1 extends StatelessWidget {
             ),
           ),
           Text(
-            setValue(data) ?? '',
+            setValue(data),
             style: const TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,

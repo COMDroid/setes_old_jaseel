@@ -1,33 +1,95 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:setes_mobile/method/profile.dart';
 import 'package:setes_mobile/module/api_init.dart';
 import 'package:setes_mobile/module/simple.dart';
+import 'package:setes_mobile/screen/warnings.dart';
 import 'package:setes_mobile/widget/myprofile_text.dart';
 
+import 'package:path_provider/path_provider.dart';
+// import 'package:flutter_share/flutter_share.dart';
+
 class ProfiePage extends StatelessWidget {
-  final Map profile;
-  const ProfiePage(this.profile, {Key? key}) : super(key: key);
+  final Map data;
+  const ProfiePage(this.data, {Key? key}) : super(key: key);
+
+  showCapturedWidget(context, capturedImage) async {
+    // return showDialog(
+    //   useSafeArea: false,
+    //   context: context,
+    //   builder: (context) => Scaffold(
+    //     appBar: AppBar(
+    //       title: const Text("Captured widget screenshot"),
+    //     ),
+    //     body: Center(
+    //         child: capturedImage != null
+    //             ? Image.memory(capturedImage)
+    //             : const SizedBox()),
+    //   ),
+    // );
+
+    if (capturedImage != null) {
+      final dir = await getExternalStorageDirectory();
+      var path = '${dir!.path}/my_image.jpg';
+      File(path).writeAsBytes(capturedImage);
+      // await FlutterShare.shareFile(title: 'Share', filePath: path);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    Map profile = data;
+    ScreenshotController screenshotController = ScreenshotController();
+    setProfile(v) => profile = v;
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Text(profile["name"]),
-          backgroundColor: const Color(0xff564EB1),
-          elevation: 0,
-        ),
-        body: PrfilePagebody(profile)
-        // FutureBuilder(
-        //   future: getProfile(this),
-        //   builder: (context, snapshot) {
-        //     if (snapshot.hasData) {
-        //       return PrfilePagebody(profile);
-        //     } else {
-        //       return Loading();
-        //     }
-        //   },
-        // ),
-        );
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text(profile["name"]),
+        backgroundColor: const Color(0xff564EB1),
+        elevation: 0,
+      ),
+      body: FutureBuilder(
+        future: getProfile(data, setProfile),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Stack(
+              children: [
+                Screenshot(
+                  controller: screenshotController,
+                  child: PrfilePagebody(profile),
+                ),
+                Positioned(
+                  right: 15,
+                  child: InkWell(
+                    onTap: (() {
+                      screenshotController
+                          .capture(delay: const Duration(milliseconds: 10))
+                          .then((capturedImage) async {
+                        showCapturedWidget(context, capturedImage);
+                      }).catchError((onError) {
+                        print(onError);
+                      });
+                    }),
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(35)),
+                        color: Colors.white10,
+                      ),
+                      child: const Icon(Icons.share),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          } else {
+            return const Loading();
+          }
+        },
+      ),
+    );
   }
 }
 
@@ -75,19 +137,20 @@ class PrfilePagebody extends StatelessWidget {
             Text(
               profile["name"] ?? '',
               style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold),
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 20),
-            MyProfileText1("Goals", profile['my_goal'] ?? '0'),
-            MyProfileText1("Assistant", profile['my_assistant'] ?? '0'),
-            MyProfileText1("Free Kick", profile['my_free_kick'] ?? '0'),
-            MyProfileText1("Penalty Goal", profile['my_penalty_goal'] ?? '0'),
-            MyProfileText1("Interception", profile['my_interception'] ?? '0'),
-            MyProfileText1("Save", profile['my_save'] ?? '0'),
-            MyProfileText1("Clean Sheet", profile['my_clean_sheet'] ?? '0'),
-            MyProfileText1("Penalty Save", profile['my_penalty_save'] ?? '0'),
+            MyProfileText1("Goals", profile['goals']),
+            MyProfileText1("Assistant", profile['assistants']),
+            MyProfileText1("Free Kick", profile['free_kicks']),
+            MyProfileText1("Penalty Goal", profile['penalty_goals']),
+            MyProfileText1("Interception", profile['interceptions']),
+            MyProfileText1("Save", profile['saves']),
+            MyProfileText1("Clean Sheet", profile['clean_sheets']),
+            MyProfileText1("Penalty Save", profile['penalty_saves']),
           ],
         ),
       ),

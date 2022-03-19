@@ -13,8 +13,11 @@ getHome(setdata, seterror, context) async {
   if (res.statusCode == 200) {
     setdata(await jsonDecode(res.body));
   } else {
-    if (res.statusCode == 401) {logout(context);}else
-    {seterror(await jsonDecode(res.body)['msg']);}
+    if (res.statusCode == 401) {
+      logout(context);
+    } else {
+      seterror(await jsonDecode(res.body)['msg']);
+    }
   }
   return 1;
 }
@@ -24,10 +27,14 @@ getSetesTruf(context) async {
     setApi("truf?type=s"),
     headers: gbHeader,
   );
+  
   if (res.statusCode == 200) {
     return [false, res.body];
   } else {
-    if (res.statusCode == 401) {logout(context);}else
-    {return [true, res.body];}
+    if (res.statusCode == 401) {
+      logout(context);
+    } else {
+      return [true, res.body];
+    }
   }
 }

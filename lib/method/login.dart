@@ -66,7 +66,6 @@ validateOtp(context, setstate, state, data) async {
         gbisPrime = body['prime'] ?? false;
         gbUser = body;
         gbUserId = body["_id"];
-
         gbHeader = {
           'Content-Type': 'application/json',
           'user_id': gbUserId,
@@ -82,6 +81,7 @@ validateOtp(context, setstate, state, data) async {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('userid', gbUserId);
         await prefs.setString('authkey', body["key"]);
+        await prefs.setBool('isguest', false);
         Navigator.pop(context);
         Navigator.pop(context);
         if (upgradingtoPrime && !gbisPrime) {
@@ -180,14 +180,20 @@ guestLogin(props) async {
   props.setState(() => props.loading = true);
   props.setState(() => props.error = null);
   try {
-    var res = await http.post(setApi("guestlogin"), headers: gbHeader);
+    var res = await http.post(setApi("guestlogin"));
     if (res.statusCode == 200) {
-      gbUserId = await jsonDecode(res.body)["_id"];
-      var authKey = await jsonDecode(res.body)["key"];
+      gbUser = await jsonDecode(res.body);
+      gbUserId = gbUser["_id"];
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('userid', gbUserId);
+      await prefs.setString('authkey', gbUser["key"]);
+      await prefs.setBool('isguest', true);
+      gbisGuest = true;
+      gbisPrime = false;
       gbHeader = {
         'Content-Type': 'application/json',
         'user_id': gbUserId,
-        "key": authKey,
+        "key": gbUser["key"],
         "version": "1.0",
         'gps': "${gbGPS.latitude},${gbGPS.longitude}",
         "type": gbisGuest
@@ -196,11 +202,7 @@ guestLogin(props) async {
                 ? "users_prime"
                 : "users",
       };
-      gbisGuest = true;
-      gbisPrime = false;
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString('userid', gbUserId);
-      await prefs.setString('authkey', authKey);
+
       Navigator.pushReplacement(props.context,
           MaterialPageRoute(builder: (context) => const HomePage()));
     } else {
