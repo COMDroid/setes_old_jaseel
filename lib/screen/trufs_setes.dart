@@ -6,6 +6,7 @@ import 'package:setes_mobile/module/date_picker.dart';
 import 'package:setes_mobile/module/simple.dart';
 import 'package:setes_mobile/screen/truf_book_setes.dart';
 import 'package:setes_mobile/screen/warnings.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TrufsSetesPage extends StatelessWidget {
   final String date;
@@ -192,53 +193,8 @@ class EachSetesTruf extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /*InkWell(
-      onTap: () {
-        var st = data["slots"];
-        showDialog<void>(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text('Choose Slot'),
-              content: SingleChildScrollView(
-                child: ListBody(
-                  children: <Widget>[
-                    for (var i = 0; i < st.length; i++)
-                      ListTile(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  TrufBookSetesPage(data, i, props.date),
-                            ),
-                          );
-                        },
-                        title: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(st[i]["ground"]),
-                            Text(
-                              st[i]["booked"] ? "Not Available" : "Available",
-                              style: TextStyle(
-                                color:
-                                    st[i]["booked"] ? Colors.red : Colors.green,
-                              ),
-                            ),
-                          ],
-                        ),
-                        subtitle: Text(
-                          st[i]["s_time"] + " - " + st[i]["e_time"],
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-            );
-          },
-        );
-      },
-      child:*/
+    Size scr = getScreen(context);
+
     return Container(
       margin: const EdgeInsets.all(13),
       padding: const EdgeInsets.all(16),
@@ -255,21 +211,66 @@ class EachSetesTruf extends StatelessWidget {
               children: [
                 Text(
                   data["name"],
+                  overflow: TextOverflow.ellipsis,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 3),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(data["raiting"] > 0 ? Icons.star : Icons.star_border,
-                        color: const Color(0xff193B8B), size: 16),
-                    Icon(data["raiting"] > 10 ? Icons.star : Icons.star_border,
-                        color: const Color(0xff193B8B), size: 16),
-                    Icon(data["raiting"] > 20 ? Icons.star : Icons.star_border,
-                        color: const Color(0xff193B8B), size: 16),
-                    Icon(data["raiting"] > 30 ? Icons.star : Icons.star_border,
-                        color: const Color(0xff193B8B), size: 16),
-                    Icon(data["raiting"] > 40 ? Icons.star : Icons.star_border,
-                        color: const Color(0xff193B8B), size: 16),
+                    Row(
+                      children: [
+                        Icon(
+                            data["raiting"] > 0
+                                ? Icons.star
+                                : Icons.star_border,
+                            color: const Color(0xff193B8B),
+                            size: 16),
+                        Icon(
+                            data["raiting"] > 10
+                                ? Icons.star
+                                : Icons.star_border,
+                            color: const Color(0xff193B8B),
+                            size: 16),
+                        Icon(
+                            data["raiting"] > 20
+                                ? Icons.star
+                                : Icons.star_border,
+                            color: const Color(0xff193B8B),
+                            size: 16),
+                        Icon(
+                            data["raiting"] > 30
+                                ? Icons.star
+                                : Icons.star_border,
+                            color: const Color(0xff193B8B),
+                            size: 16),
+                        Icon(
+                            data["raiting"] > 40
+                                ? Icons.star
+                                : Icons.star_border,
+                            color: const Color(0xff193B8B),
+                            size: 16),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text(data["distance"] ?? "-"),
+                        InkWell(
+                          onTap: () async {
+                            var _url =
+                                "https://maps.google.com/?q=${data['lat']},${data['lon']}";
+                            if (!await launch(_url)) {
+                              throw 'Could not launch $_url';
+                            }
+                          },
+                          child: const Icon(
+                            Icons.directions,
+                            color: Color.fromARGB(188, 25, 59, 139),
+                          ),
+                        ),
+                        SizedBox(width: scr.width * .02),
+                      ],
+                    ),
                   ],
                 ),
                 const SizedBox(height: 3),

@@ -154,7 +154,7 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(height: 10),
                     state["error"] == null
                         ? const Text(
-                            'A 4 digit otp will send via SMS to verify\n your mobile number!',
+                            'A 4 digit OTP will send via SMS to verify\n your mobile number!',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.black26,

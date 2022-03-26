@@ -262,9 +262,9 @@ class MyProfileNonPrime extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Icon(
-            Icons.lock,
-            size: scr.height * .15,
+          Image.asset(
+            "assets/icon/user_lock.png",
+            width: scr.height * .15,
             color: const Color(0xFFDBB5FF),
           ),
           TextButton(
@@ -283,7 +283,9 @@ class MyProfileNonPrime extends StatelessWidget {
             child: const Text(
               "Join Community to view carrer dettails",
               style: TextStyle(
-                  color: Color(0xFFBCAF74), fontWeight: FontWeight.bold),
+                color: Color(0xFFBCAF74),
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ],

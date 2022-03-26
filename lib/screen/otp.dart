@@ -153,7 +153,7 @@ class _OtpPageState extends State<OtpPage> {
                     const SizedBox(height: 10),
                     state["error"] == null
                         ? const Text(
-                            'Enter the 4 digit otp send via SMS to\n your mobile number!',
+                            'Enter the 4 digit OTP send via SMS to\n your mobile number!',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.black26,

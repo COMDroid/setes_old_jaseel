@@ -59,7 +59,16 @@ class HomeConfig extends StatelessWidget {
       try {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         String userId = prefs.getString('userid') ?? "";
+        bool seen = prefs.getBool('seen') ?? false;
         String authKey = '';
+        String publicIp = '';
+        if (!seen) {
+          var resForIp = await http.get(Uri.parse("https://ipapi.co/json"));
+          if (resForIp.statusCode == 200) {
+            publicIp = await jsonDecode(resForIp.body)['ip'];
+            prefs.setBool('seen', true);
+          }
+        }
         bool ifUser = true;
         if (userId == "") {
           ifUser = false;
@@ -68,6 +77,7 @@ class HomeConfig extends StatelessWidget {
           authKey = prefs.getString('authkey') ?? "";
           gbUserId = userId;
         }
+
         res = await http.post(
           setApi("isuptodate?user_id=" + userId),
           headers: {'Content-Type': 'application/json'},
@@ -75,7 +85,9 @@ class HomeConfig extends StatelessWidget {
             'ver': "1.0",
             'logged': ifUser,
             'key': authKey,
-            "isguest": gbisGuest
+            "isguest": gbisGuest,
+            "seen": seen,
+            "public_ip": publicIp,
           }),
         );
         if (res.statusCode == 200) {

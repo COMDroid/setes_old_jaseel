@@ -9,6 +9,7 @@ import 'package:setes_mobile/module/simple.dart';
 import 'package:setes_mobile/screen/profile.dart';
 import 'package:setes_mobile/screen/warnings.dart';
 import 'package:setes_mobile/widget/walet_peyment_popup.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TrufBookSetesPage extends StatelessWidget {
   final Map truf;
@@ -68,7 +69,13 @@ class TrufBookSetesPage extends StatelessWidget {
               if (status == 'BOOK NOW') {
                 if (bookedCount == count) status = 'SLOT FULL';
               }
-              return TrufBookBody(this, slot, date, status);
+              return TrufBookBody(
+                this,
+                slot,
+                date,
+                status,
+                count - bookedCount,
+              );
             }
           } else {
             return const LoadingPage();
@@ -80,15 +87,18 @@ class TrufBookSetesPage extends StatelessWidget {
 }
 
 class TrufBookBody extends StatelessWidget {
-  final dynamic props, slot, date, status;
-  const TrufBookBody(this.props, this.slot, this.date, this.status, {Key? key})
+  final dynamic props, slot, date, status, remining;
+  const TrufBookBody(
+      this.props, this.slot, this.date, this.status, this.remining,
+      {Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Size scr = getScreen(context);
     List imgs = props.truf["img"];
-
+    String slotDate =
+        "${getDateName(date)}  ${slot["s_time"]} - ${slot["e_time"]}";
     return Column(
       children: [
         SizedBox(
@@ -104,6 +114,7 @@ class TrufBookBody extends StatelessWidget {
               initialPage: 2,
             ),
             items: imgs.map((i) {
+              String img = setImgTruf(props.truf["_id"], i);
               return Builder(
                 builder: (BuildContext context) {
                   return Container(
@@ -111,16 +122,15 @@ class TrufBookBody extends StatelessWidget {
                     decoration: BoxDecoration(
                       boxShadow: const [
                         BoxShadow(
-                            spreadRadius: 5,
-                            blurRadius: 10,
-                            color: Colors.black12)
+                          spreadRadius: 5,
+                          blurRadius: 10,
+                          color: Colors.black12,
+                        )
                       ],
                       color: Colors.black12,
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
                       image: DecorationImage(
-                        image: NetworkImage(setImgTruf(props.truf["_id"], i)),
-                        fit: BoxFit.cover,
-                      ),
+                          image: NetworkImage(img), fit: BoxFit.cover),
                     ),
                   );
                 },
@@ -144,6 +154,7 @@ class TrufBookBody extends StatelessWidget {
             child: ListView(
               children: [
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
@@ -153,11 +164,7 @@ class TrufBookBody extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              getDateName(date) +
-                                  "  " +
-                                  slot["s_time"] +
-                                  " - " +
-                                  slot["e_time"],
+                              slotDate,
                               style: const TextStyle(
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black54,
@@ -172,21 +179,49 @@ class TrufBookBody extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const Text(
-                          "Play List",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black87,
-                            fontSize: 20,
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            const Text(
+                              "Play List",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black87,
+                                fontSize: 20,
+                              ),
+                            ),
+                            Text(
+                              (remining < 4 ? "Only" : "") +
+                                  " $remining Slot Left",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: remining < 4 ? Colors.red : Colors.green,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text(slot["distance"] ?? "-"),
+                        InkWell(
+                          onTap: () async {
+                            var _url =
+                                "https://maps.google.com/?q=${slot['lat']},${slot['lon']}";
+                            if (!await launch(_url)) {
+                              throw 'Could not launch $_url';
+                            }
+                          },
+                          child: const Icon(
+                            Icons.directions,
+                            color: Color(0xBAEB0537),
+                            size: 40,
                           ),
                         ),
                       ],
                     ),
-                    const Icon(
-                      Icons.layers_rounded,
-                      size: 40,
-                      color: Color(0xffCF595A),
-                    )
                   ],
                 ),
                 if (slot["authers"] != null)
@@ -401,10 +436,7 @@ class TrufBookBody extends StatelessWidget {
               gradient: LinearGradient(
                 colors: status == "BOOK NOW"
                     ? const [Color(0xffCE5859), Color(0xffEF8464)]
-                    : const [
-                        Color.fromARGB(255, 173, 173, 173),
-                        Color.fromARGB(255, 226, 226, 226)
-                      ],
+                    : const [Color(0xFFADADAD), Color(0xFFE2E2E2)],
               ),
             ),
             child: Row(

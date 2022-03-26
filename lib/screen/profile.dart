@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:setes_mobile/method/profile.dart';
 import 'package:setes_mobile/module/api_init.dart';
@@ -8,7 +9,6 @@ import 'package:setes_mobile/screen/warnings.dart';
 import 'package:setes_mobile/widget/myprofile_text.dart';
 
 import 'package:path_provider/path_provider.dart';
-// import 'package:flutter_share/flutter_share.dart';
 
 class ProfiePage extends StatelessWidget {
   final Map data;
@@ -30,10 +30,24 @@ class ProfiePage extends StatelessWidget {
     // );
 
     if (capturedImage != null) {
-      final dir = await getExternalStorageDirectory();
-      var path = '${dir!.path}/my_image.jpg';
-      File(path).writeAsBytes(capturedImage);
+      // final dir = await getExternalStorageDirectory();
+      // var path = '${dir!.path}/my_image.jpg';
+      // File(path).writeAsBytes(capturedImage);
       // await FlutterShare.shareFile(title: 'Share', filePath: path);
+
+      try {
+        // final ByteData bytes = await rootBundle.load('assets/pro_bg.png');
+        // final Uint8List list = bytes.buffer.asUint8List();
+
+        final tempDir = await getTemporaryDirectory();
+        final file = await File('${tempDir.path}/image.jpg').create();
+        file.writeAsBytesSync(capturedImage);
+
+        const channel = MethodChannel('channel:me.albie.share/share');
+        channel.invokeMethod('shareFile', 'image.jpg');
+      } catch (e) {
+        print('Share error: $e');
+      }
     }
   }
 
