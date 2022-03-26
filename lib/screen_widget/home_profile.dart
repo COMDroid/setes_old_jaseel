@@ -21,12 +21,6 @@ class _MyProfileState extends State<MyProfile> {
   var bottemScrIsscroll = false;
 
   @override
-  void initState() {
-    Size scr = MediaQueryData.fromWindow(WidgetsBinding.instance!.window).size;
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     Size scr = getScreen(context);
     return GestureDetector(
@@ -181,6 +175,22 @@ class _MyProfileState extends State<MyProfile> {
                           right: 0,
                           child: MyprofileSkills(this),
                         ),
+                        if (!gbisPrime)
+                          Positioned(
+                            height: bottemScrHeight,
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                color: Color(0x9E665EC1),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(50),
+                                ),
+                              ),
+                              child: const MyProfileNonPrime(),
+                            ),
+                          ),
                       ],
                     ),
                   ),
@@ -252,9 +262,9 @@ class MyProfileNonPrime extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Icon(
-            Icons.person_off,
+            Icons.lock,
             size: scr.height * .15,
-            color: const Color(0x73FFFFFF),
+            color: const Color(0xFFDBB5FF),
           ),
           TextButton(
             onPressed: () {

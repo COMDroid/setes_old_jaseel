@@ -192,7 +192,7 @@ class EachSetesTruf extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    /*InkWell(
       onTap: () {
         var st = data["slots"];
         showDialog<void>(
@@ -238,89 +238,89 @@ class EachSetesTruf extends StatelessWidget {
           },
         );
       },
-      child: Container(
-        margin: const EdgeInsets.all(13),
-        padding: const EdgeInsets.all(16),
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(7)),
-          color: Color(0xffE2F9FF),
-        ),
-        height: 100,
-        child: Row(
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    data["name"],
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 3),
-                  Row(
-                    children: [
-                      Icon(data["raiting"] > 0 ? Icons.star : Icons.star_border,
-                          color: const Color(0xff193B8B), size: 16),
-                      Icon(
-                          data["raiting"] > 10 ? Icons.star : Icons.star_border,
-                          color: const Color(0xff193B8B),
-                          size: 16),
-                      Icon(
-                          data["raiting"] > 20 ? Icons.star : Icons.star_border,
-                          color: const Color(0xff193B8B),
-                          size: 16),
-                      Icon(
-                          data["raiting"] > 30 ? Icons.star : Icons.star_border,
-                          color: const Color(0xff193B8B),
-                          size: 16),
-                      Icon(
-                          data["raiting"] > 40 ? Icons.star : Icons.star_border,
-                          color: const Color(0xff193B8B),
-                          size: 16),
-                    ],
-                  ),
-                  const SizedBox(height: 3),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Icon(Icons.location_on,
-                          color: Colors.black54, size: 16),
-                      const SizedBox(width: 3),
-                      Expanded(
-                        child: Text(
-                          data["location"],
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black54,
-                            fontSize: 12,
-                          ),
+      child:*/
+    return Container(
+      margin: const EdgeInsets.all(13),
+      padding: const EdgeInsets.all(16),
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(7)),
+        color: Color(0xffE2F9FF),
+      ),
+      height: 100,
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  data["name"],
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 3),
+                Row(
+                  children: [
+                    Icon(data["raiting"] > 0 ? Icons.star : Icons.star_border,
+                        color: const Color(0xff193B8B), size: 16),
+                    Icon(data["raiting"] > 10 ? Icons.star : Icons.star_border,
+                        color: const Color(0xff193B8B), size: 16),
+                    Icon(data["raiting"] > 20 ? Icons.star : Icons.star_border,
+                        color: const Color(0xff193B8B), size: 16),
+                    Icon(data["raiting"] > 30 ? Icons.star : Icons.star_border,
+                        color: const Color(0xff193B8B), size: 16),
+                    Icon(data["raiting"] > 40 ? Icons.star : Icons.star_border,
+                        color: const Color(0xff193B8B), size: 16),
+                  ],
+                ),
+                const SizedBox(height: 3),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Icon(Icons.location_on,
+                        color: Colors.black54, size: 16),
+                    const SizedBox(width: 3),
+                    Expanded(
+                      child: Text(
+                        data["location"],
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black54,
+                          fontSize: 12,
                         ),
                       ),
-                    ],
-                  )
-                ],
-              ),
+                    ),
+                  ],
+                )
+              ],
             ),
-            Column(
-              children: [
-                for (var i = 0; (i < 3 && i < data['slots'].length); i++)
-                  Container(
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              for (var i = 0; (i < 2 && i < data['slots'].length); i++)
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            TrufBookSetesPage(data, i, props.date),
+                      ),
+                    );
+                  },
+                  child: Container(
                     margin: const EdgeInsets.symmetric(
                         horizontal: 3, vertical: 2.5),
                     padding:
-                        const EdgeInsets.symmetric(horizontal: 7, vertical: 1),
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                     decoration: BoxDecoration(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(8)),
                         border: Border.all(width: 1, color: Colors.black54)),
                     child: Text(
-                      data['slots'][i]['s_time'] +
-                          " - " +
-                          data['slots'][i]['e_time'] +
-                          "  " +
-                          data['slots'][i]["ground"],
+                      slot24to12(data['slots'][i]),
                       style: const TextStyle(
                         color: Colors.black54,
                         fontSize: 11,
@@ -328,10 +328,10 @@ class EachSetesTruf extends StatelessWidget {
                       ),
                     ),
                   ),
-              ],
-            )
-          ],
-        ),
+                ),
+            ],
+          )
+        ],
       ),
     );
   }

@@ -24,7 +24,9 @@ class Loading extends StatelessWidget {
               child: CircularProgressIndicator(), width: 40, height: 40),
           if (viewStatus)
             const Padding(
-                padding: EdgeInsets.only(top: 16), child: Text('Loading...'))
+              padding: EdgeInsets.only(top: 16),
+              child: Text('Loading...'),
+            )
         ],
       ),
     );

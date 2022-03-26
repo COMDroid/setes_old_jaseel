@@ -60,3 +60,14 @@ findWInner(v) {
     return "";
   }
 }
+
+slot24to12(slot) {
+  int sTime = int.parse(slot['s_time'].split(':')[0]);
+  String sT = sTime.toString() + 'am';
+  if (sTime > 12) sT = (sTime - 12).toString() + 'pm';
+  int eTime = int.parse(slot['e_time'].split(':')[0]);
+  String eT = eTime.toString() + 'am';
+  if (eTime > 12) eT = (eTime - 12).toString() + 'pm';
+
+  return sT + " - " + eT;
+}

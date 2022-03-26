@@ -75,7 +75,6 @@ makeBookingpyment(props, slot, context, paymentApi) {
       bookingError(context, res[1]);
     } else {
       Navigator.pop(context);
-      Navigator.pop(context);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => TrufsSetesPage(props.date)),
