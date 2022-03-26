@@ -159,15 +159,21 @@ class _MyProfileState extends State<MyProfile> {
                     ),
                     child: Stack(
                       children: [
-                        Positioned(
+                        const Positioned(
                           top: 0,
                           bottom: 0,
                           left: 0,
                           right: 0,
-                          child: gbisPrime
-                              ? const MyProfilePrime()
-                              : const MyProfileNonPrime(),
+                          child: MyProfilePrime(),
                         ),
+                        if (!gbisPrime)
+                          const Positioned(
+                            top: 0,
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            child: MyProfileNonPrime(),
+                          ),
                         Positioned(
                           height: bottemScrHeight,
                           bottom: 0,
@@ -178,18 +184,10 @@ class _MyProfileState extends State<MyProfile> {
                         if (!gbisPrime)
                           Positioned(
                             height: bottemScrHeight,
-                            bottom: 0,
+                            bottom: -((scr.height - 290) - bottemScrHeight),
                             left: 0,
                             right: 0,
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                color: Color(0x9E665EC1),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(50),
-                                ),
-                              ),
-                              child: const MyProfileNonPrime(),
-                            ),
+                            child: const MyProfileNonPrime(),
                           ),
                       ],
                     ),
@@ -231,7 +229,8 @@ class MyProfilePrime extends StatelessWidget {
         HomeProfileEach("Blood Group", gbUser['blood_group']),
         HomeProfileEach("District", gbUser['district']),
         HomeProfileEach("Zone", gbUser['zone']),
-        HomeProfileEach("Home Ground", gbUser['home_truf']["name"]),
+        HomeProfileEach("Home Ground",
+            gbUser['home_truf'] == null ? '' : gbUser['home_truf']["name"]),
         HomeProfileEach("Favourite Position", gbUser['fav_position']),
         HomeProfileEach("Sec Favourite Position", gbUser['sec_fav_position']),
         HomeProfileEach("Strong Foot", gbUser['strong_foot']),
@@ -251,6 +250,8 @@ class MyProfileNonPrime extends StatelessWidget {
     Size scr = getScreen(context);
     return Container(
       decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(50)),
+        color: Color(0x9E665EC1),
         image: DecorationImage(
           image: AssetImage("assets/pro_bg.png"),
           alignment: Alignment.bottomCenter,
@@ -280,9 +281,9 @@ class MyProfileNonPrime extends StatelessWidget {
               }
             },
             child: const Text(
-              "Upgrade to Prime",
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              "Join Community to view carrer dettails",
+              style: TextStyle(
+                  color: Color(0xFFBCAF74), fontWeight: FontWeight.bold),
             ),
           ),
         ],

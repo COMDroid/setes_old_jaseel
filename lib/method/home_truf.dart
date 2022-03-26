@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:setes_mobile/method/login.dart';
 import 'package:setes_mobile/module/api_init.dart';
@@ -30,7 +31,9 @@ getHomeTruf(props) async {
       props.setState(() => props.error = jsonDecode(res.body)['msg']);
     }
   } catch (e) {
-    props.setState(() => props.error = "Network Error OnLoading");
+    if (e.runtimeType == SocketException) {
+      props.setState(() => props.error = "Network Error OnLoading");
+    }
   }
   props.setState(() => props.loading = false);
 }

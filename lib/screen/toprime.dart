@@ -75,8 +75,8 @@ class ToPrimePage extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(20),
+              child: const Padding(
+                padding: EdgeInsets.all(20),
                 child: ToPrimeForm(),
               ),
             ),
@@ -144,7 +144,6 @@ class _ToPrimeFormState extends State<ToPrimeForm> {
   @override
   void initState() {
     getPrimePrice(this);
-
     super.initState();
   }
 

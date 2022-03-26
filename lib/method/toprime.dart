@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -150,7 +151,7 @@ toprime2(props) async {
           props.setState(() => props.error = jsonDecode(res.body)["msg"]);
         }
       }
-    } catch (e) {
+    } on SocketException catch (_) {
       props.setState(() => props.error = "Network Error");
     }
   }
@@ -204,7 +205,9 @@ getPrimePrice(props) async {
       }
     }
   } catch (e) {
-    props.setState(() => props.error = "Network Error");
+    if (e.runtimeType == SocketException) {
+      props.setState(() => props.error = "Network Error");
+    }
   }
 }
 
@@ -224,7 +227,7 @@ getPrimeTrufs(props) async {
         () => props.error = jsonDecode(res.body)["msg"],
       );
     }
-  } catch (e) {
+  } on SocketException catch (_) {
     props.setState(() => props.error = "Network Error");
   }
 }

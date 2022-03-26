@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:setes_mobile/method/login.dart';
@@ -59,9 +60,11 @@ editProfile(props) async {
       }
     }
   } catch (e) {
-    props.setState(() {
-      props.loading = false;
-      props.error = "Check Your Network";
-    });
+    if (e.runtimeType == SocketException) {
+      props.setState(() {
+        props.loading = false;
+        props.error = "Check Your Network";
+      });
+    }
   }
 }

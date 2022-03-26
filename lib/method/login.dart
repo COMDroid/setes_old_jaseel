@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:setes_mobile/module/api_init.dart';
 import 'package:setes_mobile/module/gb_var.dart';
@@ -39,7 +40,9 @@ login(context, setstate, state) async {
       setstate("error", await jsonDecode(res.body)["msg"]);
     }
   } catch (e) {
-    setstate("error", "Network Error");
+    if (e.runtimeType == SocketException) {
+      setstate("error", "Network Error");
+    }
   }
   setstate("loading", false);
 }
@@ -103,7 +106,9 @@ validateOtp(context, setstate, state, data) async {
       setstate("error", jsonDecode(res.body)["msg"]);
     }
   } catch (e) {
-    setstate("error", "Network Error");
+    if (e.runtimeType == SocketException) {
+      setstate("error", "Network Error");
+    }
   }
   setstate("loading", false);
 }
@@ -156,7 +161,9 @@ register(context, setstate, state, data) async {
       setstate("error", await jsonDecode(res.body)["msg"]);
     }
   } catch (e) {
-    setstate("error", "Network Error");
+    if (e.runtimeType == SocketException) {
+      setstate("error", "Network Error");
+    }
   }
   setstate("loading", false);
 }
@@ -209,7 +216,9 @@ guestLogin(props) async {
       props.setState(() => props.error = jsonDecode(res.body)["msg"]);
     }
   } catch (e) {
-    props.setState(() => props.error = "Network Error");
+    if (e.runtimeType == SocketException) {
+      props.setState(() => props.error = "Network Error");
+    }
   }
   props.setState(() => props.loading = false);
   return 0;
