@@ -96,6 +96,7 @@ class HomeConfig extends StatelessWidget {
             return 0;
           }
           var body = await jsonDecode(res.body);
+          if (!seen) await prefs.setString('inviter', body['inviter'] ?? '');
           gbisPrime = body['prime'] ?? false;
           gbUser = body;
           gbHeader = {

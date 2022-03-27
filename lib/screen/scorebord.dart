@@ -6,7 +6,7 @@ import 'package:setes_mobile/widget/scorebord_status.dart';
 
 class ScoreBordScreen extends StatelessWidget {
   final Map match;
-  const ScoreBordScreen(this.match, {Key? key}) : super(key: key);
+  const   ScoreBordScreen(this.match, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -185,7 +185,7 @@ class _ScoreBoardBodyState extends State<ScoreBoardBody> {
                 child: SingleChildScrollView(
                   child: p == 0
                       ? ScoreBordLineUp(widget.match['teams'])
-                      : ScoreBordStatus(widget.match['events']),
+                      : ScoreBordStatus(widget.match),
                 ),
               ),
             ],

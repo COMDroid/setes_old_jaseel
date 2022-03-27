@@ -216,10 +216,8 @@ class MyProfilePrime extends StatelessWidget {
       children: [
         const Text(
           "Bio",
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-          ),
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
         ),
         const SizedBox(height: 8),
         HomeProfileEach("Email", gbUser['email']),
@@ -249,10 +247,10 @@ class MyProfileNonPrime extends StatelessWidget {
   Widget build(BuildContext context) {
     Size scr = getScreen(context);
     return Container(
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(50)),
-        color: Color(0x9E665EC1),
-        image: DecorationImage(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(50),
+        color: const Color(0x9E665EC1),
+        image: const DecorationImage(
           image: AssetImage("assets/pro_bg.png"),
           alignment: Alignment.bottomCenter,
           opacity: .5,
@@ -265,7 +263,7 @@ class MyProfileNonPrime extends StatelessWidget {
           Image.asset(
             "assets/icon/user_lock.png",
             width: scr.height * .15,
-            color: const Color(0xFFDBB5FF),
+            color: const Color(0xFFE9D1FF),
           ),
           TextButton(
             onPressed: () {
@@ -310,11 +308,7 @@ class MyprofileSkills extends StatelessWidget {
           topRight: Radius.circular(50),
         ),
         boxShadow: [
-          BoxShadow(
-            spreadRadius: 2,
-            blurRadius: 5,
-            color: Colors.white38,
-          ),
+          BoxShadow(blurRadius: 5, color: Colors.white38),
         ],
       ),
       child: Column(

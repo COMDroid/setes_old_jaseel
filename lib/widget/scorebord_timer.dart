@@ -63,11 +63,11 @@ class _ScoreBoradTimerState extends State<ScoreBoradTimer> {
   @override
   Widget build(BuildContext context) {
     return Text(
-      matchtimer,
-      style: TextStyle(
+      "Time : " + matchtimer,
+      style: const TextStyle(
         color: Colors.white,
-        fontSize: 24,
         fontWeight: FontWeight.w500,
+        height: 1.5
       ),
     );
   }

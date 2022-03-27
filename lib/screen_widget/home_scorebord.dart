@@ -186,125 +186,63 @@ class EachScore extends StatelessWidget {
             right: 30,
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 40),
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(7)),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(7),
                 color: Colors.red,
-                gradient: LinearGradient(colors: [
-                  Color(0xffCE5859), //FC652E
-                  Color(0xffEF8464),
-                ]),
-                boxShadow: [
+                gradient: const LinearGradient(
+                  colors: [Color(0xFFE4696B), Color(0xFFF7977A)],
+                ),
+                boxShadow: const [
                   BoxShadow(
-                    offset: Offset(0, 3),
-                    blurRadius: 30,
+                    offset: Offset(2, 3),
+                    blurRadius: 6,
                     color: Colors.black12,
                   ),
                 ],
               ),
               height: 110,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                booking['slot'] == null
-                                    ? "Unnamed"
-                                    : booking['slot']["truf_name"] ?? '',
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 5),
-                            Text(
-                              booking['slot'] == null
-                                  ? ''
-                                  : booking['slot']["ground"] ?? '',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            const SizedBox(width: 5),
-                          ],
-                        ),
-                        const SizedBox(height: 5),
-                        Row(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  findWInner(booking),
-                                  style: const TextStyle(
-                                    color: Colors.white54,
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                ScoreBoradTimer(booking)
-                              ],
-                            ),
-                            const SizedBox(width: 15),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const <Widget>[
-                                Text(
-                                  "Red",
-                                  style: TextStyle(
-                                    color: Colors.white70,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  "Blue",
-                                  style: TextStyle(
-                                    color: Colors.white70,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
+                  Text(
+                    booking['slot'] == null
+                        ? "Unnamed"
+                        : booking['slot']["truf_name"] ?? '',
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        booking['goals']['r'].toString(),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
+                  Text(
+                    booking['goals']['r'].toString() +
+                        " : " +
                         booking['goals']['b'].toString(),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  )
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    booking['date'] ?? '',
+                    style: const TextStyle(
+                      color: Colors.white70,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  ScoreBoradTimer(booking),
+                  Text(
+                    findWInner(booking),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -319,7 +257,7 @@ class EachScore extends StatelessWidget {
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(40)),
                 gradient: LinearGradient(
-                  colors: [Color(0xffFC652E), Color(0xffF9BE08)],
+                  colors: [Color(0xffFC652E), Color.fromARGB(255, 249, 124, 8)],
                 ),
               ),
               child: const Text(

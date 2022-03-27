@@ -14,18 +14,23 @@ class MyProfileText1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size scr = getScreen(context);
+    double scrW = scr.width;
     return Padding(
-      padding: const EdgeInsets.all(6),
+      padding: EdgeInsets.only(
+        top: 6,
+        bottom: 6,
+        left: scrW * .18,
+        right: scrW * .03,
+      ),
       child: Row(
         children: [
           SizedBox(
-            width: scr.width * .4,
+            width: scr.width * .35,
             child: Text(
               title ?? '',
               style: const TextStyle(
-                color: Colors.white,
+                color: Color(0xD7FFFFFF),
                 fontWeight: FontWeight.bold,
-                fontSize: 17,
               ),
             ),
           ),

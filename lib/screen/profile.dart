@@ -120,11 +120,12 @@ class PrfilePagebody extends StatelessWidget {
       decoration: const BoxDecoration(
         color: Color(0xff564EB1),
         image: DecorationImage(
-            image: AssetImage("assets/pro_bg.png"),
-            fit: BoxFit.contain,
-            alignment: Alignment.bottomCenter),
+          image: AssetImage("assets/pro_bg.png"),
+          fit: BoxFit.contain,
+          alignment: Alignment.bottomCenter,
+        ),
       ),
-      padding: EdgeInsets.symmetric(horizontal: scr.width * .22, vertical: 20),
+      padding: const EdgeInsets.only(top: 20),
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -157,6 +158,7 @@ class PrfilePagebody extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
+            MyProfileText1("Home Trufs", profile['home_truf']['name']),
             MyProfileText1("Goals", profile['goals']),
             MyProfileText1("Assistant", profile['assistants']),
             MyProfileText1("Free Kick", profile['free_kicks']),
