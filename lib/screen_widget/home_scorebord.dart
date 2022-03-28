@@ -143,7 +143,7 @@ class HomeScorebord extends StatelessWidget {
                                   ),
                                 );
                               },
-                              child: EachScore(bookings[i]),
+                              child: EachScore(bookings[i], false),
                             ),
                           if (bookings.isEmpty)
                             Row(
@@ -172,11 +172,18 @@ class HomeScorebord extends StatelessWidget {
 
 class EachScore extends StatelessWidget {
   final Map booking;
-  const EachScore(this.booking, {Key? key}) : super(key: key);
+  final bool showGoals;
+  const EachScore(this.booking, this.showGoals, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    List goals = [];
+    for (var i = 0; i < booking['events'].length; i++) {
+      if (booking['events'][i]['item'] == "goals") {
+        goals.add(booking['events'][i]);
+      }
+    }
     return SizedBox(
-      height: 130,
+      height: 130 + (showGoals ? goals.length / 2 * 24 : 0),
       child: Stack(
         overflow: Overflow.visible,
         children: [
@@ -190,7 +197,7 @@ class EachScore extends StatelessWidget {
                 borderRadius: BorderRadius.circular(7),
                 color: Colors.red,
                 gradient: const LinearGradient(
-                  colors: [Color(0xFFE4696B), Color(0xFFF7977A)],
+                  colors: [Color(0xFFFF9C9E), Color(0xFFFFB9A3)],
                 ),
                 boxShadow: const [
                   BoxShadow(
@@ -200,7 +207,7 @@ class EachScore extends StatelessWidget {
                   ),
                 ],
               ),
-              height: 110,
+              height: 110 + (showGoals ? goals.length / 2 * 24 : 0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -243,6 +250,36 @@ class EachScore extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  if (showGoals)
+                    Column(
+                      children: [
+                        for (var i = 0; i < goals.length; i += 2)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                '${goals[i]['who']['name']} ${goals[i]['time']}\'',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  height: 1.5,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              if (i + 1 < goals.length)
+                                Text(
+                                  '${goals[i]['who']['name']} ${goals[i]['time']}\'',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                    height: 1.5,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                            ],
+                          )
+                      ],
+                    )
                 ],
               ),
             ),
@@ -251,13 +288,13 @@ class EachScore extends StatelessWidget {
             top: 25,
             left: 0,
             width: 60,
-            bottom: 45,
+            height: 60,
             child: Container(
               alignment: Alignment.center,
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(40)),
                 gradient: LinearGradient(
-                  colors: [Color(0xffFC652E), Color.fromARGB(255, 249, 124, 8)],
+                  colors: [Color(0xFFCE2B2B), Color(0xFFE22B0B)],
                 ),
               ),
               child: const Text(
@@ -276,7 +313,7 @@ class EachScore extends StatelessWidget {
             top: 25,
             right: 0,
             width: 60,
-            bottom: 45,
+            height: 60,
             child: Container(
               alignment: Alignment.center,
               decoration: const BoxDecoration(
@@ -289,10 +326,11 @@ class EachScore extends StatelessWidget {
                 "BLUE\nTEAM",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic),
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.italic,
+                ),
               ),
             ),
           ),

@@ -6,7 +6,7 @@ import 'package:setes_mobile/widget/scorebord_status.dart';
 
 class ScoreBordScreen extends StatelessWidget {
   final Map match;
-  const   ScoreBordScreen(this.match, {Key? key}) : super(key: key);
+  const ScoreBordScreen(this.match, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -79,65 +79,58 @@ class _ScoreBoardBodyState extends State<ScoreBoardBody> {
   @override
   Widget build(BuildContext context) {
     Size scr = getScreen(context);
-    return Column(
+    return ListView(
+      padding: EdgeInsets.symmetric(
+        horizontal: scr.width * .02,
+        vertical: scr.height * .02,
+      ),
       children: [
-        Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: scr.width * .03,
-              vertical: scr.height * .02,
-            ),
-            child: EachScore(widget.match)),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: scr.width * .08),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              for (var i = 0; i < 2; i++)
-                InkWell(
-                  onTap: () => setState(() => p = i),
-                  child: Padding(
-                    padding: EdgeInsets.only(right: scr.width * .05),
-                    child: Column(
-                      children: [
-                        if (i != p) const SizedBox(height: 4),
-                        Text(
-                          i == 0 ? "LineUp" : "Status",
-                          style: i == p
-                              ? const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 25,
-                                )
-                              : const TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 18,
-                                  color: Colors.black45,
-                                ),
-                        ),
-                        if (i == p)
-                          Container(
-                            height: 6,
-                            width: 20,
-                            margin: const EdgeInsets.only(top: 8),
-                            decoration: const BoxDecoration(
-                              color: Colors.redAccent,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(3),
+        EachScore(widget.match, true),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(width: 10),
+            for (var i = 0; i < 2; i++)
+              InkWell(
+                onTap: () => setState(() => p = i),
+                child: Padding(
+                  padding: EdgeInsets.only(right: scr.width * .05),
+                  child: Column(
+                    children: [
+                      if (i != p) const SizedBox(height: 4),
+                      Text(
+                        i == 0 ? "LineUp" : "Status",
+                        style: i == p
+                            ? const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25,
+                              )
+                            : const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 18,
+                                color: Colors.black45,
                               ),
+                      ),
+                      if (i == p)
+                        Container(
+                          height: 6,
+                          width: 20,
+                          margin: const EdgeInsets.only(top: 8),
+                          decoration: const BoxDecoration(
+                            color: Colors.redAccent,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(3),
                             ),
                           ),
-                      ],
-                    ),
+                        ),
+                    ],
                   ),
                 ),
-            ],
-          ),
+              ),
+          ],
         ),
         Container(
-          margin: EdgeInsets.only(
-            top: scr.height * .02,
-            left: scr.width * .02,
-            right: scr.width * .02,
-          ),
+          margin: const EdgeInsets.only(top: 20),
           decoration: BoxDecoration(
             color: p == 0 ? const Color(0xff109D58) : Colors.white,
             border: Border.all(width: 1, color: Colors.black12),
@@ -180,14 +173,10 @@ class _ScoreBoardBodyState extends State<ScoreBoardBody> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: scr.height - (312 + scr.height * .1),
-                child: SingleChildScrollView(
-                  child: p == 0
-                      ? ScoreBordLineUp(widget.match['teams'])
-                      : ScoreBordStatus(widget.match),
-                ),
-              ),
+              if (p == 0)
+                ScoreBordLineUp(widget.match['teams'])
+              else
+                ScoreBordStatus(widget.match),
             ],
           ),
         ),
