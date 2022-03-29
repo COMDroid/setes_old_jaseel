@@ -157,8 +157,17 @@ class PrfilePagebody extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            const SizedBox(height: 5),
+            Text(
+              profile['home_truf']['name'] ?? '',
+              style: const TextStyle(
+                color: Colors.white70,
+                fontSize: 16,
+              ),
+            ),
+            const SizedBox(height: 10),
+            Image.asset("assets/setes.png", width: scr.width * .35),
             const SizedBox(height: 20),
-            MyProfileText1("Home Trufs", profile['home_truf']['name']),
             MyProfileText1("Goals", profile['goals']),
             MyProfileText1("Assistant", profile['assistants']),
             MyProfileText1("Free Kick", profile['free_kicks']),
