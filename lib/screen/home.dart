@@ -12,6 +12,7 @@ import 'package:setes_mobile/screen_widget/home_profile.dart';
 import 'package:setes_mobile/screen_widget/home_scorebord.dart';
 import 'package:setes_mobile/widget/home_bottombar.dart';
 
+
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -43,6 +44,12 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   int page = 0;
+
+  @override
+  void initState() {
+    connectSocket();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

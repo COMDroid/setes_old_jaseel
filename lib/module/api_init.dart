@@ -11,3 +11,6 @@ String setImgUser(v) =>
     "${base}asset/members/" + v['_id'].toString() + '/' + v['img'].toString();
 String setImgTruf(v, u) =>
     "${base}asset/trufs/" + v.toString() + "/" + u.toString();
+
+
+Uri wsUrl(s) => Uri.parse('wss://setes.in:8000/users/' + s);
