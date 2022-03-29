@@ -1,5 +1,6 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/module/simple.dart';
 
@@ -8,6 +9,7 @@ class MyStuf extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size scr = getScreen(context);
+    String inviteLink = "https://www.setes.in/invite/" + gbUserId;
     return Container(
       color: const Color(0xffF1F5F9),
       child: Column(
@@ -173,7 +175,7 @@ class MyStuf extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      "https://www.setes.in/invite/" + gbUserId,
+                                      inviteLink,
                                       style: const TextStyle(
                                         color: Colors.black54,
                                       ),
@@ -181,13 +183,27 @@ class MyStuf extends StatelessWidget {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      FlutterClipboard.copy(
-                                        "https://www.setes.in/invite/" +
-                                            gbUserId,
-                                      ).then((value) {});
+                                      FlutterClipboard.copy(inviteLink)
+                                          .then((value) {});
                                     },
                                     child: const Icon(
                                       Icons.copy,
+                                      size: 20,
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 4),
+                                  InkWell(
+                                    onTap: () async {
+                                      await FlutterShare.share(
+                                        title: 'Example share',
+                                        text: 'Example share text',
+                                        linkUrl: inviteLink,
+                                        chooserTitle: 'Example Chooser Title',
+                                      );
+                                    },
+                                    child: const Icon(
+                                      Icons.share,
                                       size: 20,
                                       color: Colors.black54,
                                     ),
