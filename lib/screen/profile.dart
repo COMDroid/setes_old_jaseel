@@ -22,7 +22,8 @@ class ProfiePage extends StatelessWidget {
         final file = await File('${dir!.path}/image.jpg').create();
         file.writeAsBytesSync(capturedImage);
         await FlutterShare.shareFile(
-          title: 'Example share',
+          title: 'Setes',
+          text: 'Join Setes, Exptore football world',
           filePath: '${dir.path}/image.jpg',
         );
       } catch (e) {

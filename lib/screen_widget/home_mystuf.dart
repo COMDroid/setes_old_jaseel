@@ -196,8 +196,8 @@ class MyStuf extends StatelessWidget {
                                   InkWell(
                                     onTap: () async {
                                       await FlutterShare.share(
-                                        title: 'Example share',
-                                        text: 'Example share text',
+                                        title: 'Setes',
+                                        text: 'Join Setes, Exptore football world',
                                         linkUrl: inviteLink,
                                         chooserTitle: 'Example Chooser Title',
                                       );
