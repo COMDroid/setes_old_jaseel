@@ -12,7 +12,6 @@ import 'package:setes_mobile/screen_widget/home_profile.dart';
 import 'package:setes_mobile/screen_widget/home_scorebord.dart';
 import 'package:setes_mobile/widget/home_bottombar.dart';
 
-
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
