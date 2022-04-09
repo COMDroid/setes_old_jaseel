@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:mac_address/mac_address.dart';
 import 'package:setes_mobile/module/api_init.dart';
 import 'package:setes_mobile/module/gb_var.dart';
 import 'package:setes_mobile/module/get_gps.dart';
@@ -11,7 +12,7 @@ import 'package:setes_mobile/screen/warnings.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async {
   HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
 }
@@ -61,13 +62,10 @@ class HomeConfig extends StatelessWidget {
         String userId = prefs.getString('userid') ?? "";
         bool seen = prefs.getBool('seen') ?? false;
         String authKey = '';
-        String publicIp = '';
+        String deviceMAC = '';
         if (!seen) {
-          var resForIp = await http.get(Uri.parse("https://ipapi.co/json"));
-          if (resForIp.statusCode == 200) {
-            publicIp = await jsonDecode(resForIp.body)['ip'];
-            prefs.setBool('seen', true);
-          }
+          deviceMAC = await GetMac.macAddress;
+          prefs.setBool('seen', true);
         }
         bool ifUser = true;
         if (userId == "") {
@@ -87,7 +85,7 @@ class HomeConfig extends StatelessWidget {
             'key': authKey,
             "isguest": gbisGuest,
             "seen": seen,
-            "public_ip": publicIp,
+            "deviceMAC": deviceMAC,
           }),
         );
         if (res.statusCode == 200) {
@@ -147,3 +145,7 @@ class HomeConfig extends StatelessWidget {
     );
   }
 }
+
+git add .
+git commit -m "Commiting from my device"
+git push origin main
