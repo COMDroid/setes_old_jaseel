@@ -145,7 +145,3 @@ class HomeConfig extends StatelessWidget {
     );
   }
 }
-
-git add .
-git commit -m "Commiting from my device"
-git push origin main
